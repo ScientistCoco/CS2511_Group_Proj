@@ -1,7 +1,10 @@
 package project;
 
 public abstract class Character {
-	private Movement move;
-	private int[][] location;
+	protected Movement move;
+	protected int x;
+	protected int y;
+
+	public abstract void move();
 	
 }
