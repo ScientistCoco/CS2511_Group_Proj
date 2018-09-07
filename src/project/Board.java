@@ -33,8 +33,8 @@ public class Board {
 	 * @param y: The y-coordinate that the entity will be placed at
 	 * @return true/false if the entity was successfully placed at the given argument
 	 */
-	public Boolean placeEntity(Object entity, int x, int y) {
-		if (getEntity(x, y) == null) {
+	public boolean placeEntity(Object entity, int x, int y) {
+		if ((x < map.length) && (y < map.length) && getEntity(x, y) == null) {
 			map[x][y] = entity;
 			return true;
 		}

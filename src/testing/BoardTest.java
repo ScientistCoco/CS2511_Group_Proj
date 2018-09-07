@@ -11,7 +11,8 @@ public class BoardTest {
 		System.out.println("\n");
 		
 		board.placeEntity(new Object(), 0, 1);
-		board.printBoard();
+		board.printBoard();		
+
 	}
 
 }
