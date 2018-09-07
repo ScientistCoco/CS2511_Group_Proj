@@ -3,10 +3,10 @@ package project;
 public class Player extends Character {
 
 	public Player(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x, y);
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub

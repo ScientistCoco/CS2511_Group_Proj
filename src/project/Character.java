@@ -1,10 +1,12 @@
 package project;
 
-public abstract class Character {
+public abstract class Character extends Entity{
 	protected Movement move;
-	protected int x;
-	protected int y;
-
+	
+	public Character(int x, int y) {
+		super(x, y);
+	}
+	
 	public abstract void move();
 	
 }
