@@ -21,8 +21,11 @@ public class Player extends Character {
 				this.move.moveDown(this);
 				break;
 			case "Left":
-				
+				this.move.moveLeft(this);
+				break;
 			case "Right":
+				this.move.moveRight(this);
+				break;
 		}
 		
 	}
@@ -52,7 +55,7 @@ public class Player extends Character {
 		// If it is one of the movement commands then we call our move() method and pass the direction
 		// the character wants to go to.
 		System.out.println("Enter one of the commands: " + String.join(" ", cmds));
-		String cmdInput = sc.next();
+		String cmdInput = sc.next().replace("^[a-z]", "[A-Z]");
 		if (cmds.contains(cmdInput)) {
 			switch (cmdInput) {
 			case "Exit":
@@ -65,7 +68,7 @@ public class Player extends Character {
 			System.out.println("Please enter one of the commands: " + String.join(" ", cmds));
 		}
 		
-
+		// For some reason, closing the scanner class seems to chuck an exception that the element is out of bounds?
 		return false;
 	}
 	

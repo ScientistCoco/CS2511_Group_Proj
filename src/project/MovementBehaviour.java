@@ -19,5 +19,17 @@ public class MovementBehaviour {
 		character.setCoordinates(x, y + 1);
 	}
 	
-	// TODO: Add moveRight, moveDown functionality. Also integrate into the player class - i.e. player class calls these methods when user enters right/left.
+	public void moveRight(Character character) {
+		int x = character.getXCoordinate();
+		int y = character.getYCoordinate();
+		
+		character.setCoordinates(x + 1, y);
+	}
+	
+	public void moveLeft(Character character) {
+		int x = character.getXCoordinate();
+		int y = character.getYCoordinate();
+		
+		character.setCoordinates(x - 1, y);
+	}
 }

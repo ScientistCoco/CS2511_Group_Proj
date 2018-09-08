@@ -1,6 +1,7 @@
 package testing;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import project.Board;
 
@@ -15,7 +16,7 @@ public class BoardTest {
 		
 		board.placeEntity(new Object(), 0, 1);
 		board.printBoard();		
-
+		
 	}
 
 }
