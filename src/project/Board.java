@@ -54,12 +54,15 @@ public class Board {
 	 * Method that prints out the board and all the entities on it
 	 */
 	public void printBoard() {
+		// Could have a better way of printing out the board. Make it more polymorphic?
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
 				if (map[i][j] == null) {
 					System.out.print(" . ");
-				} else {
-					System.out.print(" o ");
+				} else if (map[i][j].getClass().equals(Player.class)){
+					System.out.print(" • ");
+				} else if (map[i][j].getClass().equals(Wall.class)) {
+					System.out.print(" # ");
 				}
 			}
 			System.out.print("\n");
