@@ -1,6 +1,6 @@
 package project;
 
-public class Arrow extends Item implements ArrowBehaviour {
+public class Arrow extends Item{
 	private Direction direction;
 	private ItemStatus status;
 	private Inventory items;
@@ -11,14 +11,13 @@ public class Arrow extends Item implements ArrowBehaviour {
 		status = ItemStatus.Exist;
 		items = items;
 	}
-
 	
-	@Override
+	
 	public Direction getDirection() {
 		return direction;
 	}
 
-	@Override
+
 	public boolean destroyed() {
 		// No other entities in this direction
 		if (this.board.placeEntity(this, this.getXCoordinate(), this.getYCoordinate())) {
@@ -34,7 +33,7 @@ public class Arrow extends Item implements ArrowBehaviour {
 		return true;
 	}
 	
-	@Override
+	
 	public void Fly(Direction d) {
 		switch (d) {
 			case Up:

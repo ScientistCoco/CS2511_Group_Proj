@@ -6,11 +6,26 @@ import java.util.Scanner;
 public class Player extends Character {
 	
 	private ArrayList<Objective> objectives;
+	private ArrayList<Buff> potionBuff;
 	
 	public Player(int x, int y, Board board) {
 		super(x, y, board);
 		// TODO Auto-generated constructor stub
 		this.objectives = new ArrayList<>();
+		this.potionBuff = new ArrayList<Buff>();
+	}
+	
+	public void addBuff(Buff b) {
+		potionBuff.add(b);
+	}
+	
+	public boolean containBuff(Buff b) {
+		for (Buff buff : potionBuff) {
+			if (buff.equals(b)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -18,31 +33,39 @@ public class Player extends Character {
 		// TODO Auto-generated method stub
 		switch (direction) {
 			case "Up":
-				this.move.moveUp(this);
+				if (!this.move.moveUp(this)) {
+					findEntity(this.getXCoordinate(), this.getYCoordinate()-1);
+				}
 				break;
 			case "Down":
-				this.move.moveDown(this);
+				if (!this.move.moveDown(this)) {
+					findEntity(this.getXCoordinate(), this.getYCoordinate()+1);
+				}
 				break;
 			case "Left":
-				this.move.moveLeft(this);
+				if (!this.move.moveLeft(this)) {
+					findEntity(this.getXCoordinate()-1, this.getYCoordinate());
+				}
 				break;
 			case "Right":
-				this.move.moveRight(this);
+				if (!this.move.moveRight(this)) {
+					findEntity(this.getXCoordinate()+1, this.getYCoordinate());
+				}
 				break;
 		}
 		
 	}
 	
-	public boolean useItem(Item it) {
-		// TODO
-		return false;
-	}
 	
-	public boolean pickUpItem(Item it) {
-		// TODO
-		return false;
-	}
 	
+	private void findEntity(int x, int y) {
+		if (this.board.getEntity(x, y) instanceof Entity) {
+			Entity e = (Entity)this.board.getEntity(x, y);
+			if (!e.affectPlayer(this)) {
+				this.setCoordinates(x, y);
+			}
+		}
+	}
 	/**
 	 * Method that receives the keyboard input from the user, the expected commands are "Up, Down, Left, Right or Exit".
 	 * It will execute the respective methods depending on the input received

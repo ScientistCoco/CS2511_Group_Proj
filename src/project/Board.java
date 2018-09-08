@@ -20,7 +20,10 @@ public class Board {
 	 * @return the object that is located at the given coordinates
 	 */
 	public Object getEntity(int x, int y) {
-		return map[y][x];
+		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
+			return map[y][x];
+		}
+		return null;
 	}
 	
 	/**

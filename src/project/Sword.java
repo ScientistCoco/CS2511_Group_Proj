@@ -1,6 +1,6 @@
 package project;
 
-public class Sword extends Item implements SwordBehaviour{
+public class Sword extends Item {
 
 	private int hitsRemain;
 	private Inventory bag;
@@ -32,7 +32,6 @@ public class Sword extends Item implements SwordBehaviour{
 		return false;
 	}
 
-	@Override
 	public int getHitsRemain() {
 		return this.hitsRemain;
 	}

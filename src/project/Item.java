@@ -18,9 +18,4 @@ public abstract class Item extends Entity{
 		return status;
 	}
 	
-	public void pickedUp(Inventory items) {
-		board.removeEntity(getXCoordinate(), getYCoordinate());
-		items.addItem(this);
-	}
-	
 }

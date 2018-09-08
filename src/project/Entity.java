@@ -46,4 +46,8 @@ public class Entity {
 		}
 		return false;
 	}
+
+	public boolean affectPlayer(Player player) {
+		return true;
+	}
 }
