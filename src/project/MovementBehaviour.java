@@ -5,31 +5,31 @@ public class MovementBehaviour {
 		
 	}
 	
-	public void moveUp(Character character) {
-		int x = character.getXCoordinate();
-		int y = character.getYCoordinate();
+	public void moveUp(Entity e) {
+		int x = e.getXCoordinate();
+		int y = e.getYCoordinate();
 		
-		character.setCoordinates(x , y - 1);
+		e.setCoordinates(x , y - 1);
 	}
 	
-	public void moveDown(Character character) {
-		int x = character.getXCoordinate();
-		int y = character.getYCoordinate();
+	public void moveDown(Entity e) {
+		int x = e.getXCoordinate();
+		int y = e.getYCoordinate();
 		
-		character.setCoordinates(x, y + 1);
+		e.setCoordinates(x, y + 1);
 	}
 	
-	public void moveRight(Character character) {
-		int x = character.getXCoordinate();
-		int y = character.getYCoordinate();
+	public void moveRight(Entity e) {
+		int x = e.getXCoordinate();
+		int y = e.getYCoordinate();
 		
-		character.setCoordinates(x + 1, y);
+		e.setCoordinates(x + 1, y);
 	}
 	
-	public void moveLeft(Character character) {
-		int x = character.getXCoordinate();
-		int y = character.getYCoordinate();
+	public void moveLeft(Entity e) {
+		int x = e.getXCoordinate();
+		int y = e.getYCoordinate();
 		
-		character.setCoordinates(x - 1, y);
+		e.setCoordinates(x - 1, y);
 	}
 }

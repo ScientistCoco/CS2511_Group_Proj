@@ -3,7 +3,6 @@ package project;
 public class Sword extends Item implements SwordBehaviour{
 
 	private int hitsRemain;
-	private ItemStatus status;
 	private Inventory bag;
 	
 	public Sword(int x, int y, Board board, Inventory bag) {
@@ -14,7 +13,8 @@ public class Sword extends Item implements SwordBehaviour{
 		this.bag = bag;
 	}
 
-	@Override
+	
+	
 	public boolean attack(Enemy e) {
 		e.deleteHealth();
 		hitsRemain--;
@@ -30,6 +30,11 @@ public class Sword extends Item implements SwordBehaviour{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int getHitsRemain() {
+		return this.hitsRemain;
 	}
 
 	/*private boolean canHit(Enemy e) {

@@ -3,7 +3,8 @@ package project;
 public class Entity {
 	protected int xCoordinate;
 	protected int yCoordinate;
-	private Board board;
+	protected Board board;
+	protected MovementBehaviour move;
 	
 	/**
 	 * @pre (x > 0 && x < board.length) && (y > 0 && y < board.length)
@@ -16,6 +17,7 @@ public class Entity {
 		this.yCoordinate = y;
 		this.board = board;
 		board.placeEntity(this, xCoordinate, yCoordinate);	// We could throw an exception here or an error if the x or y coordinate is out of bounds
+		this.move = new MovementBehaviour();
 	}
 	
 	public int getXCoordinate() {

@@ -3,6 +3,7 @@ package project;
 public abstract class Item extends Entity{
 
 	protected String name;
+	protected ItemStatus status;
 	
 	public Item(int x, int y, Board board) {
 		super(x, y, board);
@@ -11,6 +12,15 @@ public abstract class Item extends Entity{
 	
 	public String getItemName() {
 		return name;
+	}
+	
+	public ItemStatus getStatus() {
+		return status;
+	}
+	
+	public void pickedUp(Inventory items) {
+		board.removeEntity(getXCoordinate(), getYCoordinate());
+		items.addItem(this);
 	}
 	
 }
