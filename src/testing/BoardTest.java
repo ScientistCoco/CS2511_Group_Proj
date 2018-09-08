@@ -1,9 +1,12 @@
 package testing;
 
+import java.util.ArrayList;
+
 import project.Board;
 
 public class BoardTest {
-
+	
+	// Class to test the production of the board class
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Board board = new Board(5, 5);

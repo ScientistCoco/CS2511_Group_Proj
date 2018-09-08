@@ -3,10 +3,19 @@ package project;
 public class Entity {
 	protected int xCoordinate;
 	protected int yCoordinate;
+	private Board board;
 	
-	public Entity (int x, int y) {
+	/**
+	 * @pre (x > 0 && x < board.length) && (y > 0 && y < board.length)
+	 * @param x
+	 * @param y
+	 * @param board
+	 */
+	public Entity (int x, int y, Board board) {
 		this.xCoordinate = x;
 		this.yCoordinate = y;
+		this.board = board;
+		board.placeEntity(this, xCoordinate, yCoordinate);	// We could throw an exception here or an error if the x or y coordinate is out of bounds
 	}
 	
 	public int getXCoordinate() {
@@ -26,8 +35,9 @@ public class Entity {
 	  * @param y: y-coordinate that we want the entity to be placed at
 	  * @return true/false if the entity can be placed in the given coordinates
 	  */
-	public boolean setCoordinates(int x, int y, Board board) {
+	public boolean setCoordinates(int x, int y) {
 		if (board.placeEntity(this, x, y) == true) {
+			board.removeEntity(this.xCoordinate, this.yCoordinate);
 			this.xCoordinate = x;
 			this.yCoordinate = y;
 			return true;

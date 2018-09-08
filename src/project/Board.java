@@ -20,12 +20,12 @@ public class Board {
 	 * @return the object that is located at the given coordinates
 	 */
 	public Object getEntity(int x, int y) {
-		return map[x][y];
+		return map[y][x];
 	}
 	
 	/**
 	 * Method that places the object at the given coordinates on the board
-	 * @pre (x > 0 && x < map.length) && ( y > 0 && y < map.length)
+	 * @pre (x => 0 && x < map.length) && ( y > 0 && y <= map.length)
 	 * @post true/false
 	 * 
 	 * @param entity: The entity we want to place on the board
@@ -34,8 +34,8 @@ public class Board {
 	 * @return true/false if the entity was successfully placed at the given argument
 	 */
 	public boolean placeEntity(Object entity, int x, int y) {
-		if ((x < map.length) && (y < map.length) && getEntity(x, y) == null) {
-			map[x][y] = entity;
+		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && getEntity(x, y) == null) {
+			map[y][x] = entity; 
 			return true;
 		}
 		return false;
@@ -47,7 +47,7 @@ public class Board {
 	 * @param y
 	 */
 	public void removeEntity(int x, int y) {
-		map[x][y] = null;
+		map[y][x] = null;
 	}
 	
 	/**
