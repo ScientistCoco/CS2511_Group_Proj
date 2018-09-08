@@ -1,6 +1,7 @@
 package project;
 
-public class Condition {
+public class Objective {
+	private Entity type;
 	private String description;
 	private boolean satisfied;
 	private int amountRequired;
@@ -11,11 +12,16 @@ public class Condition {
 	 * @param desc: A description of the condition that needs to be satisfied
 	 * @param amount_required: The amount of items/enemies the player needs to find/kill
 	 */
-	public Condition(String desc, int amountRequired) {
+	public Objective(Entity entity, String desc, int amountRequired) {
+		this.type = entity;
 		this.description = desc;
 		this.satisfied = false;
 		this.amountRequired = amountRequired;
 		this.amountCompleted = 0;
+	}
+	
+	public Entity getType() {
+		return this.type;
 	}
 	
 	/**

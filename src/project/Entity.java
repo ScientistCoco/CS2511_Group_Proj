@@ -7,15 +7,6 @@ public class Entity {
 	protected MovementBehaviour move;
 	
 	/**
-	 * Constructs Entity class without specifying the coordinates. i.e. if user is still
-	 * decided where to place the entity.
-	 * @param board
-	 */
-	public Entity (Board board) {
-		this.board = board;
-	}
-	
-	/**
 	 * @pre (x > 0 && x < board.length) && (y > 0 && y < board.length)
 	 * @param x
 	 * @param y

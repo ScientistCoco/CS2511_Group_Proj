@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player extends Character {
-
+	
+	private ArrayList<Objective> objectives;
+	
 	public Player(int x, int y, Board board) {
 		super(x, y, board);
 		// TODO Auto-generated constructor stub
+		this.objectives = new ArrayList<>();
 	}
 
 	@Override
@@ -72,4 +75,48 @@ public class Player extends Character {
 		return false;
 	}
 	
+	public String getObjectiveString() {
+		StringBuilder str = new StringBuilder();
+		for (Objective obj : objectives) {
+			str.append(obj.getDescription() + " " + obj.getAmountCompleted() + " / " + obj.getAmountRequired() + "\n");
+		}
+		return str.toString();
+	}
+	
+	/**
+	 * Method that increases the amountCompleted attribute in the respective Objective class.
+	 * The respective objective class is identified by the Entity type that is passed into the method.
+	 * @param entity
+	 */
+	public void tickObjective(Entity entity) {
+		// Find the index in the objectives arraylist that is associated with the passed in entity.
+		Integer index = null;
+		for (int i = 0; i < objectives.size(); i++) {
+			if (objectives.get(i).getType().getClass() == entity.getClass()) index = i;
+		}
+		
+		if (index != null) objectives.get(index).increaseAmountCompleted();
+	}
+	
+	/**
+	 * Method that checks how the player is going with the objectives. 
+	 * @return true/false depending on whether the player has completed all the objectives or not.
+	 */
+	public boolean checkObjectives() {
+		int numCompleted = 0;
+		
+		for (Objective obj : objectives) {
+			if (obj.getSatisfiedState()) numCompleted++;
+		}
+		
+		return numCompleted == objectives.size();
+	}
+	
+	/**
+	 * Method that adds a new objective to the players list of objectives
+	 * @param obj
+	 */
+	public void addObjective(Objective obj) {
+		this.objectives.add(obj);
+	}
 }
