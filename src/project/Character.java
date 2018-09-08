@@ -12,7 +12,7 @@ public abstract class Character extends Entity{
 	
 	public abstract void move(String direction);
 	
-	public void depleteHealth() {
+	public void deleteHealth() {
 		this.health -= 1;
 	}
 	

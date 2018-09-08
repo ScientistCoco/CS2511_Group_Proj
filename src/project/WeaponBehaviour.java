@@ -2,6 +2,6 @@ package project;
 
 public interface WeaponBehaviour extends ItemBehaviour{
 
-	public boolean attack();
+	public boolean attack(Enemy e);
 	
 }
