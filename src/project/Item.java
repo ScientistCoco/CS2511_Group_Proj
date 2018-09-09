@@ -17,5 +17,12 @@ public abstract class Item extends Entity{
 	public ItemStatus getStatus() {
 		return status;
 	}
+
+	@Override
+	public boolean affectPlayer(Player player) {
+		player.getInventory().addItem(this);
+		return false;
+	}
+	
 	
 }

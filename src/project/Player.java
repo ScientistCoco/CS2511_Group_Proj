@@ -7,12 +7,18 @@ public class Player extends Character {
 	
 	private ArrayList<Objective> objectives;
 	private ArrayList<Buff> potionBuff;
+	private Inventory inventory;
 	
 	public Player(int x, int y, Board board) {
 		super(x, y, board);
 		// TODO Auto-generated constructor stub
 		this.objectives = new ArrayList<>();
 		this.potionBuff = new ArrayList<Buff>();
+		inventory = new Inventory();
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 	public void addBuff(Buff b) {

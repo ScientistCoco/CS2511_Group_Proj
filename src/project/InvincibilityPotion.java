@@ -7,4 +7,10 @@ public class InvincibilityPotion extends Item{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public boolean affectPlayer(Player player) {
+		// TODO Auto-generated method stub
+		return super.affectPlayer(player);
+	}
+
 }

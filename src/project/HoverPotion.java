@@ -7,6 +7,7 @@ public class HoverPotion extends Item {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public boolean affectPlayer(Player player) {
 		player.addBuff(Buff.Hover);
 		return true;
