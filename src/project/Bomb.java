@@ -2,9 +2,22 @@ package project;
 
 public class Bomb extends Item{
 
-	public Bomb(int x, int y, Board board) {
+	private BombBehaviour effect;
+	
+	public Bomb(int x, int y, Board board, BombBehaviour b) {
 		super(x, y, board);
-		// TODO Auto-generated constructor stub
+		effect = b;
 	}
+	
+	public void changeBehaviour(BombBehaviour b) {
+		effect = b;
+	}
+
+	@Override
+	public boolean affectPlayer(Player player) {
+		return effect.effect();
+	}
+	
+	
 
 }
