@@ -12,4 +12,11 @@ public class Wall extends Entity{
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * @return false. Nothing is allowed to pass through the walls.
+	 */
+	@Override
+	public boolean overlappingEffect(Entity entity) {
+		return false;
+	}
 }

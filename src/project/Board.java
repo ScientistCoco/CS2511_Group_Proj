@@ -19,6 +19,18 @@ public class Board {
 	}
 	
 	/**
+	 * Method that fills the board with 'floors', we can't have the board
+	 * have null objects in its matrix. It wouldn't make sense that a player
+	 * is able to move around a null space.
+	 */
+	public void fillBoardWithFloors() {
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				map[i][j] = new Entity(i, j, this); 	// Where new entity = 'floor'
+			}
+		}
+	}
+	/**
 	 * Method that adds entities to the board map.
 	 * @param entity: The entity that we want to add to the board map
 	 */
@@ -55,6 +67,7 @@ public class Board {
 	 * @return the object that is located at the given coordinates
 	 */
 	public Object getEntity(int x, int y) {
+		// Can throw an error if the given x or y coordinate is out of bounds.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
 			return map[y][x];
 		}
@@ -75,7 +88,7 @@ public class Board {
 		//if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && !(getEntity(x, y) instanceof Wall)) {
 		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
 		// is allowed to pass over the objects that might occupy the new coordinates.
-		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && entity.overlappingEffect(getEntity(x, y))) {
+		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && entity.overlappingEffect((Entity)getEntity(x, y))) {
 			map[y][x] = entity; 
 			return true;
 		}

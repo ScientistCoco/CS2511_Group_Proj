@@ -2,7 +2,6 @@ package testing;
 
 import project.Board;
 import project.Door;
-import project.DoorStatus;
 import project.Exit;
 import project.Objective;
 import project.Player;
@@ -22,6 +21,7 @@ public class CharacterTest {
 		
 		p1.addObjective(objExit1);
 		
+		board.addEntity(p1);
 		board.addEntity(new Wall(0, 0, board));
 		board.addEntity(new Wall(0, 1, board));
 		board.addEntity(e1);

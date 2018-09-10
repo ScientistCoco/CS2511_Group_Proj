@@ -17,7 +17,7 @@ public class Exit extends Entity{
 	}
 	
 	@Override
-	public boolean overlappingEffect(Object entity) {
+	public boolean overlappingEffect(Entity entity) {
 		// If the overlapping entity is a player
 		if (entity instanceof Player) {
 			exitFound((Player)entity);
