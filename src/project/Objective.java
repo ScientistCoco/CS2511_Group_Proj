@@ -62,5 +62,9 @@ public class Objective {
 		if (this.amountCompleted < this.amountRequired) {
 			this.amountCompleted++;
 		}
+		
+		if (this.amountCompleted == this.amountRequired) {
+			conditionSatisfied();
+		}
 	}
 }

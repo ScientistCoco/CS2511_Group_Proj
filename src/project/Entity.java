@@ -50,4 +50,13 @@ public class Entity {
 	public boolean affectPlayer(Player player) {
 		return true;
 	}
+	
+	/**
+	 * Each entity should have a defined action for what happens when another
+	 * entity overlaps with them. 
+	 * @param entity: This is the other entity that will 'pass over' this entity 
+	 */
+	public void overlappingEffect(Object entity) {
+		return;
+	}
 }

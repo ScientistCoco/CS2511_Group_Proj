@@ -123,7 +123,6 @@ public class Player extends Character {
 		for (int i = 0; i < objectives.size(); i++) {
 			if (objectives.get(i).getType().getClass() == entity.getClass()) index = i;
 		}
-		
 		if (index != null) objectives.get(index).increaseAmountCompleted();
 	}
 	
@@ -147,5 +146,16 @@ public class Player extends Character {
 	 */
 	public void addObjective(Objective obj) {
 		this.objectives.add(obj);
+	}
+	
+	@Override
+	public void overlappingEffect(Object entity) {
+		// If player overlaps with exit then that means they found exit to puzzle
+		if (entity instanceof Exit) {
+			// Not sure if typecasting like this causes entityExit to still
+			// reference the entity object or if it creates another object
+			Exit entityExit = (Exit)entity;
+			entityExit.exitFound(this);
+		}
 	}
 }

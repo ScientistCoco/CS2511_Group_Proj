@@ -15,4 +15,12 @@ public class Exit extends Entity{
 	public void exitFound(Player player) {
 		player.tickObjective(this);
 	}
+	
+	@Override
+	public void overlappingEffect(Object entity) {
+		// If the overlapping entity is a player
+		if (entity instanceof Player) {
+			exitFound((Player)entity);
+		}
+	}
 }

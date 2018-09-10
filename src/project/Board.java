@@ -71,8 +71,9 @@ public class Board {
 	 * @param y: The y-coordinate that the entity will be placed at
 	 * @return true/false if the entity was successfully placed at the given argument
 	 */
-	public boolean placeEntity(Object entity, int x, int y) {
-		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && getEntity(x, y) == null) {
+	public boolean placeEntity(Entity entity, int x, int y) {
+		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && !(getEntity(x, y) instanceof Wall)) {
+			entity.overlappingEffect(getEntity(x, y));
 			map[y][x] = entity; 
 			return true;
 		}
@@ -102,6 +103,8 @@ public class Board {
 					System.out.print(" • ");
 				} else if (map[i][j].getClass().equals(Wall.class)) {
 					System.out.print(" # ");
+				} else if (map[i][j].getClass().equals(Exit.class)) {
+					System.out.print(" n ");
 				}
 			}
 			System.out.print("\n");
