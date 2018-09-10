@@ -1,6 +1,7 @@
 package testing;
 
 import project.Board;
+import project.Entity;
 
 public class BoardTest {
 	
@@ -11,7 +12,7 @@ public class BoardTest {
 		board.printBoard();
 		System.out.println("\n");
 		
-		board.placeEntity(new Object(), 0, 1);
+		board.placeEntity(new Entity(0, 1, board), 0, 1);
 		board.printBoard();		
 		
 	}

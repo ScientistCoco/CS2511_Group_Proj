@@ -3,10 +3,11 @@ package project;
 public class Door extends Entity{
 
 	private DoorStatus status;
-	private int doorNum;
+	private int DoorNum;
 	
-	public Door(int x, int y, Board board) {
+	public Door(int x, int y, Board board, int num) {
 		super(x, y, board);
+		DoorNum = num;
 		status = DoorStatus.Closed;
 	}
 	
@@ -43,7 +44,7 @@ public class Door extends Entity{
 	}
 	
 	public int getDoorNum() {
-		return doorNum;
+		return DoorNum;
 	}
 	
 }

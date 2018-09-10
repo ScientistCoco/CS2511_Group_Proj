@@ -15,7 +15,7 @@ public class CharacterTest {
 		Board board = new Board();
 		Player p1 = new Player(1, 1, board);
 		Exit e1 = new Exit(2, 0, board);
-		Door d1 = new Door(4, 4, board);
+		Door d1 = new Door(4, 4, board, 0);
 		//d1.changeStatus(DoorStatus.Open);
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		

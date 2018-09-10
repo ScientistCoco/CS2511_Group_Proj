@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Key extends Item{
 
-	private int key;
+	private int keyNum;
 	
 	/**
 	 * 
@@ -17,14 +17,18 @@ public class Key extends Item{
 	 */
 	public Key(int x, int y, Board board, int key) {
 		super(x, y, board);
-		key = key;
+		keyNum = key;
 	}
 	
 	public boolean openDoor(Door door) {
-		if (door.getDoorNum() == key) {
+		if (door.getDoorNum() == keyNum) {
 			return true;
 		}
 		return false;
+	}
+	
+	public int getKey() {
+		return keyNum;
 	}
 
 }
