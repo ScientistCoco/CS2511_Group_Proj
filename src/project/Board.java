@@ -19,18 +19,6 @@ public class Board {
 	}
 	
 	/**
-	 * Method that fills the board with 'floors', we can't have the board
-	 * have null objects in its matrix. It wouldn't make sense that a player
-	 * is able to move around a null space.
-	 */
-	public void fillBoardWithFloors() {
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				map[i][j] = new Entity(i, j, this); 	// Where new entity = 'floor'
-			}
-		}
-	}
-	/**
 	 * Method that adds entities to the board map.
 	 * @param entity: The entity that we want to add to the board map
 	 */
