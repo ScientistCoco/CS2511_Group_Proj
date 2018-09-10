@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import project.Board;
 import project.Entity;
+import project.Player;
 import project.Wall;
 
 public class BoardJUnitTest {
@@ -11,7 +12,7 @@ public class BoardJUnitTest {
 	@Test
 	public void placeEntityOnEmptyLocation() {
 		Board board = new Board();
-		assertEquals(true, board.placeEntity(new Entity(5, 2, board), 5, 2));
+		assertEquals(true, board.placeEntity(new Player(5, 2, board), 5, 2));
 	}
 	
 	@Test

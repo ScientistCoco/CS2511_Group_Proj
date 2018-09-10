@@ -55,8 +55,9 @@ public class Entity {
 	 * Each entity should have a defined action for what happens when another
 	 * entity overlaps with them. 
 	 * @param entity: This is the other entity that will 'pass over' this entity 
+	 * @return true/false: depending on whether this object is allowed to pass over the object passed into the arguments.
 	 */
-	public void overlappingEffect(Object entity) {
-		return;
+	public boolean overlappingEffect(Object entity) {
+		return false;
 	}
 }

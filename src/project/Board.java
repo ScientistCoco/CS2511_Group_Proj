@@ -72,8 +72,10 @@ public class Board {
 	 * @return true/false if the entity was successfully placed at the given argument
 	 */
 	public boolean placeEntity(Entity entity, int x, int y) {
-		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && !(getEntity(x, y) instanceof Wall)) {
-			entity.overlappingEffect(getEntity(x, y));
+		//if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && !(getEntity(x, y) instanceof Wall)) {
+		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
+		// is allowed to pass over the objects that might occupy the new coordinates.
+		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && entity.overlappingEffect(getEntity(x, y))) {
 			map[y][x] = entity; 
 			return true;
 		}
@@ -104,7 +106,9 @@ public class Board {
 				} else if (map[i][j].getClass().equals(Wall.class)) {
 					System.out.print(" # ");
 				} else if (map[i][j].getClass().equals(Exit.class)) {
-					System.out.print(" n ");
+					System.out.print("[ ]");
+				} else if (map[i][j].getClass().equals(Door.class)) {
+					System.out.print("[#]");
 				}
 			}
 			System.out.print("\n");

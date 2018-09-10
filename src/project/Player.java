@@ -149,13 +149,21 @@ public class Player extends Character {
 	}
 	
 	@Override
-	public void overlappingEffect(Object entity) {
+	public boolean overlappingEffect(Object entity) {
 		// If player overlaps with exit then that means they found exit to puzzle
 		if (entity instanceof Exit) {
 			// Not sure if typecasting like this causes entityExit to still
 			// reference the entity object or if it creates another object
 			Exit entityExit = (Exit)entity;
 			entityExit.exitFound(this);
+			return true;
+		} else if (entity instanceof Door) {
+			Door entityDoor = (Door)entity;
+			return entityDoor.getDoorStatus() == DoorStatus.Open;
 		}
+		else if (!(entity instanceof Wall)) {
+			return true;
+		}
+		return false;
 	}
 }

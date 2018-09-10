@@ -22,9 +22,12 @@ public class Door extends Entity{
 		status = s;
 	}
 	
+	public DoorStatus getDoorStatus() {
+		return this.status;
+	}
+	
 	public int getDoorNum() {
 		return doorNum;
 	}
 	
-
 }

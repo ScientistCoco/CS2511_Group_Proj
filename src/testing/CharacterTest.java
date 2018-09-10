@@ -1,6 +1,8 @@
 package testing;
 
 import project.Board;
+import project.Door;
+import project.DoorStatus;
 import project.Exit;
 import project.Objective;
 import project.Player;
@@ -14,6 +16,8 @@ public class CharacterTest {
 		Board board = new Board();
 		Player p1 = new Player(1, 1, board);
 		Exit e1 = new Exit(2, 0, board);
+		Door d1 = new Door(4, 4, board);
+		//d1.changeStatus(DoorStatus.Open);
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		
 		p1.addObjective(objExit1);
@@ -21,6 +25,7 @@ public class CharacterTest {
 		board.addEntity(new Wall(0, 0, board));
 		board.addEntity(new Wall(0, 1, board));
 		board.addEntity(e1);
+		board.addEntity(d1);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
