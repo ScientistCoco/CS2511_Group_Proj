@@ -8,8 +8,8 @@ public class Arrow extends Item{
 	public Arrow(int x, int y, Board board, Inventory items) {
 		super(x, y, board);
 		// TODO Auto-generated constructor stub
-		status = ItemStatus.Exist;
-		items = items;
+		this.status = ItemStatus.Exist;
+		this.items = items;
 	}
 	
 	
