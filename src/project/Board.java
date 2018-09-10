@@ -1,16 +1,51 @@
 package project;
 
+import java.util.ArrayList;
+
 public class Board {
 	private Object[][] map;
+	private ArrayList<Object> entities;
 	
 	public Board() {
 		// Default size if no given width/height
 		map = new Object[10][10];
+		this.entities = new ArrayList<>();
 	}
 	
 	// If width and height are specified
 	public Board(int width, int height) {
+		super();
 		map = new Object[width][height];
+	}
+	
+	/**
+	 * Method that adds entities to the board map.
+	 * @param entity: The entity that we want to add to the board map
+	 */
+	public void addEntity(Object entity) {
+		this.entities.add(entity);
+	}
+	
+	/**
+	 * Method that removes entities from the board map. This might occur because the 
+	 * entity might have died or been picked up.
+	 * @param entity: The entity that we want to remove
+	 */
+	public void removeEntity(Object entity) {
+		this.entities.remove(entity);
+	}
+	
+	/**
+	 * Method scans through all the entities in the arraylist to update their 
+	 * position on the board.
+	 * TODO: Consider case where player has same coordinates as another entity, i.e. switch.
+	 * 		How will this method know which obj to priortize? 
+	 */
+	public void updateBoard() {
+		for (Object obj : this.entities) {
+			Entity entity = (Entity) obj; // Cast to entity type so we can call respective methods
+			map[entity.getYCoordinate()][entity.getXCoordinate()] = obj;
+		}
 	}
 	
 	/**
@@ -58,6 +93,7 @@ public class Board {
 	 */
 	public void printBoard() {
 		// Could have a better way of printing out the board. Make it more polymorphic?
+		updateBoard();
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
 				if (map[i][j] == null) {
