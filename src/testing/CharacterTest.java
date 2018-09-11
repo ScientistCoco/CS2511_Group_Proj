@@ -1,7 +1,6 @@
 package testing;
 
 import project.Board;
-import project.Bomb;
 import project.Boulder;
 import project.Door;
 import project.Exit;
@@ -33,7 +32,7 @@ public class CharacterTest {
 		board.placeEntity(e1, 2, 4);
 		board.placeEntity(d1, 4, 4);
 		board.placeEntity(pit1, 1, 4);
-		board.placeEntity(bo1, 3, 2);
+		board.placeEntity(bo1, 1, 2);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {

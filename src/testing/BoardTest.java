@@ -1,6 +1,10 @@
 package testing;
 
+import static org.junit.Assert.assertEquals;
+
 import project.Board;
+import project.Boulder;
+import project.Door;
 import project.Entity;
 import project.Floor;
 import project.Wall;
@@ -27,6 +31,14 @@ public class BoardTest {
 		System.out.println(f1.getEntities());
 		f1.addEntity(w1);
 		System.out.println(f1.getFrontEntity());*/
+		
+		Boulder bou1 = new Boulder(board);
+		board.placeEntity(bou1, 2, 1);
+		
+		Door d1 = new Door(board, 0);
+		board.placeEntity(d1, 2, 1);
+		
+		System.out.println(board.getEntity(2, 1));
 	}
 
 }

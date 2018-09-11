@@ -56,11 +56,11 @@ public class Floor {
 		} else if (entityB.getClass() == Exit.class) {
 			return entityB;
 		}
-		else if (entityA.getClass() == Player.class || entityA.getClass() == Enemy.class || entityA.getClass() == Wall.class) {
+		else if (entityA.getClass() == Player.class || entityA.getClass() == Enemy.class || entityA.getClass() == Wall.class || entityA.getClass() == Boulder.class) {
 			return entityA;
 		}
-		else if (entityB.getClass() == Player.class || entityB.getClass() == Enemy.class || entityB.getClass() == Wall.class) {
-			return entityA;
+		else if (entityB.getClass() == Player.class || entityB.getClass() == Enemy.class || entityB.getClass() == Wall.class || entityB.getClass() == Boulder.class) {
+			return entityB;
 		}
 		return entityA;
 	}

@@ -21,6 +21,10 @@ public class Pit extends Entity{
 		if (entity instanceof Player) {
 			affectPlayer((Player) entity);
 			return true;
+		} else if (entity instanceof Boulder) {
+			// The boulder will fall through the pit and disappear
+			board.removeEntity(entity, entity.getXCoordinate(), entity.getYCoordinate());
+			return false;
 		}
 		return false;
 	}
