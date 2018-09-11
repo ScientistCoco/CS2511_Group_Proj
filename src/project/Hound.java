@@ -13,17 +13,4 @@ public class Hound extends Enemy {
 		
 	}
 
-	/*private boolean moveX(int x) {
-		if() {
-			return;
-		}else {
-			return;
-		}
-	}
-	
-	private boolean moveY(int y) {
-		
-	}
-	
-	*/
 }
