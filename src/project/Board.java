@@ -81,7 +81,7 @@ public class Board {
 				if (map[i][j].getFrontEntity() == null) {
 					System.out.print(" . ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Player.class)){
-					System.out.print(" • ");
+					System.out.print(" ♀ ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Wall.class)) {
 					System.out.print(" # ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Exit.class)) {
@@ -90,6 +90,8 @@ public class Board {
 					System.out.print("[#]");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Pit.class)) {
 					System.out.print(" O ");
+				} else if (map[i][j].getFrontEntity().getClass().equals(Boulder.class)) {
+					System.out.print(" • ");
 				}
 			}
 			System.out.print("\n");

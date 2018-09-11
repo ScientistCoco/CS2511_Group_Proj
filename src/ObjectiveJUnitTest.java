@@ -8,7 +8,7 @@ import project.Objective;
 
 public class ObjectiveJUnitTest {
 	Board b1 = new Board();
-	Objective o1 = new Objective(new Exit(0, 0, b1), "Find exit", 1);
+	Objective o1 = new Objective(new Exit(b1), "Find exit", 1);
 	
 	@Test
 	public void checkCorrectTypeStored() {
