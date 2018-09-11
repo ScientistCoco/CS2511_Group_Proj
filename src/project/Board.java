@@ -53,7 +53,6 @@ public class Board {
 		//if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && !(getEntity(x, y) instanceof Wall)) {
 		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
 		// is allowed to pass over the objects that might occupy the new coordinates.
-		System.out.println(entity.getClass());
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
 			if (map[y][x].addEntity(entity)) {
 				entity.setCoordinates(x, y);
