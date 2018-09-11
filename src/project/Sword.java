@@ -7,12 +7,11 @@ public class Sword extends Item {
 	
 	public Sword(int x, int y, Board board, Inventory bag) {
 		super(x, y, board);
-		this.name = "Sword";
+		this.name = "sword";
 		hitsRemain = 5;
 		status = ItemStatus.Exist;
 		this.bag = bag;
 	}
-
 	
 	
 	public boolean attack(Enemy e) {

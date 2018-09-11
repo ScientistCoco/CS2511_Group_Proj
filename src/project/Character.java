@@ -16,4 +16,8 @@ public abstract class Character extends Entity{
 		this.health -= 1;
 	}
 	
+	public int getHealth() {
+		return health;
+	}
+	
 }
