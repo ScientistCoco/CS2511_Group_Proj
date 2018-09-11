@@ -29,7 +29,7 @@ public class CharacterTest {
 		board.placeEntity(new Wall(board), 0, 1);
 		board.placeEntity(e1, 2, 4);
 		board.placeEntity(d1, 4, 4);
-		board.placeEntity(pit1, 7, 4);
+		board.placeEntity(pit1, 1, 4);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
@@ -38,6 +38,11 @@ public class CharacterTest {
 			// If the player has completed all objectives then show congratulations message
 			if (p1.checkObjectives() == true) {
 				System.out.println("Congratulations you completed this level!");
+				break;
+			}
+			
+			if (p1.checkIfAlive() == false) {
+				System.out.println("Game over you have died");
 				break;
 			}
 		}

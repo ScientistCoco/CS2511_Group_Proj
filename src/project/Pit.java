@@ -15,5 +15,13 @@ public class Pit extends Entity{
 		player.deleteHealth();
 		return true;
 	}
-
+	
+	@Override
+	public boolean overlappingEffect(Entity entity) {
+		if (entity instanceof Player) {
+			affectPlayer((Player) entity);
+			return true;
+		}
+		return false;
+	}
 }
