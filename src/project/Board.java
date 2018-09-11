@@ -53,6 +53,7 @@ public class Board {
 		//if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && !(getEntity(x, y) instanceof Wall)) {
 		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
 		// is allowed to pass over the objects that might occupy the new coordinates.
+		System.out.println(entity.getClass());
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
 			if (map[y][x].addEntity(entity)) {
 				entity.setCoordinates(x, y);
@@ -81,7 +82,7 @@ public class Board {
 				if (map[i][j].getFrontEntity() == null) {
 					System.out.print(" . ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Player.class)){
-					System.out.print(" • ");
+					System.out.print(" ♀ ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Wall.class)) {
 					System.out.print(" # ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Exit.class)) {
@@ -90,6 +91,8 @@ public class Board {
 					System.out.print("[#]");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Pit.class)) {
 					System.out.print(" O ");
+				} else if (map[i][j].getFrontEntity().getClass().equals(Boulder.class)) {
+					System.out.print(" • ");
 				}
 			}
 			System.out.print("\n");

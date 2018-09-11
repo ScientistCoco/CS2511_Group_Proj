@@ -1,6 +1,7 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Floor {
 	private ArrayList<Entity> entities;
@@ -39,8 +40,9 @@ public class Floor {
 	public boolean canOccupySameSpace(Entity entityToBeAdded) {
 		// Make a call to overlappingEffect for each entity in the arraylist to check
 		// whether this new entity is allowed to coexist
-		for (Entity entity : this.entities) {
-			if (entity.overlappingEffect(entityToBeAdded) == false) {
+		Iterator<Entity> itEntity = this.entities.iterator();
+		while (itEntity.hasNext()) {
+			if (itEntity.next().overlappingEffect(entityToBeAdded) == false) {
 				return false;
 			}
 		}

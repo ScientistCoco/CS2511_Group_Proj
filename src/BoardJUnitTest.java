@@ -30,6 +30,7 @@ public class BoardJUnitTest {
 	
 	@Test
 	public void checkWallInCorrectSpotOnMap() {
+		board.placeEntity(w1, 5, 2);
 		assertEquals(true, board.getEntity(5, 2) instanceof Wall);
 	}
 
