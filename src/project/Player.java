@@ -8,12 +8,16 @@ public class Player extends Character {
 	private ArrayList<Objective> objectives;
 	private ArrayList<Buff> potionBuff;
 	private Inventory inventory;
-	
+	private ArrayList<Enemy> enemies;
+	private ArrayList<Direction> directions;
+
 	public Player(Board board) {
 		super(board);
 		this.objectives = new ArrayList<>();
 		this.potionBuff = new ArrayList<Buff>();
 		inventory = new Inventory();
+		enemies = new ArrayList<Enemy>();
+		directions = new ArrayList<Direction>();
 	}
 	
 	public Inventory getInventory() {
@@ -146,5 +150,19 @@ public class Player extends Character {
 			return entity.overlappingEffect(this);
 		}
 		return true;
+	}
+	
+	public void notifyAllEnemies() {
+		for (Enemy e : enemies) {
+			e.updateMove(this);
+		}
+	}
+	
+	public void addDirection(Direction d) {
+		directions.add(d);
+	}
+	
+	public ArrayList<Direction> getDirections() {
+		return this.directions;
 	}
 }
