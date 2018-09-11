@@ -19,35 +19,51 @@ public class MovementBehaviour {
 		}
 	}
 	
-	public void moveUp(Entity e, Board board) {
+	public boolean moveUp(Entity e, Board board) {
 		int x = e.getXCoordinate();
 		int y = e.getYCoordinate();
 		
 		//e.setCoordinates(x , y - 1);
-		if (board.placeEntity(e, x, y - 1)) board.removeEntity(e, x, y);
+		if (board.placeEntity(e, x, y - 1)) {
+			board.removeEntity(e, x, y);
+			return true;
+		}
+		return false;
 	}
 	
-	public void moveDown(Entity e, Board board) {
+	public boolean moveDown(Entity e, Board board) {
 		int x = e.getXCoordinate();
 		int y = e.getYCoordinate();
 		
 		//e.setCoordinates(x, y + 1);
-		if (board.placeEntity(e, x, y + 1)) board.removeEntity(e, x, y);
+		if (board.placeEntity(e, x, y + 1)) {
+			board.removeEntity(e, x, y);
+			return true;
+		}
+		return false;
 	}
 	
-	public void moveRight(Entity e, Board board) {
+	public boolean moveRight(Entity e, Board board) {
 		int x = e.getXCoordinate();
 		int y = e.getYCoordinate();
 		
 		//e.setCoordinates(x + 1, y);
-		if (board.placeEntity(e, x + 1, y)) board.removeEntity(e, x, y);
+		if (board.placeEntity(e, x + 1, y)) {
+			board.removeEntity(e, x, y);
+			return true;
+		}
+		return false;
 	}
 	
-	public void moveLeft(Entity e, Board board) {
+	public boolean moveLeft(Entity e, Board board) {
 		int x = e.getXCoordinate();
 		int y = e.getYCoordinate();
 		
 		//e.setCoordinates(x - 1, y);
-		if (board.placeEntity(e, x - 1, y)) board.removeEntity(e, x, y);
+		if (board.placeEntity(e, x - 1, y)) {
+			board.removeEntity(e, x, y);
+			return true;
+		}
+		return false;
 	}
 }
