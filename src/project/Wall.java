@@ -7,8 +7,8 @@ package project;
  */
 public class Wall extends Entity{
 	
-	public Wall(int x, int y, Board board) {
-		super(x, y, board);
+	public Wall(Board board) {
+		super(board);
 		// TODO Auto-generated constructor stub
 	}
 	

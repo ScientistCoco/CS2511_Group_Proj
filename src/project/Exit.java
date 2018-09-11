@@ -7,8 +7,8 @@ package project;
  */
 public class Exit extends Entity{
 
-	public Exit(int x, int y, Board board) {
-		super(x, y, board);
+	public Exit(Board board) {
+		super(board);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -5,8 +5,8 @@ public class Door extends Entity{
 	private DoorStatus status;
 	private int DoorNum;
 	
-	public Door(int x, int y, Board board, int num) {
-		super(x, y, board);
+	public Door(Board board, int num) {
+		super(board);
 		DoorNum = num;
 		status = DoorStatus.Closed;
 	}

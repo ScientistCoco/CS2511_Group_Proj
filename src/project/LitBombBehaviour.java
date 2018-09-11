@@ -2,9 +2,8 @@ package project;
 
 public class LitBombBehaviour extends Entity implements BombBehaviour{
 
-	public LitBombBehaviour(int x, int y, Board board) {
-		super(x, y, board);
-		// TODO Auto-generated constructor stub
+	public LitBombBehaviour(Board board) {
+		super(board);
 	}
 
 	@Override

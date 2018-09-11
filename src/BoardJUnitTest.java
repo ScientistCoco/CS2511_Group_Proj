@@ -8,24 +8,29 @@ import project.Player;
 import project.Wall;
 
 public class BoardJUnitTest {
-
+	Board board = new Board();
+	Player p1 = new Player(board);
+	Wall w1 = new Wall(board);
+	
 	@Test
 	public void placeEntityOnEmptyLocation() {
-		Board board = new Board();
-		assertEquals(true, board.placeEntity(new Player(5, 2, board), 5, 2));
+		assertEquals(true, board.placeEntity(p1, 5, 2));
 	}
 	
 	@Test
 	public void placeEntityOnNotEmptyLocation() {
-		Board board = new Board();
-		board.placeEntity(new Wall(5, 2, board), 5, 2);
-		assertEquals(false, board.placeEntity(new Entity(5, 2, board), 5, 2));
+		board.placeEntity(w1, 5, 2);
+		assertEquals(false, board.placeEntity(new Entity(board), 5, 2));
 	}
 	
 	@Test
 	public void placeEntityOutsideBoard() {
-		Board board = new Board();
-		assertEquals(false, board.placeEntity(new Entity(5, 2, board), 11, 11));
+		assertEquals(false, board.placeEntity(new Entity(board), 11, 11));
+	}
+	
+	@Test
+	public void checkWallInCorrectSpotOnMap() {
+		assertEquals(true, board.getEntity(5, 2) instanceof Wall);
 	}
 
 }

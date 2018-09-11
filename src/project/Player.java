@@ -9,9 +9,8 @@ public class Player extends Character {
 	private ArrayList<Buff> potionBuff;
 	private Inventory inventory;
 	
-	public Player(int x, int y, Board board) {
-		super(x, y, board);
-		// TODO Auto-generated constructor stub
+	public Player(Board board) {
+		super(board);
 		this.objectives = new ArrayList<>();
 		this.potionBuff = new ArrayList<Buff>();
 		inventory = new Inventory();
@@ -34,9 +33,8 @@ public class Player extends Character {
 		return false;
 	}
 
-	@Override
+	/*@Override
 	public void move(String direction) {
-		// TODO Auto-generated method stub
 		switch (direction) {
 			case "Up":
 				if (!this.move.moveUp(this)) {
@@ -60,24 +58,16 @@ public class Player extends Character {
 				break;
 		}
 		
-	}
+	}*/
 	
 	
-	
-	private void findEntity(int x, int y) {
-		if (this.board.getEntity(x, y) instanceof Entity) {
-			Entity e = (Entity)this.board.getEntity(x, y);
-			if (!e.affectPlayer(this)) {
-				this.setCoordinates(x, y);
-			}
-		}
-	}
 	/**
 	 * Method that receives the keyboard input from the user, the expected commands are "Up, Down, Left, Right or Exit".
 	 * It will execute the respective methods depending on the input received
 	 * @return true/false. Returns true if the user wants to quit the game. Else it will return false indicating that 
 	 * 						player still wants to play.
 	 */
+	@SuppressWarnings("resource")
 	public boolean getKeyboardInput() {
 		Scanner sc = new Scanner(System.in);
 		ArrayList<String> cmds = new ArrayList<>();
@@ -94,7 +84,7 @@ public class Player extends Character {
 				sc.close();
 				return true;
 			default:
-				move(cmdInput);
+				this.move.move(cmdInput, this, board);
 			}
 		} else {
 			System.out.println("Please enter one of the commands: " + String.join(" ", cmds));

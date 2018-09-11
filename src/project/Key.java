@@ -16,8 +16,8 @@ public class Key extends Item{
 	 * @param door
 	 * @pre key
 	 */
-	public Key(int x, int y, Board board, int key, Inventory in) {
-		super(x, y, board);
+	public Key(Board board, int key, Inventory in) {
+		super(board);
 		keyNum = key;
 		items = in;
 		this.name = "key";

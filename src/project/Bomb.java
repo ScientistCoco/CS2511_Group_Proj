@@ -4,8 +4,8 @@ public class Bomb extends Item{
 
 	private BombBehaviour effect;
 	
-	public Bomb(int x, int y, Board board, BombBehaviour b) {
-		super(x, y, board);
+	public Bomb(Board board, BombBehaviour b) {
+		super(board);
 		effect = b;
 	}
 	

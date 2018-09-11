@@ -3,6 +3,7 @@ package testing;
 import project.Board;
 import project.Entity;
 import project.Floor;
+import project.Wall;
 
 public class BoardTest {
 	
@@ -16,8 +17,16 @@ public class BoardTest {
 		//board.placeEntity(new Entity(0, 1, board), 0, 1);
 		//board.printBoard();
 		
-		Floor[][] map = new Floor[10][10];
+		Wall w1 = new Wall(board);
+		board.placeEntity(w1, 1, 0);
+		System.out.println(board.getEntity(1, 0));
+		//System.out.println(w1.getXCoordinate());
+		//board.printBoard();
 		
+		/*Floor f1 = new Floor();
+		System.out.println(f1.getEntities());
+		f1.addEntity(w1);
+		System.out.println(f1.getFrontEntity());*/
 	}
 
 }

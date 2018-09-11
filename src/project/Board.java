@@ -54,7 +54,10 @@ public class Board {
 		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
 		// is allowed to pass over the objects that might occupy the new coordinates.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
-			return map[y][x].addEntity(entity);
+			if (map[y][x].addEntity(entity)) {
+				entity.setCoordinates(x, y);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -85,6 +88,8 @@ public class Board {
 					System.out.print("[ ]");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Door.class)) {
 					System.out.print("[#]");
+				} else if (map[i][j].getFrontEntity().getClass().equals(Pit.class)) {
+					System.out.print(" O ");
 				}
 			}
 			System.out.print("\n");

@@ -12,9 +12,7 @@ public class Entity {
 	 * @param y
 	 * @param board
 	 */
-	public Entity (int x, int y, Board board) {
-		this.xCoordinate = x;
-		this.yCoordinate = y;
+	public Entity (Board board) {
 		this.board = board;
 		this.move = new MovementBehaviour();
 	}
@@ -36,14 +34,9 @@ public class Entity {
 	  * @param y: y-coordinate that we want the entity to be placed at
 	  * @return true/false if the entity can be placed in the given coordinates
 	  */
-	public boolean setCoordinates(int x, int y) {
-		if (board.placeEntity(this, x, y) == true) {
-			board.removeEntity(this, this.xCoordinate, this.yCoordinate);
-			this.xCoordinate = x;
-			this.yCoordinate = y;
-			return true;
-		}
-		return false;
+	public void setCoordinates(int x, int y) {
+		this.xCoordinate = x;
+		this.yCoordinate = y;
 	}
 
 	public boolean affectPlayer(Player player) {
