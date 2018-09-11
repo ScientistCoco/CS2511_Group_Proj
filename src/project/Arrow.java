@@ -1,22 +1,17 @@
 package project;
 
 public class Arrow extends Item{
-	private Direction direction;
 	private ItemStatus status;
 	private Inventory items;
 	
 	public Arrow(int x, int y, Board board, Inventory items) {
 		super(x, y, board);
+		this.name = "arrow";
 		// TODO Auto-generated constructor stub
 		this.status = ItemStatus.Exist;
 		this.items = items;
 	}
 	
-	
-	public Direction getDirection() {
-		return direction;
-	}
-
 
 	public boolean destroyed() {
 		// No other entities in this direction

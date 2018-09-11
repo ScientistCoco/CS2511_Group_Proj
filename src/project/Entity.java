@@ -57,6 +57,6 @@ public class Entity {
 	 * @return true/false: depending on whether the passed in object is allowed to pass over this entity.
 	 */
 	public boolean overlappingEffect(Entity entity) {
-		return true;
+		return false;
 	}
 }
