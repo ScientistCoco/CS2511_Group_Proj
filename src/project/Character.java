@@ -20,4 +20,11 @@ public abstract class Character extends Entity{
 		return health;
 	}
 	
+	/**
+	 * This method checks if the Character is still alive or not.
+	 * @return true/false
+	 */
+	public boolean checkIfAlive() {
+		return getHealth() == 1 ? true : false;
+	}
 }
