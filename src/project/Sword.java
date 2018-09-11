@@ -12,7 +12,6 @@ public class Sword extends Item {
 		status = ItemStatus.Exist;
 		this.bag = bag;
 	}
-
 	
 	
 	public boolean attack(Enemy e) {
