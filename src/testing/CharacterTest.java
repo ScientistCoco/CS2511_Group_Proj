@@ -21,11 +21,11 @@ public class CharacterTest {
 		
 		p1.addObjective(objExit1);
 		
-		board.addEntity(p1);
-		board.addEntity(new Wall(0, 0, board));
-		board.addEntity(new Wall(0, 1, board));
-		board.addEntity(e1);
-		board.addEntity(d1);
+		board.placeEntity(p1, 1, 1);
+		board.placeEntity(new Wall(0, 0, board), 0, 0);
+		board.placeEntity(new Wall(0, 1, board), 0, 1);
+		board.placeEntity(e1, 2, 4);
+		board.placeEntity(d1, 4, 4);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {

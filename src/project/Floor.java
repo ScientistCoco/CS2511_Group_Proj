@@ -3,10 +3,23 @@ package project;
 import java.util.ArrayList;
 
 public class Floor {
-	ArrayList<Entity> entities;
+	private ArrayList<Entity> entities;
 	
-	public void addEntity(Entity e) {
-		entities.add(e);
+	public Floor () {
+		entities = new ArrayList<Entity>();
+	}
+	
+	/**
+	 * Method that adds an entity to this floor space.
+	 * @param e: The entity to be added
+	 * @return true/false if the entity has been added successfully.
+	 */
+	public boolean addEntity(Entity e) {
+		if (canOccupySameSpace(e)) {
+			entities.add(e);
+			return true;
+		}
+		return false;
 	}
 	
 	public void removeEntity(Entity e) {
@@ -26,6 +39,28 @@ public class Floor {
 	public boolean canOccupySameSpace(Entity entityToBeAdded) {
 		// Make a call to overlappingEffect for each entity in the arraylist to check
 		// whether this new entity is allowed to coexist
+		for (Entity entity : this.entities) {
+			if (entity.overlappingEffect(entityToBeAdded) == false) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// This method is used along with getFrontEntity() to compare the priority of two passed in entities
+	private Entity cmpTwoEntities(Entity entityA, Entity entityB) {
+		if (entityA.getClass() == Exit.class) {
+			return entityA;
+		} else if (entityB.getClass() == Exit.class) {
+			return entityB;
+		}
+		else if (entityA.getClass() == Player.class || entityA.getClass() == Enemy.class || entityA.getClass() == Wall.class) {
+			return entityA;
+		}
+		else if (entityB.getClass() == Player.class || entityB.getClass() == Enemy.class || entityB.getClass() == Wall.class) {
+			return entityA;
+		}
+		return entityA;
 	}
 	
 	/**
@@ -35,6 +70,16 @@ public class Floor {
 	 */
 	public Entity getFrontEntity() {
 		// Cycle through the arraylist and check the 'priorities' of each entity.
+		
+		// Priority order (desc): Exit > Player == Enemy == Boulder == Wall > Pit == Potion == Door
+		Entity frontEntity = null;
+		for (Entity entity : this.entities) {
+			if (frontEntity == null) frontEntity = entity;
+			else {
+				frontEntity = cmpTwoEntities(frontEntity, entity);
+			}
+		}
+		return frontEntity;
 	}
 	
 

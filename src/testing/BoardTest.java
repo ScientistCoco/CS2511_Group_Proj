@@ -2,6 +2,7 @@ package testing;
 
 import project.Board;
 import project.Entity;
+import project.Floor;
 
 public class BoardTest {
 	
@@ -12,8 +13,10 @@ public class BoardTest {
 		board.printBoard();
 		System.out.println("\n");
 		
-		board.placeEntity(new Entity(0, 1, board), 0, 1);
-		board.printBoard();		
+		//board.placeEntity(new Entity(0, 1, board), 0, 1);
+		//board.printBoard();
+		
+		Floor[][] map = new Floor[10][10];
 		
 	}
 
