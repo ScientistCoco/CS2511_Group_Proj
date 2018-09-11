@@ -2,8 +2,8 @@ package project;
 
 public class HoverPotion extends Item {
 
-	public HoverPotion(int x, int y, Board board) {
-		super(x, y, board);
+	public HoverPotion(Board board) {
+		super(board);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -34,7 +34,7 @@ public class Board {
 	public Entity getEntity(int x, int y) {
 		// Can throw an error if the given x or y coordinate is out of bounds.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
-			return map[y][x].getFrontEntity();
+			return map[x][y].getFrontEntity();
 		}
 		return null;
 	}
@@ -54,7 +54,10 @@ public class Board {
 		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
 		// is allowed to pass over the objects that might occupy the new coordinates.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
-			return map[y][x].addEntity(entity);
+			if (map[x][y].addEntity(entity)) {
+				entity.setCoordinates(x, y);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -75,16 +78,18 @@ public class Board {
 		// Could have a better way of printing out the board. Make it more polymorphic?
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
-				if (map[i][j].getFrontEntity() == null) {
+				if (map[j][i].getFrontEntity() == null) {
 					System.out.print(" . ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Player.class)){
+				} else if (map[j][i].getFrontEntity().getClass().equals(Player.class)){
 					System.out.print(" • ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Wall.class)) {
+				} else if (map[j][i].getFrontEntity().getClass().equals(Wall.class)) {
 					System.out.print(" # ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Exit.class)) {
+				} else if (map[j][i].getFrontEntity().getClass().equals(Exit.class)) {
 					System.out.print("[ ]");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Door.class)) {
+				} else if (map[j][i].getFrontEntity().getClass().equals(Door.class)) {
 					System.out.print("[#]");
+				} else if (map[j][i].getFrontEntity().getClass().equals(Pit.class)) {
+					System.out.print(" O ");
 				}
 			}
 			System.out.print("\n");

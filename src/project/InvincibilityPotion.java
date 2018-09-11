@@ -2,8 +2,8 @@ package project;
 
 public class InvincibilityPotion extends Item{
 
-	public InvincibilityPotion(int x, int y, Board board) {
-		super(x, y, board);
+	public InvincibilityPotion(Board board) {
+		super(board);
 		// TODO Auto-generated constructor stub
 	}
 

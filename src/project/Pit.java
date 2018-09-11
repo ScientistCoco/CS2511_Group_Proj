@@ -2,8 +2,8 @@ package project;
 
 public class Pit extends Entity{
 
-	public Pit(int x, int y, Board board) {
-		super(x, y, board);
+	public Pit(Board board) {
+		super(board);
 		// TODO Auto-generated constructor stub
 	}
 

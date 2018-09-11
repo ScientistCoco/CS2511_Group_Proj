@@ -5,8 +5,8 @@ public class Arrow extends Item{
 	private ItemStatus status;
 	private Inventory items;
 	
-	public Arrow(int x, int y, Board board, Inventory items) {
-		super(x, y, board);
+	public Arrow(Board board, Inventory items) {
+		super(board);
 		// TODO Auto-generated constructor stub
 		this.status = ItemStatus.Exist;
 		this.items = items;

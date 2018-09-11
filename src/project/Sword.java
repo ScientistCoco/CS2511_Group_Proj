@@ -5,8 +5,8 @@ public class Sword extends Item {
 	private int hitsRemain;
 	private Inventory bag;
 	
-	public Sword(int x, int y, Board board, Inventory bag) {
-		super(x, y, board);
+	public Sword(Board board, Inventory bag) {
+		super(board);
 		this.name = "Sword";
 		hitsRemain = 5;
 		status = ItemStatus.Exist;
