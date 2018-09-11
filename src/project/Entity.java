@@ -38,7 +38,7 @@ public class Entity {
 	  */
 	public boolean setCoordinates(int x, int y) {
 		if (board.placeEntity(this, x, y) == true) {
-			board.removeEntity(this.xCoordinate, this.yCoordinate);
+			board.removeEntity(this, this.xCoordinate, this.yCoordinate);
 			this.xCoordinate = x;
 			this.yCoordinate = y;
 			return true;
