@@ -13,7 +13,7 @@ public class Hound extends Enemy {
 		
 	}
 
-	private boolean moveX(int x) {
+	/*private boolean moveX(int x) {
 		if() {
 			return;
 		}else {
@@ -25,5 +25,5 @@ public class Hound extends Enemy {
 		
 	}
 	
-	
+	*/
 }

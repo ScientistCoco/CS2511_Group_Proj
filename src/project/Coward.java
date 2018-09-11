@@ -11,12 +11,12 @@ public class Coward extends Enemy {
 		int y = player.getYCoordinate();
 		int offsetX = x - this.getXCoordinate();
 		int offsetY = y - this.getYCoordinate();
-		int distance
+		int distance = 1;
 		
 		
-		if() {
+		/*if(offsetX) {
 			runAway();
-		}
+		}*/
 		if(x!= this.xCoordinate) {
 			if(!moveX(x)) {
 				moveY(y);
