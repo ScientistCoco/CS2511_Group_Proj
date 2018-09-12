@@ -73,7 +73,7 @@ public class Floor {
 	public Entity getFrontEntity() {
 		// Cycle through the arraylist and check the 'priorities' of each entity.
 		
-		// Priority order (desc): Exit > Player == Enemy == Boulder == Wall > Pit == Potion == Door
+		// Priority order (desc): Exit > Player == Enemy == Boulder == Wall > Pit == Potion == Door == Switch
 		Entity frontEntity = null;
 		for (Entity entity : this.entities) {
 			if (frontEntity == null) frontEntity = entity;

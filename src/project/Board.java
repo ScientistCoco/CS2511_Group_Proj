@@ -92,6 +92,8 @@ public class Board {
 					System.out.print(" O ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Boulder.class)) {
 					System.out.print(" • ");
+				} else if (map[i][j].getFrontEntity().getClass().equals(Switch.class)) {
+					System.out.print(" Ø ");
 				}
 			}
 			System.out.print("\n");
