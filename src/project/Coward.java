@@ -9,15 +9,16 @@ public class Coward extends Enemy {
 	public void updateMove(Player player) {
 		int x = player.getXCoordinate();
 		int y = player.getYCoordinate();
-		int offsetX = x - this.getXCoordinate();
-		int offsetY = y - this.getYCoordinate();
-		int distance = 1;
+		double offsetX = x - this.getXCoordinate();
+		double offsetY = y - this.getYCoordinate();
+		double safeDistance = Math.sqrt(2);
+		double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
 		
-		
-		/*if(offsetX) {
+		if(distance <= safeDistance) {
 			runAway();
-		}*/
-		this.trackPlayer(offsetX, offsetY);
+		} else {
+			this.trackPlayer(player.getXCoordinate(), player.getYCoordinate());
+		}
 	}
 	
 	
