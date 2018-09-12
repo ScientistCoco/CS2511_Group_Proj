@@ -10,7 +10,5 @@ public class Hunter extends Enemy {
 	public void updateMove(Player player) {
 		this.trackPlayer(player.getXCoordinate(), player.getYCoordinate());
 	}
-	
-	
-	
+
 }
