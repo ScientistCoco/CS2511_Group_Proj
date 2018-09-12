@@ -13,7 +13,7 @@ public class Hound extends Enemy {
 	}
 
 	@Override
-	public void updateHunter(Player player, Hunter hunter) {
+	public void updateHound(Player player, Hunter hunter) {
 		int x = player.getXCoordinate();
 		int y = player.getYCoordinate();
 		xHunter = hunter.getXCoordinate();

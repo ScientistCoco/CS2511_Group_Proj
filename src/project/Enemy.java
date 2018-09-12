@@ -11,7 +11,7 @@ public class Enemy extends Character{
 		this.move.moveRight(this, this.board);
 	}
 
-	public void updateHunter(Player player, Hunter hunter) {
+	public void updateHound(Player player, Hunter hunter) {
 		this.move.moveRight(this, this.board);
 	}
 
