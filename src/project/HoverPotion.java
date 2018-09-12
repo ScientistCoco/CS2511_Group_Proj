@@ -4,7 +4,6 @@ public class HoverPotion extends Item {
 
 	public HoverPotion(Board board) {
 		super(board);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

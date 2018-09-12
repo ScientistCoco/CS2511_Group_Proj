@@ -15,16 +15,19 @@ public class Coward extends Enemy {
 		// when distance between player and coward <= safeDistance, coward runaway.
 		double safeDistance = Math.sqrt(2);
 		double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
+		int runDistance = 3;
 		
 		if(distance <= safeDistance) {
-			this.runAway(x, y);
+			for(int i = 0; i< runDistance; i++) {
+				this.runAway(x, y);
+			}
 		} else {
 			this.trackPlayer(player.getXCoordinate(), player.getYCoordinate());
 		}
 	}
 	
 	
-	private void runAway(int x, int y) {
+	/*private void runAway(int x, int y) {
 		int i = 0;
 		while(i < 3) {
 			if(x!= this.xCoordinate) {
@@ -37,7 +40,7 @@ public class Coward extends Enemy {
 			i++;
 		}
 	}
-	
+	/*
 	public boolean runX(int x) {
 		if((this.xCoordinate - x) > 0) {
 			return this.move.moveRight(this, this.board);
@@ -53,4 +56,5 @@ public class Coward extends Enemy {
 			this.move.moveUp(this, this.board);
 		}
 	}
+	*/
 }

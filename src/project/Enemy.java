@@ -11,6 +11,9 @@ public class Enemy extends Character{
 		this.move.moveRight(this, this.board);
 	}
 
+	public void updateHunter(Player player, Hunter hunter) {
+		this.move.moveRight(this, this.board);
+	}
 
 	protected void trackPlayer(int x, int y) {
 		if(x!= this.xCoordinate) {
@@ -22,6 +25,17 @@ public class Enemy extends Character{
 		}
 		
 	}
+	
+	protected void runAway(int x, int y) {
+		if(x!= this.xCoordinate) {
+			if(!runX(x)) {
+				runY(y);
+			}
+		} else {
+			runY(y);
+		}
+	}
+	
 	
 	@Override
 	public boolean overlappingEffect(Entity entity) {
@@ -50,7 +64,21 @@ public class Enemy extends Character{
 		}
 	}
 
+	protected boolean runX(int x) {
+		if((this.xCoordinate - x) > 0) {
+			return this.move.moveRight(this, this.board);
+		} else {
+			return this.move.moveLeft(this, this.board);
+		}
+	}
 
+	protected void runY(int y) {
+		if((this.yCoordinate - y) > 0) {
+			this.move.moveDown(this, this.board);
+		} else {
+			this.move.moveUp(this, this.board);
+		}
+	}
 	
 	
 
