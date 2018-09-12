@@ -7,6 +7,7 @@ import project.Exit;
 import project.Objective;
 import project.Pit;
 import project.Player;
+import project.Switch;
 import project.Wall;
 
 public class CharacterTest {
@@ -21,6 +22,7 @@ public class CharacterTest {
 		//d1.changeStatus(DoorStatus.Open);
 		Pit pit1 = new Pit(board);
 		Boulder bo1 = new Boulder(board);
+		Switch sw1 = new Switch(board);
 		
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		
@@ -33,6 +35,7 @@ public class CharacterTest {
 		board.placeEntity(d1, 4, 4);
 		board.placeEntity(pit1, 1, 4);
 		board.placeEntity(bo1, 1, 2);
+		board.placeEntity(sw1, 3, 3);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
