@@ -11,6 +11,8 @@ public class Coward extends Enemy {
 		int y = player.getYCoordinate();
 		double offsetX = x - this.getXCoordinate();
 		double offsetY = y - this.getYCoordinate();
+		// the safeDistance can be modified by user
+		// when distance between player and coward <= safeDistance, coward runaway.
 		double safeDistance = Math.sqrt(2);
 		double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
 		

@@ -23,6 +23,7 @@ public class HunterTest {
 		assertTrue(h1.getXCoordinate() == 1);
 	}
 	
+	@Test
 	public void test2() {
 		Board b1 = new Board();
 		Hunter h1 = new Hunter(b1);
@@ -36,6 +37,7 @@ public class HunterTest {
 		assertTrue(h1.getYCoordinate() == 2);
 	}
 	
+	@Test
 	public void test3() {
 		Board b1 = new Board();
 		Hunter h1 = new Hunter(b1);
