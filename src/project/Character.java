@@ -14,6 +14,9 @@ public abstract class Character extends Entity{
 	
 	public void deleteHealth() {
 		this.health -= 1;
+		if (!checkIfAlive()) {
+			this.board.removeEntity(this, this.xCoordinate, this.yCoordinate);
+		}
 	}
 	
 	public int getHealth() {
