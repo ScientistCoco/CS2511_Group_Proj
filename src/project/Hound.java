@@ -2,22 +2,24 @@ package project;
 
 public class Hound extends Enemy {
 	
-	private int xHunter;
-	private int yHunter; 
 	
+	private Hunter hunter;
+
 	public Hound(Board board, Hunter hunter) {
 		super(board);
+		this.hunter = hunter;
 		//hunter = new Hunter(board);
 		//xHunter = hunter.getXCoordinate();
 		//yHunter = hunter.getYCoordinate();
+		
 	}
 
 	@Override
-	public void updateHound(Player player, Hunter hunter) {
+	public void updateMove(Player player) {
 		int x = player.getXCoordinate();
 		int y = player.getYCoordinate();
-		xHunter = hunter.getXCoordinate();
-		yHunter = hunter.getYCoordinate();
+		int xHunter = this.hunter.getXCoordinate();
+		int yHunter = this.hunter.getYCoordinate();
 		//int offsetX = x - xHunter;
 		//int offsetY = y - yHunter;
 		

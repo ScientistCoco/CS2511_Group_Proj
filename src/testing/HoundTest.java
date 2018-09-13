@@ -23,7 +23,7 @@ public class HoundTest {
 		b1.placeEntity(p1, 2, 2);
 		b1.placeEntity(hound1, 3, 0);
 		
-		hound1.updateHound(p1,h1);
+		hound1.updateMove(p1);
 		
 		assertTrue(hound1.getXCoordinate() == 4);
 	}
@@ -41,7 +41,7 @@ public class HoundTest {
 		b1.placeEntity(p1, 1, 1);
 		b1.placeEntity(hound1, 2, 4);
 		
-		hound1.updateHound(p1,h1);
+		hound1.updateMove(p1);
 		
 		assertTrue(hound1.getXCoordinate() == 2);
 		assertTrue(hound1.getYCoordinate() == 3);
@@ -60,7 +60,7 @@ public class HoundTest {
 		b1.placeEntity(p1, 1, 1);
 		b1.placeEntity(hound1, 3, 2);
 		
-		hound1.updateHound(p1,h1);
+		hound1.updateMove(p1);
 		assertTrue(hound1.getXCoordinate() == 2);
 		assertTrue(hound1.getYCoordinate() == 2);
 		
@@ -68,7 +68,7 @@ public class HoundTest {
 		assertTrue(h1.getXCoordinate() == 1);
 		assertTrue(h1.getYCoordinate() == 0);
 		
-		hound1.updateHound(p1, h1);
+		hound1.updateMove(p1);
 		assertTrue(hound1.getXCoordinate() == 1);
 		assertTrue(hound1.getYCoordinate() == 2);
 	}

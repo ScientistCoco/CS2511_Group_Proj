@@ -11,10 +11,6 @@ public class Enemy extends Character{
 		this.move.moveRight(this, this.board);
 	}
 
-	public void updateHound(Player player, Hunter hunter) {
-		this.move.moveRight(this, this.board);
-	}
-
 	protected void trackPlayer(int x, int y) {
 		if(x!= this.xCoordinate) {
 			if(!moveX(x)) {
@@ -41,7 +37,11 @@ public class Enemy extends Character{
 	public boolean overlappingEffect(Entity entity) {
 		if (entity instanceof Player) {
 			Player p = (Player)entity;
-			p.deleteHealth();
+			if(p.containBuff(Buff.Invincibility)) {
+				this.deleteHealth();
+			} else {
+				p.deleteHealth();
+			}
 			return true;
 		}
 		return false;
