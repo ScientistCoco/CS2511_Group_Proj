@@ -13,11 +13,8 @@ public class Bomb extends Item{
 		effect = b;
 	}
 
-	@Override
-	public boolean affectPlayer(Player player) {
-		return effect.effect();
-	}
 
+	/*
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		if(entity instanceof Player) {
@@ -31,6 +28,7 @@ public class Bomb extends Item{
 		}
 		return true;
 	}
+	*/
 	
 	
 	
