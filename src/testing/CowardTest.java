@@ -13,7 +13,7 @@ public class CowardTest {
 	@Test
 	// test when distance between coward and player is beyond safe_distance
 	// it move towards player
-	public void test1() {
+	public void TestCloseToPlayer() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);
@@ -31,7 +31,7 @@ public class CowardTest {
 	@Test
 	// test when distance == safeDistance
 	// coward runaway from player
-	public void test2() {
+	public void TestRunAwayNormalCase() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);
@@ -48,7 +48,7 @@ public class CowardTest {
 	
 	@Test
 	// test when coward has nowhere to go and stay in the same point(left up)
-	public void test3() {
+	public void TestRunAwayIfNowhereToGo() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);
@@ -65,7 +65,7 @@ public class CowardTest {
 	
 	@Test
 	// coward turn direction when reach the end of row
-	public void test4() {
+	public void TestRunAwayTurnDirection() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);

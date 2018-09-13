@@ -22,8 +22,6 @@ public class HunterTest {
 		h1.updateMove(p1);
 		//System.out.println(h1.getXCoordinate());
 		assertTrue(h1.getXCoordinate() == 1);
-		System.out.println(h1.getYCoordinate());
-		System.out.println(h1.getXCoordinate());
 		assertTrue(h1.getYCoordinate() == 0);
 		
 	}
