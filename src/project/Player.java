@@ -20,6 +20,7 @@ public class Player extends Character {
 		enemies = new ArrayList<Enemy>();
 		directions = new ArrayList<Direction>();
 		this.icon = " ♀ ";
+		this.zOrder = 1;
 	}
 	
 	public Inventory getInventory() {

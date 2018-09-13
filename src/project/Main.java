@@ -1,17 +1,6 @@
-package testing;
+package project;
 
-import project.Board;
-import project.Bomb;
-import project.Boulder;
-import project.Door;
-import project.Exit;
-import project.Objective;
-import project.Pit;
-import project.Player;
-import project.Switch;
-import project.Wall;
-
-public class CharacterTest {
+public class Main {
 	
 	// Class to test the movement of the character class by receiving playerInput.
 	// Also tests the implementation of the wall class - prevent character from passing through it.
@@ -25,6 +14,7 @@ public class CharacterTest {
 		Boulder bo1 = new Boulder(board);
 		Switch sw1 = new Switch(board);
 		Bomb bomb = new Bomb(board);
+		Arrow arrow = new Arrow(board);
 		
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		
@@ -39,9 +29,11 @@ public class CharacterTest {
 		board.placeEntity(bo1, 1, 2);
 		board.placeEntity(sw1, 3, 3);
 		board.placeEntity(bomb, 3, 2);
+		board.placeEntity(arrow, 5, 2);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
+			board.printBoard();
 			System.out.println(p1.getObjectiveString());
 			// If the player has completed all objectives then show congratulations message
 			if (p1.checkObjectives() == true) {
@@ -53,7 +45,6 @@ public class CharacterTest {
 				System.out.println("Game over you have died");
 				break;
 			}
-			board.printBoard();
 		}
 		
 		// System exit here so the program terminates and stops running in the background.

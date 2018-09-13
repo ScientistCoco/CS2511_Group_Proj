@@ -5,6 +5,7 @@ public class Pit extends Entity{
 	public Pit(Board board) {
 		super(board);
 		this.icon = " O ";
+		this.zOrder = 1;
 	}
 
 	@Override

@@ -54,7 +54,7 @@ public class StrategistTest {
 		assertTrue(s.getXCoordinate() == 2);
 		assertTrue(s.getYCoordinate() == 5);
 		
-		b.removeEntity(s, 2, 5);
+		b.removeEntity(s);
 		b.placeEntity(h, 2, 6);
 		
 		h.updateMove(p);

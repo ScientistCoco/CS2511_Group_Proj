@@ -1,11 +1,17 @@
 package project;
 
 public class Entity {
-	protected int xCoordinate;
-	protected int yCoordinate;
+	protected Integer xCoordinate;	// Use Integer so that null values can be used. This will tell us whether or not the entity has been placed on the boar
+	protected Integer yCoordinate;
 	protected Board board;
 	protected MovementBehaviour move;
 	protected String icon;	// This is the icon that gets displayed on the board
+	protected Integer zOrder;	// Z-order is an ordering of overlapping 2d objects. 
+								// The ranks in descending order are: 0 > 1 > 2 > 3 ...
+								// 0 : Exit
+								// 1 : Player, Enemy, Pit, Wall
+								// 2 : Boulder, Potion, Door
+								// 3 : Other items. This is the default value
 	
 	/**
 	 * @pre (x > 0 && x < board.length) && (y > 0 && y < board.length)
@@ -16,17 +22,27 @@ public class Entity {
 	public Entity (Board board) {
 		this.board = board;
 		this.move = new MovementBehaviour();
+		this.zOrder = 3;
+		this.board.addEntity(this);
 	}
 	
 	public String getIcon() {
 		return this.icon;
 	}
 	
-	public int getXCoordinate() {
+	/**
+	 * 
+	 * @return the objects zOrder rank
+	 */
+	public Integer getZOrder() {
+		return this.zOrder;
+	}
+	
+	public Integer getXCoordinate() {
 		return this.xCoordinate;
 	}
 	
-	public int getYCoordinate() {
+	public Integer getYCoordinate() {
 		return this.yCoordinate;
 	}
 	

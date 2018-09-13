@@ -29,10 +29,6 @@ public class BoulderTest {
 		b1.placeEntity(d1, 2, 1);
 		
 		assertEquals(true, b1.getEntity(2, 1) == bou1);
-		
-		// Default value when int is not initialized is 0. Which would mean that d1 has not been
-		// assigned to the coordinates requested.
-		assertEquals(true, d1.getXCoordinate() == 0 && d1.getYCoordinate() == 0);
 	}
 	
 	@Test

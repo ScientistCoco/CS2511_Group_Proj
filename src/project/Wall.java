@@ -10,6 +10,7 @@ public class Wall extends Entity{
 	public Wall(Board board) {
 		super(board);
 		this.icon = " # ";
+		this.zOrder = 1;
 	}
 	
 	/**

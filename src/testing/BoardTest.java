@@ -1,44 +1,38 @@
 package testing;
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import project.Board;
-import project.Boulder;
-import project.Door;
 import project.Entity;
-import project.Floor;
+import project.Player;
 import project.Wall;
 
 public class BoardTest {
+	Board board = new Board();
+	Player p1 = new Player(board);
+	Wall w1 = new Wall(board);
 	
-	// Class to test the production of the board class
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Board board = new Board(5, 5);
-		board.printBoard();
-		System.out.println("\n");
-		
-		//board.placeEntity(new Entity(0, 1, board), 0, 1);
-		//board.printBoard();
-		
-		Wall w1 = new Wall(board);
-		board.placeEntity(w1, 1, 0);
-		System.out.println(board.getEntity(1, 0));
-		//System.out.println(w1.getXCoordinate());
-		//board.printBoard();
-		
-		/*Floor f1 = new Floor();
-		System.out.println(f1.getEntities());
-		f1.addEntity(w1);
-		System.out.println(f1.getFrontEntity());*/
-		
-		Boulder bou1 = new Boulder(board);
-		board.placeEntity(bou1, 2, 1);
-		
-		Door d1 = new Door(board, 0);
-		board.placeEntity(d1, 2, 1);
-		
-		System.out.println(board.getEntity(2, 1));
+	@Test
+	public void placeEntityOnEmptyLocation() {
+		assertEquals(true, board.placeEntity(p1, 5, 2));
+	}
+	
+	@Test
+	public void placeEntityOnNotEmptyLocation() {
+		board.placeEntity(w1, 5, 2);
+		assertEquals(false, board.placeEntity(new Entity(board), 5, 2));
+	}
+	
+	@Test
+	public void placeEntityOutsideBoard() {
+		assertEquals(false, board.placeEntity(new Entity(board), 11, 11));
+	}
+	
+	@Test
+	public void checkWallInCorrectSpotOnMap() {
+		board.placeEntity(w1, 5, 2);
+		assertEquals(true, board.getEntity(5, 2) instanceof Wall);
 	}
 
 }

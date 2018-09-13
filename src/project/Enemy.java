@@ -4,6 +4,7 @@ public class Enemy extends Character{
 
 	public Enemy(Board board) {
 		super(board);
+		this.zOrder = 1;
 	}
 
 	
@@ -45,6 +46,10 @@ public class Enemy extends Character{
 			} else {
 				p.deleteHealth();
 			}
+			return true;
+		} else if (entity instanceof Arrow) {
+			this.deleteHealth();
+			board.removeEntity(entity);
 			return true;
 		}
 		return false;

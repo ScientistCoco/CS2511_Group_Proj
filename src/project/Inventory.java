@@ -64,7 +64,11 @@ public class Inventory {
 	 */
 	public void useItem(Player player, String itemName) {
 		Item item = findItem(itemName);
-		if (item != null) {item.useItem(player);}
+		
+		if (item != null) {		// Player is able to use item. Remove item from players inventory
+			item.useItem(player);
+			removeItem(item);
+		}
 		else {
 			System.out.println("Item does not exist in your inventory");
 		}

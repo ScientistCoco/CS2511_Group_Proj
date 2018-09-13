@@ -26,6 +26,7 @@ public class Bomb extends Item{
 	public void useItem(Player player) {
 		board.placeEntity(this, player.getXCoordinate() + 1, player.getYCoordinate());
 		this.changeBehaviour(new LitBombBehaviour());
+		board.addEntity(this);
 		effect.useItem(player, board);
 	}
 	

@@ -10,6 +10,7 @@ public class Door extends Entity{
 		DoorNum = num;
 		status = DoorStatus.Closed;
 		this.icon = "[#]";
+		this.zOrder = 2;
 	}
 	
 	// Method removed as overlappingEffect method is used instead. 

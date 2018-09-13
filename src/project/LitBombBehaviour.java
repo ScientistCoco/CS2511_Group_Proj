@@ -14,19 +14,24 @@ public class LitBombBehaviour implements BombBehaviour{
 	}
 	
 	public boolean effect(Board board) {
+		// Have to check all the grids around the bomb.
 		if (canBeDamaged(this.xCoordinate+1, this.yCoordinate, board)) {
 			deleteEntities(this.xCoordinate, this.yCoordinate, board);
-		} else if (canBeDamaged(this.xCoordinate-1, this.yCoordinate, board)) {
+		} 
+		if (canBeDamaged(this.xCoordinate-1, this.yCoordinate, board)) {
 			deleteEntities(this.xCoordinate-1, this.yCoordinate, board);
-		} else if (canBeDamaged(this.xCoordinate, this.yCoordinate-1, board)) {
+		} 
+		if (canBeDamaged(this.xCoordinate, this.yCoordinate-1, board)) {
 			deleteEntities(this.xCoordinate, this.yCoordinate-1, board);
-		} else if (canBeDamaged(this.xCoordinate, this.yCoordinate+1, board)) {
+		} 
+		if (canBeDamaged(this.xCoordinate, this.yCoordinate+1, board)) {
 			deleteEntities(this.xCoordinate, this.yCoordinate+1, board);
 		}
 		
 		System.out.println("BOOM!");
 		// After the bomb explodes it should also remove itself
 		removeBomb(board, this.xCoordinate, this.yCoordinate);
+		board.printBoard();
 		return true;
 	}
 	
@@ -36,7 +41,7 @@ public class LitBombBehaviour implements BombBehaviour{
 	 */
 	private void removeBomb(Board board, int x, int y) {
 		Entity e = board.getEntity(x, y);
-		board.removeEntity(e, x, y);
+		board.removeEntity(e);
 	}
 	
 	/**
@@ -52,6 +57,10 @@ public class LitBombBehaviour implements BombBehaviour{
 	
 	private void deleteEntities(int x, int y, Board board) {
 		Entity e = board.getEntity(x, y);
+		if (e instanceof Boulder) {
+			((Boulder)e).remove();
+		}	
+		
 		if (e instanceof Player) {
 			Player p = (Player) e;
 			if(p.containBuff(Buff.Invincibility)) {
@@ -60,10 +69,6 @@ public class LitBombBehaviour implements BombBehaviour{
 				((Character)e).deleteHealth();
 			}
 		}
-		if (e instanceof Boulder) {
-			board.removeEntity((Boulder)e, x, y);
-			((Boulder)e).remove();
-		}	
 	}
 
 	@Override

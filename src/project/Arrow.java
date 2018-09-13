@@ -1,66 +1,62 @@
 package project;
 
-public class Arrow extends Item{
-	private ItemStatus status;
-	private Inventory items;
-	
+import java.util.Scanner;
 
-	public Arrow(Board board, Inventory items) {
+public class Arrow extends Item{
+
+	public Arrow(Board board) {
 		super(board);
 		this.name = "arrow";
-		// TODO Auto-generated constructor stub
-		this.status = ItemStatus.Exist;
-		this.items = items;
-	}
-	
-
-	public boolean destroyed() {
-		// No other entities in this direction
-		if (this.board.placeEntity(this, this.getXCoordinate(), this.getYCoordinate())) {
-			return false;
-		}
-		// If arrow hits an enemy
-		if (this.board.getEntity(getXCoordinate(), getYCoordinate()) instanceof Enemy) {
-			// destroy enemy
-			Enemy e = (Enemy)this.board.getEntity(getXCoordinate(), getYCoordinate());
-			e.deleteHealth();
-			return true;
-		}
-		return true;
+		this.icon = " ↖ ";
 	}
 	
 	
 	public void Fly(Direction d) {
+		// Arrow will fly until it hits objects that have a higher zorder than itself
 		switch (d) {
 			case Up:
-				while(!destroyed()) {
-					this.move.moveUp(this, this.board);
+				while(this.move.moveUp(this, this.board)) {
+					this.icon = " ↟ ";
+					board.printBoard();
 				}
 				break;
 			case Down:
-				while (!destroyed()) {
-					this.move.moveDown(this, this.board);
+				while (this.move.moveDown(this, this.board)) {
+					this.icon = " ↡ ";
+					board.printBoard();
 				}
 				break;
 			case Right:
-				while (!destroyed()) {
-					this.move.moveRight(this, this.board);
+				while (this.move.moveRight(this, this.board)) {
+					this.icon = " ↠ ";
+					board.printBoard();
 				}
 				break;
 			case Left:
-				while (!destroyed()) {
-					this.move.moveLeft(this, this.board);
+				while (this.move.moveLeft(this, this.board)) {
+					this.icon = " ↞ ";
+					board.printBoard();
 				}
 				break;
 		}
-		this.status = ItemStatus.Disappear;
-		items.removeItem(this);
+		board.removeEntity(this);
 	}
 
 
 	@Override
 	public void useItem(Player player) {
-		// TODO Auto-generated method stub
+		board.addEntity(this);	// Add the arrow to the board again because it will appear on the map
+		this.setCoordinates(player.getXCoordinate(), player.getYCoordinate());	// Update the coordinates so the arrow knows where it will 'fly'
 		
+		// Now we ask the player which direction they would like to shoot the arrow in to determine the direction	
+		System.out.println("Which direction would you like to launch the arrow?");
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		String playerInput = sc.nextLine();
+		while (Direction.fromString(playerInput) == null) {
+			playerInput = sc.nextLine();
+		}
+		//sc.close();
+		this.Fly(Direction.fromString(playerInput));	
 	}
 }

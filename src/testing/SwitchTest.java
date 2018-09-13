@@ -17,15 +17,15 @@ public class SwitchTest {
 	
 	@Test
 	public void placeASwitchOnBoardWithCorrectCoordinates() {
-		b1.placeEntity(s1, 0, 0);
-		assertEquals(true, b1.getEntity(0, 0) == s1);
+		b1.placeEntity(s1, 2, 2);
+		assertEquals(true, b1.getEntity(2, 2) == s1);
 	}
 	
 	// Entities that are not a boulder will not turn on the switch when it is stepped on
 	@Test
 	public void playerSteppingOnTopOfSwitch() {
-		b1.placeEntity(s1, 0, 0);
-		b1.placeEntity(p1, 0, 0);
+		b1.placeEntity(s1, 2, 2);
+		b1.placeEntity(p1, 2, 2);
 		
 		assertEquals(false, s1.getState());
 ;	}
@@ -33,8 +33,8 @@ public class SwitchTest {
 	// A switch will be turned on if there is a boulder on top of it
 	@Test
 	public void boulderPlacedOnTopOfSwitch() {
-		b1.placeEntity(s1, 0, 0);
-		b1.placeEntity(bou1, 0, 0);
+		b1.placeEntity(s1, 3, 0);
+		b1.placeEntity(bou1, 3, 0);
 		
 		assertEquals(true, s1.getState());
 	}
@@ -42,7 +42,7 @@ public class SwitchTest {
 	// A switch should not be on if there is no other entities on top of it 
 	@Test
 	public void nothingOnTopOfSwitch() {
-		b1.placeEntity(s1, 0, 0);
+		b1.placeEntity(s1, 9, 3);
 		assertEquals(false, s1.getState());
 	}
 }

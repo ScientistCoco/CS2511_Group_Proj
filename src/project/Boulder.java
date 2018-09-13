@@ -8,6 +8,7 @@ public class Boulder extends Entity{
 		super(board);
 		this.state = true;
 		this.icon = " • ";
+		this.zOrder = 2;
 	}
 	
 	/**
@@ -15,7 +16,7 @@ public class Boulder extends Entity{
 	 * this might be because it was in the range of a bomb or it fell through a pit
 	 */
 	public void remove() {
-		board.removeEntity(this, this.xCoordinate, this.yCoordinate);
+		board.removeEntity(this);
 		this.state = false;
 	}
 	

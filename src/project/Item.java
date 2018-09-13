@@ -31,7 +31,7 @@ public abstract class Item extends Entity{
 	public boolean overlappingEffect(Entity entity) {
 		if (entity instanceof Player) {
 			affectPlayer((Player)entity);
-			board.removeEntity(this, this.getXCoordinate(), this.getYCoordinate());
+			board.removeEntity(this);
 		}
 		return true;
 	}

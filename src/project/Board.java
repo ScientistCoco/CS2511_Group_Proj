@@ -1,26 +1,46 @@
 package project;
 
+import java.util.ArrayList;
+
 public class Board {
-	private Floor[][] map;
+	private Entity[][] map;
+	private ArrayList<Entity> entities;
 	
 	public Board() {
 		// Default size if no given width/height
-		map = new Floor[10][10];
-		initFloor(10, 10);
+		map = new Entity[10][10];
+		entities = new ArrayList<>();
 	}
 	
 	// If width and height are specified
 	public Board(int width, int height) {
 		super();
-		map = new Floor[width][height];
-		initFloor(width, height);
+		map = new Entity[width][height];
 	}
 	
-	// For each grid on the map we need to instantiate a floor object
-	public void initFloor(int width, int height) {
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				map[i][j] = new Floor();
+	public void addEntity(Entity entity) {
+		this.entities.add(entity);
+	}
+	
+	/**
+	 * This method checks all the 'alive' entities and their coordinates, checking
+	 * that their coordinates correspond to that on the board.
+	 */
+	public void updateBoard() {
+		for (Entity entity : entities) {
+			// Suppose we have two entities that occupy a square, we need to determine their
+			// zOrders to determine which entity gets 'drawn' on the board.
+			if (entity.getXCoordinate() != null) {
+				Entity e = map[entity.getXCoordinate()][entity.getYCoordinate()];
+				if (e != null) {
+					// If the entity we are checking has a higher zorder then the one occupying
+					// the space then we will replace the existing entity with the higher zorder one.
+					if (entity.getZOrder() < e.getZOrder()) {
+						map[entity.getXCoordinate()][entity.getYCoordinate()] = entity;
+					}
+				} else {
+					map[entity.getXCoordinate()][entity.getYCoordinate()] = entity;
+				}
 			}
 		}
 	}
@@ -34,7 +54,7 @@ public class Board {
 	public Entity getEntity(int x, int y) {
 		// Can throw an error if the given x or y coordinate is out of bounds.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
-			return map[y][x].getFrontEntity();
+			return map[x][y];
 		}
 		return null;
 	}
@@ -50,39 +70,49 @@ public class Board {
 	 * @return true/false if the entity was successfully placed at the given argument
 	 */
 	public boolean placeEntity(Entity entity, int x, int y) {
-		//if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length) && !(getEntity(x, y) instanceof Wall)) {
 		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
 		// is allowed to pass over the objects that might occupy the new coordinates.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
-			if (map[y][x].addEntity(entity)) {
+			Entity e = map[x][y];
+			if (e == null || e.overlappingEffect(entity)) {
 				entity.setCoordinates(x, y);
+				updateBoard();
 				return true;
-			}
+			} 
 		}
 		return false;
 	}
 	
 	/**
-	 * Method that removes the object at the given coordinates on the board
+	 * Method that removes the entity from the map & game as a result of the entity dying.
+	 * @param e
+	 */
+	public void removeEntity(Entity e) {
+		this.entities.remove(e);
+		removeFromMap(e.getXCoordinate(), e.getYCoordinate());
+	}
+	
+	/**
+	 * Method that removes the object at the given coordinates on the board as a result of the entity moving.
 	 * @param x
 	 * @param y
 	 */
-	public void removeEntity(Entity e, int x, int y) {
-		map[y][x].removeEntity(e);
+	public void removeFromMap(int x, int y) {
+		map[x][y] = null;
 	}
 	
 	/**
 	 * Method that prints out the board and all the entities on it
 	 */
 	public void printBoard() {
-		// Could have a better way of printing out the board. Make it more polymorphic?
+		updateBoard();
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
-				if (map[i][j].getFrontEntity() == null) {
+				if (map[j][i] == null) {
 					System.out.print(" . ");
 				}
 				else {
-					System.out.print(map[i][j].getFrontEntity().getIcon());
+					System.out.print(map[j][i].getIcon());
 				}
 			}
 			System.out.print("\n");
