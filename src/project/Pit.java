@@ -10,10 +10,10 @@ public class Pit extends Entity{
 	@Override
 	public boolean affectPlayer(Player player) {
 		if (player.containBuff(Buff.Hover)) {
-			return false;
+			return true;
 		}
 		player.deleteHealth();
-		return true;
+		return false;
 	}
 	
 	@Override

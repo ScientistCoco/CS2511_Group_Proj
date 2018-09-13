@@ -4,17 +4,13 @@ public class HoverPotion extends Item {
 
 	public HoverPotion(Board board) {
 		super(board);
-	}
-
-	@Override
-	public boolean affectPlayer(Player player) {
-		player.addBuff(Buff.Hover);
-		return true;
+		this.name = "hover potion";
 	}
 
 	@Override
 	public void useItem(Player player) {
-		affectPlayer(player);
+		player.addBuff(Buff.Hover);
+		items.removeItem(this);
 	}
 
 }

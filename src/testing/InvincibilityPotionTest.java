@@ -6,7 +6,9 @@ import org.junit.Test;
 
 import project.Board;
 import project.Buff;
+import project.HoverPotion;
 import project.Hunter;
+import project.InvincibilityPotion;
 import project.Player;
 
 public class InvincibilityPotionTest {
@@ -21,7 +23,6 @@ public class InvincibilityPotionTest {
 		b1.placeEntity(p1, 2, 2);
 		b1.placeEntity(h1, 2, 1);
 		p1.addEnemy(h1);
-		System.out.println(p1.getEnemies());
 		p1.notifyAllEnemies();
 		
 		
@@ -30,6 +31,16 @@ public class InvincibilityPotionTest {
 		
 	}
 
+	@Test
+	public void TestItemWillBeDisappearIfItUsed() {
+		Board b = new Board();
+		InvincibilityPotion s = new InvincibilityPotion(b);
+		Player player = new Player(b);
+		s.overlappingEffect(player);
+		assertTrue(player.getInventory().findItem("invincibility potion").equals(s));
+		//s.useItem(player);
+		//assertTrue(player.getInventory().findItem("invincibility potion") == null);
+	}
 	
 	/*
 	@Test

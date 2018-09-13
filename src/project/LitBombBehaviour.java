@@ -67,7 +67,7 @@ public class LitBombBehaviour implements BombBehaviour{
 	}
 
 	@Override
-	public boolean useItem(Player player, Board board) {
+	public boolean useItem(Player player, final Board board) {
 		this.xCoordinate = player.getXCoordinate() + 1;
 		this.yCoordinate = player.getYCoordinate();
 		

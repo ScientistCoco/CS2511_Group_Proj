@@ -4,10 +4,10 @@ public abstract class Item extends Entity{
 
 	protected String name;
 	protected ItemStatus status;
+	protected Inventory items;
 	
 	public Item(Board board) {
 		super(board);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public String getItemName() {
@@ -21,7 +21,9 @@ public abstract class Item extends Entity{
 	@Override
 	public boolean affectPlayer(Player player) {
 		player.getInventory().addItem(this);
-		return false;
+		items = player.getInventory();
+		board.removeEntity(this, this.getXCoordinate(), this.getYCoordinate());
+		return true;
 	}
 	
 	/**
@@ -30,8 +32,7 @@ public abstract class Item extends Entity{
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		if (entity instanceof Player) {
-			affectPlayer((Player)entity);
-			board.removeEntity(this, this.getXCoordinate(), this.getYCoordinate());
+			return affectPlayer((Player)entity);
 		}
 		return true;
 	}

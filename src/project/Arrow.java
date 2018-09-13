@@ -2,15 +2,13 @@ package project;
 
 public class Arrow extends Item{
 	private ItemStatus status;
-	private Inventory items;
 	
 
-	public Arrow(Board board, Inventory items) {
+	public Arrow(Board board) {
 		super(board);
 		this.name = "arrow";
 		// TODO Auto-generated constructor stub
 		this.status = ItemStatus.Exist;
-		this.items = items;
 	}
 	
 
@@ -34,22 +32,30 @@ public class Arrow extends Item{
 		switch (d) {
 			case Up:
 				while(!destroyed()) {
-					this.move.moveUp(this, this.board);
+					if (!this.move.moveUp(this, this.board)) {
+						break;
+					}
 				}
 				break;
 			case Down:
 				while (!destroyed()) {
-					this.move.moveDown(this, this.board);
+					if (!this.move.moveDown(this, this.board)) {
+						break;
+					}
 				}
 				break;
 			case Right:
 				while (!destroyed()) {
-					this.move.moveRight(this, this.board);
+					if (!this.move.moveRight(this, this.board)) {
+						break;
+					}
 				}
 				break;
 			case Left:
 				while (!destroyed()) {
-					this.move.moveLeft(this, this.board);
+					if (!this.move.moveLeft(this, this.board)) {
+						break;
+					}
 				}
 				break;
 		}
