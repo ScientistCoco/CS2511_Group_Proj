@@ -185,4 +185,12 @@ public class Player extends Character {
 	public ArrayList<Direction> getDirections() {
 		return this.directions;
 	}
+	
+	public boolean addEnemy(Enemy e) {
+		return enemies.add(e);
+	}
+	
+	public ArrayList<Enemy> getEnemies() {
+		return enemies;
+	}
 }
