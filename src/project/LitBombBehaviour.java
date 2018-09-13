@@ -26,6 +26,12 @@ public class LitBombBehaviour extends Entity implements BombBehaviour{
 	
 	private void deleteCharacter(int x, int y) {
 		Character c = (Character)this.board.getEntity(x, y);
+		if(c instanceof Player) {
+			Player p = (Player) c;
+			if(p.containBuff(Buff.Invincibility)) {
+				return;
+			}
+		}
 		c.deleteHealth();
 	}
 

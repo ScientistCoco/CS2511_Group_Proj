@@ -8,13 +8,14 @@ public class Enemy extends Character{
 
 	
 	public void updateMove(Player player) {
-		this.move.moveRight(this, this.board);
+		if(player.containBuff(Buff.Invincibility)) {
+			this.runAway(player.getXCoordinate(), player.getYCoordinate());
+		}
 	}
 
-
 	protected void trackPlayer(int x, int y) {
-		if(x!= this.xCoordinate) {
-			if(!moveX(x)) {
+		if(this.xCoordinate != x) {
+			if (!moveX(x)) {
 				moveY(y);
 			}
 		} else {
@@ -23,11 +24,27 @@ public class Enemy extends Character{
 		
 	}
 	
+	
+	protected void runAway(int x, int y) {
+		if(x!= this.xCoordinate) {
+			if(!runX(x)) {
+				runY(y);
+			}
+		} else {
+			runY(y);
+		}
+	}
+	
+	
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		if (entity instanceof Player) {
 			Player p = (Player)entity;
-			p.deleteHealth();
+			if(p.containBuff(Buff.Invincibility)) {
+				this.deleteHealth();
+			} else {
+				p.deleteHealth();
+			}
 			return true;
 		}
 		return false;
@@ -37,20 +54,38 @@ public class Enemy extends Character{
 	protected boolean moveX(int x) {
 		if((this.xCoordinate - x) > 0) {
 			return this.move.moveLeft(this, this.board);
-		} else {
+		} else if ((this.xCoordinate - x) < 0){
 			return this.move.moveRight(this, this.board);
+		} else {
+			return false;
 		}
 	}
 	
-	protected void moveY(int y) {
+	protected boolean moveY(int y) {
 		if((this.yCoordinate - y) > 0) {
-			this.move.moveUp(this, this.board);
+			return this.move.moveUp(this, this.board);
+		} else if ((this.yCoordinate - y) < 0){
+			return this.move.moveDown(this, this.board);
 		} else {
-			this.move.moveDown(this, this.board);
+			return false;
 		}
 	}
 
+	protected boolean runX(int x) {
+		if((this.xCoordinate - x) > 0) {
+			return this.move.moveRight(this, this.board);
+		} else {
+			return this.move.moveLeft(this, this.board);
+		}
+	}
 
+	protected void runY(int y) {
+		if((this.yCoordinate - y) > 0) {
+			this.move.moveDown(this, this.board);
+		} else {
+			this.move.moveUp(this, this.board);
+		}
+	}
 	
 	
 

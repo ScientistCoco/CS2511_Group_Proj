@@ -7,24 +7,31 @@ public class Coward extends Enemy {
 
 	@Override
 	public void updateMove(Player player) {
-		int x = player.getXCoordinate();
-		int y = player.getYCoordinate();
-		double offsetX = x - this.getXCoordinate();
-		double offsetY = y - this.getYCoordinate();
-		// the safeDistance can be modified by user
-		// when distance between player and coward <= safeDistance, coward runaway.
-		double safeDistance = Math.sqrt(2);
-		double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
+			int x = player.getXCoordinate();
+			int y = player.getYCoordinate();
+			double offsetX = x - this.getXCoordinate();
+			double offsetY = y - this.getYCoordinate();
+			// the safeDistance can be modified by user
+			// when distance between player and coward <= safeDistance, coward runaway.
+			double safeDistance = Math.sqrt(2);
+			int runDistance = 3;
+			//
+			//
+			double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
 		
-		if(distance <= safeDistance) {
-			this.runAway(x, y);
-		} else {
-			this.trackPlayer(player.getXCoordinate(), player.getYCoordinate());
-		}
+			if(distance <= safeDistance) {
+				for(int i = 0; i< runDistance; i++) {
+					this.runAway(x, y);
+				}
+			} else {
+				this.trackPlayer(x, y);
+			}
 	}
 	
 	
-	private void runAway(int x, int y) {
+	/*
+	 * 
+	 * private void runAway(int x, int y) {
 		int i = 0;
 		while(i < 3) {
 			if(x!= this.xCoordinate) {
@@ -37,7 +44,7 @@ public class Coward extends Enemy {
 			i++;
 		}
 	}
-	
+	/*
 	public boolean runX(int x) {
 		if((this.xCoordinate - x) > 0) {
 			return this.move.moveRight(this, this.board);
@@ -53,4 +60,5 @@ public class Coward extends Enemy {
 			this.move.moveUp(this, this.board);
 		}
 	}
+	*/
 }

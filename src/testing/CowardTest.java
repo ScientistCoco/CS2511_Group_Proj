@@ -11,9 +11,9 @@ import project.Player;
 public class CowardTest {
 
 	@Test
-	// test when distance between coward and player is beyond safedistance
+	// test when distance between coward and player is beyond safe_distance
 	// it move towards player
-	public void test1() {
+	public void TestCloseToPlayer() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);
@@ -23,7 +23,7 @@ public class CowardTest {
 		
 		c1.updateMove(p1);
 		
-		System.out.println(c1.getXCoordinate());
+		//System.out.println(c1.getXCoordinate());
 		assertTrue(c1.getXCoordinate() == 2);
 		assertTrue(c1.getYCoordinate() == 1);
 	}
@@ -31,7 +31,7 @@ public class CowardTest {
 	@Test
 	// test when distance == safeDistance
 	// coward runaway from player
-	public void test2() {
+	public void TestRunAwayNormalCase() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);
@@ -41,14 +41,14 @@ public class CowardTest {
 
 		c1.updateMove(p1);
 
-		System.out.println(c1.getYCoordinate());
+		//System.out.println(c1.getYCoordinate());
 		assertTrue(c1.getXCoordinate() == 0);
 		assertTrue(c1.getYCoordinate() == 3);
 	}
 	
 	@Test
 	// test when coward has nowhere to go and stay in the same point(left up)
-	public void test3() {
+	public void TestRunAwayIfNowhereToGo() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);
@@ -65,7 +65,7 @@ public class CowardTest {
 	
 	@Test
 	// coward turn direction when reach the end of row
-	public void test4() {
+	public void TestRunAwayTurnDirection() {
 		Board b1 = new Board();
 		Player p1 = new Player(b1);
 		Coward c1 = new Coward(b1);

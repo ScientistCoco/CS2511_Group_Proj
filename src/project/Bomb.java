@@ -13,10 +13,24 @@ public class Bomb extends Item{
 		effect = b;
 	}
 
+
+	/*
 	@Override
-	public boolean affectPlayer(Player player) {
-		return effect.effect();
+	public boolean overlappingEffect(Entity entity) {
+		if(entity instanceof Player) {
+			Player p = (Player)entity;
+			if(!p.containBuff(Buff.Invincibility)) {
+				p.deleteHealth();
+				return true;
+			}else {
+				return false;
+			}
+		}
+		return true;
 	}
+	*/
+	
+	
 	
 	
 

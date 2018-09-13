@@ -19,8 +19,8 @@ public class Pit extends Entity{
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		if (entity instanceof Player) {
-			affectPlayer((Player) entity);
-			return true;
+			return affectPlayer((Player) entity);
+			//return true;
 		} else if (entity instanceof Boulder) {
 			// The boulder will fall through the pit and disappear
 			((Boulder) entity).remove();
