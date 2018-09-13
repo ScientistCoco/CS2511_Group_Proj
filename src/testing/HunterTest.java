@@ -7,24 +7,29 @@ import org.junit.Test;
 import project.Board;
 import project.Hunter;
 import project.Player;
+import project.Wall;
 
 public class HunterTest {
 	@Test
-	public void test1() {
+	public void TestHunterMovementX() {
 		Board b1 = new Board();
 		Hunter h1 = new Hunter(b1);
 		Player p1 = new Player(b1);
 		
 		b1.placeEntity(h1, 0, 0);
 		b1.placeEntity(p1, 3, 3);
-		
+	
 		h1.updateMove(p1);
 		//System.out.println(h1.getXCoordinate());
 		assertTrue(h1.getXCoordinate() == 1);
+		System.out.println(h1.getYCoordinate());
+		System.out.println(h1.getXCoordinate());
+		assertTrue(h1.getYCoordinate() == 0);
+		
 	}
 	
 	@Test
-	public void test2() {
+	public void TestHunterMovementY() {
 		Board b1 = new Board();
 		Hunter h1 = new Hunter(b1);
 		Player p1 = new Player(b1);
@@ -34,11 +39,12 @@ public class HunterTest {
 		
 		h1.updateMove(p1);	
 	
+		assertTrue(h1.getXCoordinate() == 1);
 		assertTrue(h1.getYCoordinate() == 2);
 	}
 	
 	@Test
-	public void test3() {
+	public void TestHunterMoveXOnly() {
 		Board b1 = new Board();
 		Hunter h1 = new Hunter(b1);
 		Player p1 = new Player(b1);
@@ -49,6 +55,41 @@ public class HunterTest {
 		h1.updateMove(p1);
 		
 		assertTrue(h1.getXCoordinate() == 2);
+		assertTrue(h1.getYCoordinate() == 1);
+	}
+	
+	@Test
+	public void TestHunterToBeStationary() {
+		Board b1 = new Board();
+		Hunter h1 = new Hunter(b1);
+		Player p1 = new Player(b1);
+		Wall w1 = new Wall(b1);
+		
+		b1.placeEntity(w1, 2, 1);
+		b1.placeEntity(h1, 1, 1);
+		b1.placeEntity(p1, 3, 1);
+		
+		h1.updateMove(p1);
+		
+		assertTrue(h1.getXCoordinate() == 1);
+		assertTrue(h1.getYCoordinate() == 1);
+	}
+	
+	@Test
+	public void TestHunterMoveYIfCannotMoveX() {
+		Board b1 = new Board();
+		Hunter h1 = new Hunter(b1);
+		Player p1 = new Player(b1);
+		Wall w1 = new Wall(b1);
+		
+		b1.placeEntity(w1, 1, 0);
+		b1.placeEntity(h1, 0, 0);
+		b1.placeEntity(p1, 3, 3);
+		
+		h1.updateMove(p1);
+		
+		assertTrue(h1.getXCoordinate() == 0);
+		assertTrue(h1.getYCoordinate() == 1);
 	}
 
 }

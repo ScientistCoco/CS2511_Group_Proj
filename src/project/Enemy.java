@@ -14,8 +14,8 @@ public class Enemy extends Character{
 	}
 
 	protected void trackPlayer(int x, int y) {
-		if(x!= this.xCoordinate) {
-			if(!moveX(x)) {
+		if(this.xCoordinate != x) {
+			if (!moveX(x)) {
 				moveY(y);
 			}
 		} else {
@@ -54,16 +54,20 @@ public class Enemy extends Character{
 	protected boolean moveX(int x) {
 		if((this.xCoordinate - x) > 0) {
 			return this.move.moveLeft(this, this.board);
-		} else {
+		} else if ((this.xCoordinate - x) < 0){
 			return this.move.moveRight(this, this.board);
+		} else {
+			return false;
 		}
 	}
 	
-	protected void moveY(int y) {
+	protected boolean moveY(int y) {
 		if((this.yCoordinate - y) > 0) {
-			this.move.moveUp(this, this.board);
+			return this.move.moveUp(this, this.board);
+		} else if ((this.yCoordinate - y) < 0){
+			return this.move.moveDown(this, this.board);
 		} else {
-			this.move.moveDown(this, this.board);
+			return false;
 		}
 	}
 
