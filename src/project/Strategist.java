@@ -35,7 +35,7 @@ public class Strategist extends Enemy{
 	}
 
 
-	private Direction predictDirection(ArrayList<Direction> directions) {
+	public Direction predictDirection(ArrayList<Direction> directions) {
 		int max = 0;
 		Direction toPredict = Direction.Up;
 		HashMap<Direction, Integer> cnt = new HashMap<Direction, Integer>();
