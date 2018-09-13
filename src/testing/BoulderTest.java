@@ -46,6 +46,7 @@ public class BoulderTest {
 		b1.placeEntity(p1, 2, 1);
 		
 		assertEquals(true, bou1.getXCoordinate() == 3 && bou1.getYCoordinate() == 1);
+		assertEquals(true, p1.getXCoordinate() == 2 && p1.getYCoordinate() == 1);
 	}
 	
 	@Test
@@ -97,5 +98,6 @@ public class BoulderTest {
 		
 		assertEquals(true, b1.getEntity(1, 0) == null);
 		assertEquals(true, b1.getEntity(0, 0) == pit1);
+		assertEquals(true, p1.getXCoordinate() == 1 && p1.getYCoordinate() == 0);
 	}
 }

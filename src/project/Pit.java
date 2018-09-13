@@ -23,8 +23,8 @@ public class Pit extends Entity{
 			return true;
 		} else if (entity instanceof Boulder) {
 			// The boulder will fall through the pit and disappear
-			board.removeEntity(entity, entity.getXCoordinate(), entity.getYCoordinate());
-			return false;
+			((Boulder) entity).remove();
+			return true;
 		}
 		return false;
 	}

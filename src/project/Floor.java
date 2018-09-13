@@ -2,12 +2,13 @@ package project;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Floor {
-	private ArrayList<Entity> entities;
+	private CopyOnWriteArrayList<Entity> entities; 	// CopyOnWriteArrayList allows for concurrent changes
 	
 	public Floor () {
-		entities = new ArrayList<Entity>();
+		entities = new CopyOnWriteArrayList<Entity>();
 	}
 	
 	/**
@@ -28,7 +29,11 @@ public class Floor {
 	}
 	
 	public ArrayList<Entity> getEntities() {
-		return entities;
+		ArrayList<Entity> res = new ArrayList<Entity>();
+		for (Entity e : entities) {
+			res.add(e);
+		}
+		return res;
 	}
 	
 	/**
@@ -56,10 +61,10 @@ public class Floor {
 		} else if (entityB.getClass() == Exit.class) {
 			return entityB;
 		}
-		else if (entityA.getClass() == Player.class || entityA.getClass() == Enemy.class || entityA.getClass() == Wall.class || entityA.getClass() == Boulder.class) {
+		else if (entityA.getClass() == Player.class || entityA.getClass() == Enemy.class || entityA.getClass() == Wall.class || entityA.getClass() == Pit.class) {
 			return entityA;
 		}
-		else if (entityB.getClass() == Player.class || entityB.getClass() == Enemy.class || entityB.getClass() == Wall.class || entityB.getClass() == Boulder.class) {
+		else if (entityB.getClass() == Player.class || entityB.getClass() == Enemy.class || entityB.getClass() == Wall.class || entityB.getClass() == Pit.class) {
 			return entityB;
 		}
 		return entityA;
@@ -73,7 +78,7 @@ public class Floor {
 	public Entity getFrontEntity() {
 		// Cycle through the arraylist and check the 'priorities' of each entity.
 		
-		// Priority order (desc): Exit > Player == Enemy == Boulder == Wall > Pit == Potion == Door == Switch
+		// Priority order (desc): Exit > Player == Enemy == Pit == Wall > Boulder == Potion == Door == Switch
 		Entity frontEntity = null;
 		for (Entity entity : this.entities) {
 			if (frontEntity == null) frontEntity = entity;

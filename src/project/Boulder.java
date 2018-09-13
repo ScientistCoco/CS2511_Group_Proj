@@ -1,9 +1,17 @@
 package project;
 
 public class Boulder extends Entity{
-
+	
 	public Boulder(Board board) {
 		super(board);
+	}
+	
+	/**
+	 * This method removes the boulder from the board,
+	 * this might be because it was in the range of a bomb or it fell through a pit
+	 */
+	public void remove() {
+		board.removeEntity(this, this.xCoordinate, this.yCoordinate);
 	}
 	
 	@Override
@@ -28,10 +36,11 @@ public class Boulder extends Entity{
 			}
 			
 			this.move.move(loc, this, board);
+			
 			// Then check if the boulder has moved successfully to determine the value to return.
 			// i.e. boulder moved = return true. else return false;
 			//System.out.println(oldX != this.getXCoordinate() || oldY != this.getYCoordinate());
-			return ((oldX != this.getXCoordinate()) && (oldY != this.getYCoordinate()));
+			return ((oldX != this.getXCoordinate()) || (oldY != this.getYCoordinate()));
 		}
 		return false;
 	}
