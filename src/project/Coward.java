@@ -16,7 +16,6 @@ public class Coward extends Enemy {
 			double safeDistance = Math.sqrt(2);
 			int runDistance = 3;
 			//
-			//
 			double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
 		
 			if(distance <= safeDistance) {
