@@ -2,8 +2,11 @@ package project;
 
 public class Boulder extends Entity{
 	
+	private boolean state; // This state indicates whether the boulder is on the board or not
+	
 	public Boulder(Board board) {
 		super(board);
+		this.state = true;
 	}
 	
 	/**
@@ -12,11 +15,12 @@ public class Boulder extends Entity{
 	 */
 	public void remove() {
 		board.removeEntity(this, this.xCoordinate, this.yCoordinate);
+		this.state = false;
 	}
 	
 	@Override
 	public boolean overlappingEffect(Entity entity) {
-		if (entity instanceof Player) {
+		if (entity instanceof Player && state) {
 			// We need to get the location of the player so we can determine which direction to push this boulder into.
 			// However the boulder also needs to check if it is allowed to move into the new adjacent square.
 			
@@ -41,6 +45,8 @@ public class Boulder extends Entity{
 			// i.e. boulder moved = return true. else return false;
 			//System.out.println(oldX != this.getXCoordinate() || oldY != this.getYCoordinate());
 			return ((oldX != this.getXCoordinate()) || (oldY != this.getYCoordinate()));
+		} else if (entity instanceof Player && !state) {
+			return true;
 		}
 		return false;
 	}

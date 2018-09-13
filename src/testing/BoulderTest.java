@@ -96,7 +96,6 @@ public class BoulderTest {
 		// Player will move left causing the boulder to move into a pit and disappear
 		b1.placeEntity(p1, 1, 0);
 		
-		assertEquals(true, b1.getEntity(1, 0) == null);
 		assertEquals(true, b1.getEntity(0, 0) == pit1);
 		assertEquals(true, p1.getXCoordinate() == 1 && p1.getYCoordinate() == 0);
 	}
