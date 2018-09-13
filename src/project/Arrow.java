@@ -56,4 +56,11 @@ public class Arrow extends Item{
 		this.status = ItemStatus.Disappear;
 		items.removeItem(this);
 	}
+
+
+	@Override
+	public void useItem(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
 }

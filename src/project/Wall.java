@@ -9,7 +9,7 @@ public class Wall extends Entity{
 	
 	public Wall(Board board) {
 		super(board);
-		// TODO Auto-generated constructor stub
+		this.icon = " # ";
 	}
 	
 	/**

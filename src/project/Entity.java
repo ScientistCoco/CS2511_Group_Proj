@@ -5,6 +5,7 @@ public class Entity {
 	protected int yCoordinate;
 	protected Board board;
 	protected MovementBehaviour move;
+	protected String icon;	// This is the icon that gets displayed on the board
 	
 	/**
 	 * @pre (x > 0 && x < board.length) && (y > 0 && y < board.length)
@@ -15,6 +16,10 @@ public class Entity {
 	public Entity (Board board) {
 		this.board = board;
 		this.move = new MovementBehaviour();
+	}
+	
+	public String getIcon() {
+		return this.icon;
 	}
 	
 	public int getXCoordinate() {

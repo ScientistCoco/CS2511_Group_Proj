@@ -11,6 +11,7 @@ public class Switch extends Entity{
 	public Switch(Board board) {
 		super(board);
 		this.state = false;
+		this.icon = " Ø ";
 	}
 	
 	/**

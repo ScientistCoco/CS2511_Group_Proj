@@ -4,7 +4,7 @@ public class Pit extends Entity{
 
 	public Pit(Board board) {
 		super(board);
-		// TODO Auto-generated constructor stub
+		this.icon = " O ";
 	}
 
 	@Override

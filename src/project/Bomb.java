@@ -3,15 +3,19 @@ package project;
 public class Bomb extends Item{
 
 	private BombBehaviour effect;
-	
-	public Bomb(Board board, BombBehaviour b) {
+	/**
+	 * Instantiates a bomb class that is not yet lit
+	 */
+	public Bomb(Board board) {
 		super(board);
 		this.name = "Bomb";
-		effect = b;
+		this.icon = " Ò ";
+		effect = new UnlitBombBehaviour();
 	}
 	
 	public void changeBehaviour(BombBehaviour b) {
 		effect = b;
+		if (b instanceof LitBombBehaviour) this.icon = " Õ ";
 	}
 
 	/**
@@ -20,25 +24,22 @@ public class Bomb extends Item{
 	 */
 	@Override
 	public void useItem(Player player) {
-		this.changeBehaviour(new LitBombBehaviour(board));
-		this.effect.useItem(player);
+		board.placeEntity(this, player.getXCoordinate() + 1, player.getYCoordinate());
+		this.changeBehaviour(new LitBombBehaviour());
+		effect.useItem(player, board);
 	}
 	
-	/*
+	
 	@Override
 	public boolean overlappingEffect(Entity entity) {
-		if(entity instanceof Player) {
-			Player p = (Player)entity;
-			if(!p.containBuff(Buff.Invincibility)) {
-				p.deleteHealth();
-				return true;
-			}else {
-				return false;
-			}
-		}
+		// Do not allow a player to pass over a lit bomb, as they are not allowed to pick it up
+		if (entity instanceof Player && effect instanceof LitBombBehaviour) {
+			return false;
+		} 
+		super.overlappingEffect(entity);
 		return true;
 	}
-	*/
+	
 	
 	
 	

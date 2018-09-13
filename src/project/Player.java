@@ -1,6 +1,5 @@
 package project;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,6 +19,7 @@ public class Player extends Character {
 		inventory = new Inventory();
 		enemies = new ArrayList<Enemy>();
 		directions = new ArrayList<Direction>();
+		this.icon = " ♀ ";
 	}
 	
 	public Inventory getInventory() {
@@ -30,10 +30,7 @@ public class Player extends Character {
 	public void timeCountDown(int time, Buff b) {
 		LocalTime current = LocalTime.now();
 		LocalTime limitedTime = current.plusSeconds(time);
-		int i = 0;
-		while((LocalTime.now()) != limitedTime) {
-			i++;
-		}
+		for (int i = 0; LocalTime.now() != limitedTime; i++);
 		this.deleteBuff(b);
 	}
 	

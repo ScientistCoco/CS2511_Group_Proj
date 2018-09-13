@@ -7,6 +7,7 @@ public class Boulder extends Entity{
 	public Boulder(Board board) {
 		super(board);
 		this.state = true;
+		this.icon = " • ";
 	}
 	
 	/**
@@ -16,6 +17,14 @@ public class Boulder extends Entity{
 	public void remove() {
 		board.removeEntity(this, this.xCoordinate, this.yCoordinate);
 		this.state = false;
+	}
+	
+	/**
+	 * Method that tells us whether the boulder is on the board or not
+	 * @return
+	 */
+	public boolean getState() {
+		return this.state;
 	}
 	
 	@Override

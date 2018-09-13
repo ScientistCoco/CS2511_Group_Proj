@@ -9,7 +9,7 @@ public class Exit extends Entity{
 
 	public Exit(Board board) {
 		super(board);
-		// TODO Auto-generated constructor stub
+		this.icon = "[ ]";
 	}
 
 	public void exitFound(Player player) {

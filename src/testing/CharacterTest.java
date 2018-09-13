@@ -9,7 +9,6 @@ import project.Objective;
 import project.Pit;
 import project.Player;
 import project.Switch;
-import project.UnlitBombBehaviour;
 import project.Wall;
 
 public class CharacterTest {
@@ -25,7 +24,7 @@ public class CharacterTest {
 		Pit pit1 = new Pit(board);
 		Boulder bo1 = new Boulder(board);
 		Switch sw1 = new Switch(board);
-		Bomb bomb = new Bomb(board, new UnlitBombBehaviour(board));
+		Bomb bomb = new Bomb(board);
 		
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		
@@ -43,7 +42,6 @@ public class CharacterTest {
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
-			board.printBoard();
 			System.out.println(p1.getObjectiveString());
 			// If the player has completed all objectives then show congratulations message
 			if (p1.checkObjectives() == true) {
@@ -55,8 +53,10 @@ public class CharacterTest {
 				System.out.println("Game over you have died");
 				break;
 			}
+			board.printBoard();
 		}
 		
-		
+		// System exit here so the program terminates and stops running in the background.
+		System.exit(0);
 	}
 }

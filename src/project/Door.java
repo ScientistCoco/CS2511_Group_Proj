@@ -9,6 +9,7 @@ public class Door extends Entity{
 		super(board);
 		DoorNum = num;
 		status = DoorStatus.Closed;
+		this.icon = "[#]";
 	}
 	
 	// Method removed as overlappingEffect method is used instead. 

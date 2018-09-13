@@ -80,24 +80,9 @@ public class Board {
 			for (int j = 0; j < map.length; j++) {
 				if (map[i][j].getFrontEntity() == null) {
 					System.out.print(" . ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Player.class)){
-					System.out.print(" ♀ ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Wall.class)) {
-					System.out.print(" # ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Exit.class)) {
-					System.out.print("[ ]");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Door.class)) {
-					System.out.print("[#]");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Pit.class)) {
-					System.out.print(" O ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Boulder.class)) {
-					System.out.print(" • ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Switch.class)) {
-					System.out.print(" Ø ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(Bomb.class)) {
-					System.out.print(" Ò ");
-				} else if (map[i][j].getFrontEntity().getClass().equals(LitBombBehaviour.class)) {
-					System.out.print(" Õ ");
+				}
+				else {
+					System.out.print(map[i][j].getFrontEntity().getIcon());
 				}
 			}
 			System.out.print("\n");
