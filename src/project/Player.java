@@ -1,5 +1,7 @@
 package project;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,19 +27,26 @@ public class Player extends Character {
 	}
 	
 	
-	public void timeCountDown() {
-		
+	public void timeCountDown(int time, Buff b) {
+		LocalTime current = LocalTime.now();
+		LocalTime limitedTime = current.plusSeconds(time);
+		int i = 0;
+		while((LocalTime.now()) != limitedTime) {
+			i++;
+		}
+		this.deleteBuff(b);
 	}
 	
 	public void addBuff(Buff b) {
 		potionBuff.add(b);
 		if(b == Buff.Invincibility) {
-			timeCountDown();
+			int time = 10;
+			timeCountDown(time, b);
 		}
 	}
 	
 	public void deleteBuff(Buff b) {
-		potionBuff.remove(b);
+		this.potionBuff.remove(b);
 	}
 	
 	public boolean containBuff(Buff b) {
@@ -142,7 +151,6 @@ public class Player extends Character {
 		for (Objective obj : objectives) {
 			if (obj.getSatisfiedState()) numCompleted++;
 		}
-		
 		return numCompleted == objectives.size();
 	}
 	
