@@ -35,6 +35,14 @@ public class Sword extends Item {
 		return this.hitsRemain;
 	}
 
+	// With this method we can check if the player position is next to any nearby enemies
+	// if it is then we call call the attack() method
+	@Override
+	public void useItem(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/*private boolean canHit(Enemy e) {
 		int x = e.getXCoordinate();
 		int y = e.getYCoordinate();

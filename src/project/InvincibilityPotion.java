@@ -12,4 +12,9 @@ public class InvincibilityPotion extends Item{
 		return true;
 	}
 
+	@Override
+	public void useItem(Player player) {
+		affectPlayer(player);
+	}
+
 }

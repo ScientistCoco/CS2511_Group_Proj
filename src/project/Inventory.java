@@ -56,4 +56,17 @@ public class Inventory {
 			System.out.println("Item name: " + it.getItemName() + " Item number: " + items.get(it));
 		}
 	}
+	
+	/**
+	 * This method is called when the player wants to use an item in their inventory
+	 * @param player
+	 * @param itemName
+	 */
+	public void useItem(Player player, String itemName) {
+		Item item = findItem(itemName);
+		if (item != null) {item.useItem(player);}
+		else {
+			System.out.println("Item does not exist in your inventory");
+		}
+	}
 }

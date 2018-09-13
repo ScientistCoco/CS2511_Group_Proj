@@ -41,6 +41,11 @@ public class Key extends Item{
 		return "Key Number = " + keyNum;
 	}
 	
-	
+	// With use item we can check if the player position is next to a door
+	// if it is then we can call the openDoor method
+	@Override
+	public void useItem(Player player) {
+		// TODO Auto-generated method stub
+	}
 
 }

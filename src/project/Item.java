@@ -24,5 +24,20 @@ public abstract class Item extends Entity{
 		return false;
 	}
 	
+	/**
+	 * When a player passes over an item they will automatically pick it up
+	 */
+	@Override
+	public boolean overlappingEffect(Entity entity) {
+		if (entity instanceof Player) {
+			affectPlayer((Player)entity);
+			board.removeEntity(this, this.getXCoordinate(), this.getYCoordinate());
+		}
+		return true;
+	}
 	
+	/**
+	 * This method is called when the player wants to use the item
+	 */
+	public abstract void useItem(Player player);
 }

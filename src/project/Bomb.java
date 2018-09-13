@@ -6,6 +6,7 @@ public class Bomb extends Item{
 	
 	public Bomb(Board board, BombBehaviour b) {
 		super(board);
+		this.name = "Bomb";
 		effect = b;
 	}
 	
@@ -13,7 +14,16 @@ public class Bomb extends Item{
 		effect = b;
 	}
 
-
+	/**
+	 * When the bomb is used we assume that this means the player is lighting the bomb
+	 * with the intention of placing it on a nearby square to destroy nearby entities.
+	 */
+	@Override
+	public void useItem(Player player) {
+		this.changeBehaviour(new LitBombBehaviour(board));
+		this.effect.useItem(player);
+	}
+	
 	/*
 	@Override
 	public boolean overlappingEffect(Entity entity) {

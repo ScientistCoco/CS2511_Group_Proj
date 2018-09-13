@@ -94,6 +94,10 @@ public class Board {
 					System.out.print(" • ");
 				} else if (map[i][j].getFrontEntity().getClass().equals(Switch.class)) {
 					System.out.print(" Ø ");
+				} else if (map[i][j].getFrontEntity().getClass().equals(Bomb.class)) {
+					System.out.print(" Ò ");
+				} else if (map[i][j].getFrontEntity().getClass().equals(LitBombBehaviour.class)) {
+					System.out.print(" Õ ");
 				}
 			}
 			System.out.print("\n");
