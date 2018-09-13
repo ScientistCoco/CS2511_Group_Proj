@@ -8,7 +8,9 @@ public class Enemy extends Character{
 
 	
 	public void updateMove(Player player) {
-		this.move.moveRight(this, this.board);
+		if(player.containBuff(Buff.Invincibility)) {
+			this.runAway(player.getXCoordinate(), player.getYCoordinate());
+		}
 	}
 
 	protected void trackPlayer(int x, int y) {
@@ -21,6 +23,7 @@ public class Enemy extends Character{
 		}
 		
 	}
+	
 	
 	protected void runAway(int x, int y) {
 		if(x!= this.xCoordinate) {

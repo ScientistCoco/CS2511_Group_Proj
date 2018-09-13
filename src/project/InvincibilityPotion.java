@@ -9,7 +9,7 @@ public class InvincibilityPotion extends Item{
 	@Override
 	public boolean affectPlayer(Player player) {
 		player.addBuff(Buff.Invincibility);
-		return super.affectPlayer(player);
+		return true;
 	}
 
 }

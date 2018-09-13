@@ -8,11 +8,6 @@ public class Hunter extends Enemy {
 
 	@Override
 	public void updateMove(Player player) {
-		if(player.containBuff(Buff.Invincibility)) {
-			this.runAway(player.getXCoordinate(), player.getYCoordinate());
-		} else {
-			this.trackPlayer(player.getXCoordinate(), player.getYCoordinate());
-	
-		}
+		this.trackPlayer(player.getXCoordinate(), player.getYCoordinate());
 	}
 }

@@ -24,8 +24,20 @@ public class Player extends Character {
 		return inventory;
 	}
 	
+	
+	public void timeCountDown() {
+		
+	}
+	
 	public void addBuff(Buff b) {
 		potionBuff.add(b);
+		if(b == Buff.Invincibility) {
+			timeCountDown();
+		}
+	}
+	
+	public void deleteBuff(Buff b) {
+		potionBuff.remove(b);
 	}
 	
 	public boolean containBuff(Buff b) {

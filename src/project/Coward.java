@@ -7,9 +7,6 @@ public class Coward extends Enemy {
 
 	@Override
 	public void updateMove(Player player) {
-		if(player.containBuff(Buff.Invincibility)) {
-			this.runAway(player.getXCoordinate(), player.getYCoordinate());
-		} else {
 			int x = player.getXCoordinate();
 			int y = player.getYCoordinate();
 			double offsetX = x - this.getXCoordinate();
@@ -29,8 +26,6 @@ public class Coward extends Enemy {
 			} else {
 				this.trackPlayer(x, y);
 			}
-		
-		}
 	}
 	
 	

@@ -54,4 +54,12 @@ public class Hound extends Enemy {
 		this.trackPlayer(trackX, trackY);
 	}
 
+	
+	/*
+	 * public void runFromBuff(Player player) {
+		this.runAway(player.getXCoordinate(), player.getYCoordinate());
+	}
+	*/
+	
+
 }
