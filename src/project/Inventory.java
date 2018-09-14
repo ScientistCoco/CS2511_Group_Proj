@@ -35,7 +35,7 @@ public class Inventory {
 	
 	public void displayItems() {
 		for (Item it : items) {
-			System.out.println("Item name: " + it.getItemName());
+			System.out.println("Item name: " + it.getItemName() + "\t" + "Description: " + it.getDescription());
 		}
 	}
 	
@@ -48,8 +48,8 @@ public class Inventory {
 		Item item = findItem(itemName);
 		
 		if (item != null) {		// Player is able to use item. Remove item from players inventory
-			item.useItem(player);
 			removeItem(item);
+			item.useItem(player);
 		}
 		else {
 			System.out.println("Item does not exist in your inventory");

@@ -15,6 +15,7 @@ public class Main {
 		Switch sw1 = new Switch(board);
 		Bomb bomb = new Bomb(board);
 		Arrow arrow = new Arrow(board);
+		Sword sword = new Sword(board);
 		
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		
@@ -30,6 +31,7 @@ public class Main {
 		board.placeEntity(sw1, 3, 3);
 		board.placeEntity(bomb, 3, 2);
 		board.placeEntity(arrow, 5, 2);
+		board.placeEntity(sword, 3, 0);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {

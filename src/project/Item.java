@@ -5,6 +5,7 @@ public abstract class Item extends Entity{
 	protected String name;
 	protected ItemStatus status;
 	protected Inventory items;
+	protected String description;	// A description of the item
 	
 	public Item(Board board) {
 		super(board);
@@ -17,7 +18,11 @@ public abstract class Item extends Entity{
 	public ItemStatus getStatus() {
 		return status;
 	}
-
+	
+	public String getDescription() {
+		return description;
+	}
+	
 	/**
 	 * This method allows the player to pick up the item
 	 */
