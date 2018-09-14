@@ -49,7 +49,7 @@ public class InvincibilityPotionTest {
 		b.placeEntity(s, 0, 0);
 		b.placeEntity(player, 0, 0);
 		assertTrue(player.getInventory().findItem("invincibility potion").equals(s));
-		//player.getInventory().useItem(player, "invincibility potion");
+		player.getInventory().useItem(player, "invincibility potion");
 		assertTrue(player.getInventory().findItem("invincibility potion") == null);
 	}
 	

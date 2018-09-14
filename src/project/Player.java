@@ -1,8 +1,9 @@
 package project;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player extends Character {
 	
@@ -27,24 +28,23 @@ public class Player extends Character {
 		return inventory;
 	}
 	
-	
-	public void timeCountDown(int time, Buff b) {
-		LocalTime current = LocalTime.now();
-		LocalTime limitedTime = current.plusSeconds(time);
-		for (int i = 0; LocalTime.now() != limitedTime; i++);
-		this.deleteBuff(b);
-	}
-	
 	public void addBuff(Buff b) {
 		potionBuff.add(b);
 		if(b == Buff.Invincibility) {
-			int time = 10;
-			timeCountDown(time, b);
+			// Schedule a new timer that will run synchronously with the program.
+			// The buff will delete itself after 3600 milliseconds
+			Timer buffTimer = new Timer();
+			buffTimer.schedule(new TimerTask() {
+				public void run() { 
+					deleteBuff(b);
+				}
+			}, 3600);
 		}
 	}
 	
 	public void deleteBuff(Buff b) {
 		this.potionBuff.remove(b);
+		System.out.println(b.name() + " has expired");
 	}
 	
 	public boolean containBuff(Buff b) {
@@ -84,7 +84,7 @@ public class Player extends Character {
 				break;
 			case "Use Item":
 				System.out.println("Enter the name of the item you want to use:");
-				getInventory().useItem(this, sc.next());
+				getInventory().useItem(this, sc.nextLine());
 			default:
 				this.move.move(cmdInput, this, board);
 			}

@@ -16,6 +16,7 @@ public class Main {
 		Bomb bomb = new Bomb(board);
 		Arrow arrow = new Arrow(board);
 		Sword sword = new Sword(board);
+		InvincibilityPotion IPotion = new InvincibilityPotion(board);
 		
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		
@@ -32,6 +33,7 @@ public class Main {
 		board.placeEntity(bomb, 3, 2);
 		board.placeEntity(arrow, 5, 2);
 		board.placeEntity(sword, 3, 0);
+		board.placeEntity(IPotion, 6, 0);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
