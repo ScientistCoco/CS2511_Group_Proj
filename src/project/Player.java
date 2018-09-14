@@ -28,23 +28,12 @@ public class Player extends Character {
 	}
 	
 	
-	public void timeCountDown(int time, Buff b) {
-		LocalTime current = LocalTime.now();
-		LocalTime limitedTime = current.plusSeconds(time);
-		for (int i = 0; LocalTime.now() != limitedTime; i++);
-		this.deleteBuff(b);
-	}
-	
 	public void addBuff(Buff b) {
 		potionBuff.add(b);
-		if(b == Buff.Invincibility) {
-			int time = 10;
-			timeCountDown(time, b);
-		}
 	}
 	
-	public void deleteBuff(Buff b) {
-		this.potionBuff.remove(b);
+	public void deleteInvincibility() {
+		potionBuff.remove(Buff.Invincibility);
 	}
 	
 	public boolean containBuff(Buff b) {
