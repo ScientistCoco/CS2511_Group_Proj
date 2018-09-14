@@ -2,8 +2,6 @@ package project;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Player extends Character {
 	
@@ -30,21 +28,11 @@ public class Player extends Character {
 	
 	public void addBuff(Buff b) {
 		potionBuff.add(b);
-		if(b == Buff.Invincibility) {
-			// Schedule a new timer that will run synchronously with the program.
-			// The buff will delete itself after 3600 milliseconds
-			Timer buffTimer = new Timer();
-			buffTimer.schedule(new TimerTask() {
-				public void run() { 
-					deleteBuff(b);
-				}
-			}, 3600);
-		}
 	}
 	
-	public void deleteBuff(Buff b) {
-		this.potionBuff.remove(b);
-		System.out.println(b.name() + " has expired");
+	public void deleteInvincibility() {
+		potionBuff.remove(Buff.Invincibility);
+		System.out.println(Buff.Invincibility.name() + " has expired");
 	}
 	
 	public boolean containBuff(Buff b) {

@@ -25,7 +25,7 @@ public class InvincibilityPotionTest {
 		p1.addEnemy(h1);
 		p1.notifyAllEnemies();
 		
-		
+		//System.out.println(h1.getYCoordinate());
 		assertTrue(p1.checkIfAlive() == false);
 		assertTrue(p1.getHealth() == 0);
 		
@@ -45,9 +45,15 @@ public class InvincibilityPotionTest {
 	public void TestItemWillDisappearIfUsed() {
 		Board b = new Board();
 		InvincibilityPotion s = new InvincibilityPotion(b);
+		//Buff s = Buff.Invincibility;
 		Player player = new Player(b);
 		b.placeEntity(s, 0, 0);
 		b.placeEntity(player, 0, 0);
+		//player.addBuff(s);
+		//assertTrue(player.containBuff(Buff.Invincibility));
+		//s.useItem(player);
+		System.out.println("1");
+		//assertTrue(!player.containBuff(Buff.Invincibility));
 		assertTrue(player.getInventory().findItem("invincibility potion").equals(s));
 		player.getInventory().useItem(player, "invincibility potion");
 		assertTrue(player.getInventory().findItem("invincibility potion") == null);
