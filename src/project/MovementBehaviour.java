@@ -3,17 +3,17 @@ package project;
 public class MovementBehaviour {
 	
 	public void move(String direction, Entity e, Board board) {
-		switch (direction) {
-			case "Up":
+		switch (direction.toUpperCase()) {
+			case "UP":
 				moveUp(e, board);
 				break;
-			case "Down":
+			case "DOWN":
 				moveDown(e, board);
 				break;
-			case "Left":
+			case "LEFT":
 				moveLeft(e, board);
 				break;
-			case "Right":
+			case "RIGHT":
 				moveRight(e, board);
 				break;
 		}

@@ -26,6 +26,19 @@ public class Player extends Character {
 		return inventory;
 	}
 	
+	/**
+	 * Returns a string of all the commands that the player can use
+	 * @return a string of the player commands
+	 */
+	private String getPlayerCmds() {
+		StringBuilder sb = new StringBuilder();
+		for (PlayerCmds cmd : PlayerCmds.values()) {
+			sb.append(cmd + " ; ");
+		}
+		return sb.toString();
+	}
+	
+	
 	public void addBuff(Buff b) {
 		potionBuff.add(b);
 	}
@@ -53,31 +66,30 @@ public class Player extends Character {
 	@SuppressWarnings("resource")
 	public boolean getKeyboardInput() {
 		Scanner sc = new Scanner(System.in);
-		ArrayList<String> cmds = new ArrayList<>();
-		cmds.add("Up"); cmds.add("Down"); cmds.add("Left"); cmds.add("Right"); cmds.add("Exit");
-		cmds.add("Inv"); cmds.add("Use Item");
 		
 		// Receive input from user, check that the user has entered a valid command.
 		// If it is one of the movement commands then we call our move() method and pass the direction
 		// the character wants to go to.
-		System.out.println("Enter one of the commands: " + String.join(" ", cmds));
-		String cmdInput = sc.nextLine().replace("^[a-z]", "[A-Z]");
-		if (cmds.contains(cmdInput)) {
-			switch (cmdInput) {
-			case "Exit":
+		System.out.println("Enter one of the commands: " + getPlayerCmds());
+		String cmdInput = sc.nextLine();
+		PlayerCmds cmdType = PlayerCmds.fromString(cmdInput);
+		if (cmdType != null) {
+			switch (cmdType) {
+			case Exit:
 				sc.close();
 				return true;
-			case "Inv":		// This command allows the player to see items in their inventory
+			case Inv:		// This command allows the player to see items in their inventory
 				getInventory().displayItems();
 				break;
-			case "Use Item":
+			case Use_Item:
 				System.out.println("Enter the name of the item you want to use:");
 				getInventory().useItem(this, sc.nextLine());
+				break;
 			default:
 				this.move.move(cmdInput, this, board);
 			}
 		} else {
-			System.out.println("Please enter one of the commands: " + String.join(" ", cmds));
+			System.out.println("Please enter one of the commands: " + getPlayerCmds());
 		}
 		
 		// For some reason, closing the scanner class seems to chuck an exception that the element is out of bounds?
