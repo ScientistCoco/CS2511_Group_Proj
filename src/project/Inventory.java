@@ -1,28 +1,18 @@
 package project;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Inventory {
-	private HashMap<Item, Long> items;
+	private ArrayList<Item> items;
 	
 	public Inventory() {
-		items = new HashMap<Item, Long>();
+		items = new ArrayList<Item>();
 	}
 	
 	public boolean addItem(Item it) {
 		//check sword
-		if (it instanceof Sword) {
-			if (items.containsKey(it)) {
-				return false;
-			}
-		}
-		
-		if(!items.containsKey(it)) {
-			items.put(it, new Long(1));
-		} else {
-			items.put(it, new Long(items.get(it).longValue() + 1));
-		}
-		return true;
+		if (this.findItem("sword") != null) return false;
+		return items.add(it);
 	}
 	
 	
@@ -31,19 +21,11 @@ public class Inventory {
 	 * @param it
 	 */
 	public boolean removeItem(Item it) {
-		if (items.get(it).longValue() > 1) {
-			items.put(it, new Long(items.get(it).longValue() - 1));
-			return true;
-		}
-		if (items.get(it).longValue() == 1) {
-			items.remove(it);
-			return true;
-		}
-		return false;
+		return items.remove(it);
 	}
 	
 	public Item findItem(String name) {
-		for (Item it : items.keySet()) {
+		for (Item it : items) {
 			if (it.getItemName().equals(name)) {
 				return it;
 			}
@@ -52,8 +34,8 @@ public class Inventory {
 	}
 	
 	public void displayItems() {
-		for (Item it : items.keySet()) {
-			System.out.println("Item name: " + it.getItemName() + " Item number: " + items.get(it));
+		for (Item it : items) {
+			System.out.println("Item name: " + it.getItemName());
 		}
 	}
 	

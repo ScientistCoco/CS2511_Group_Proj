@@ -3,14 +3,12 @@ package project;
 public class Sword extends Item {
 
 	private int hitsRemain;
-	private Inventory bag;
 	
-	public Sword(Board board, Inventory bag) {
+	public Sword(Board board) {
 		super(board);
 		this.name = "sword";
 		hitsRemain = 5;
 		status = ItemStatus.Exist;
-		this.bag = bag;
 	}
 	
 	
@@ -19,7 +17,7 @@ public class Sword extends Item {
 		hitsRemain--;
 		if (disappear()) {
 			status = ItemStatus.Disappear;
-			bag.removeItem(this);
+			items.removeItem(this);
 		}
 		return true;
 	}
@@ -35,13 +33,12 @@ public class Sword extends Item {
 		return this.hitsRemain;
 	}
 
-	// With this method we can check if the player position is next to any nearby enemies
-	// if it is then we call call the attack() method
+
 	@Override
 	public void useItem(Player player) {
-		// TODO Auto-generated method stub
 		
 	}
+
 
 	/*private boolean canHit(Enemy e) {
 		int x = e.getXCoordinate();
