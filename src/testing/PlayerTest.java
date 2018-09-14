@@ -21,10 +21,10 @@ public class PlayerTest {
 		Player player = new Player(board);
 		Bomb bomb = new Bomb(board);
 		
-		board.placeEntity(bomb, 4, 4);
+		board.placeEntity(bomb, 3, 4);
 		board.placeEntity(player, 4, 4);
 		
-		bomb.useItem(player);
+		bomb.setBombToLight();
 		
 		// Have to wait for bomb to explode before we test if the player has died
 		Timer timer = new Timer();

@@ -5,18 +5,13 @@ import java.util.TimerTask;
 
 public class LitBombBehaviour implements BombBehaviour{
 	private Timer timer = new Timer();
-	private Integer explosionTime = 1200;	// This is the time the bomb will stay ignited before it expldoes
 	private int xCoordinate;
 	private int yCoordinate;
-	
-	public Integer getExplosionTime() {
-		return explosionTime;
-	}
 	
 	public boolean effect(Board board) {
 		// Have to check all the grids around the bomb.
 		if (canBeDamaged(this.xCoordinate+1, this.yCoordinate, board)) {
-			deleteEntities(this.xCoordinate, this.yCoordinate, board);
+			deleteEntities(this.xCoordinate+1, this.yCoordinate, board);
 		} 
 		if (canBeDamaged(this.xCoordinate-1, this.yCoordinate, board)) {
 			deleteEntities(this.xCoordinate-1, this.yCoordinate, board);
@@ -72,16 +67,17 @@ public class LitBombBehaviour implements BombBehaviour{
 	}
 
 	@Override
-	public boolean useItem(Player player, final Board board) {
-		this.xCoordinate = player.getXCoordinate() + 1;
-		this.yCoordinate = player.getYCoordinate();
+	public boolean useItem(Bomb bomb, Board board) {
+		
+		this.xCoordinate = bomb.getXCoordinate();
+		this.yCoordinate = bomb.getYCoordinate();
 		
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				effect(board);
 			}
-		}, this.explosionTime);
+		}, bomb.getExplosionTime());
 		
 		return true;
 	}

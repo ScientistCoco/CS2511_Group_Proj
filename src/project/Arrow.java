@@ -1,7 +1,5 @@
 package project;
 
-import java.util.Scanner;
-
 public class Arrow extends Item{
 
 	public Arrow(Board board) {
@@ -50,13 +48,6 @@ public class Arrow extends Item{
 		
 		// Now we ask the player which direction they would like to shoot the arrow in to determine the direction	
 		System.out.println("Which direction would you like to launch the arrow?");
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		String playerInput = sc.nextLine();
-		while (Direction.fromString(playerInput) == null) {
-			playerInput = sc.nextLine();
-		}
-		//sc.close();
-		this.Fly(Direction.fromString(playerInput));	
+		this.Fly(getPlayerInputForDirection());	
 	}
 }

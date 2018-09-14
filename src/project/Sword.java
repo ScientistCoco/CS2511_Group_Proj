@@ -1,7 +1,5 @@
 package project;
 
-import java.util.Scanner;
-
 public class Sword extends Item {
 
 	private int durability;
@@ -80,14 +78,7 @@ public class Sword extends Item {
 	public void useItem(Player player) {
 		// When sword is used the system will ask the player for which direction they want to swing the sword
 		System.out.println("Which direction do you want to swing the sword?");
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		String playerInput = sc.nextLine();
-		while (Direction.fromString(playerInput) == null) {
-			playerInput = sc.nextLine();
-		}
-		
-		swing(player, Direction.fromString(playerInput));
+		swing(player, getPlayerInputForDirection());
 	}
 
 }

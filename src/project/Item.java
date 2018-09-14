@@ -1,5 +1,7 @@
 package project;
 
+import java.util.Scanner;
+
 public abstract class Item extends Entity{
 
 	protected String name;
@@ -44,6 +46,22 @@ public abstract class Item extends Entity{
 			return affectPlayer((Player)entity);
 		}
 		return true;
+	}
+	
+	/**
+	 * This method will use the scanner class to read user input until a direction is specified.
+	 * It is used for the arrow, bomb & sword class where the user can specify in which direction
+	 * they want to use the items.
+	 * @return a direction enum requested by the user
+	 */
+	public Direction getPlayerInputForDirection() {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		String playerInput = sc.nextLine();
+		while (Direction.fromString(playerInput) == null) {
+			playerInput = sc.nextLine();
+		}
+		return Direction.fromString(playerInput);
 	}
 	
 	/**

@@ -8,7 +8,6 @@ import org.junit.Test;
 import project.Board;
 import project.Direction;
 import project.Enemy;
-import project.Inventory;
 import project.Player;
 import project.Sword;
 
