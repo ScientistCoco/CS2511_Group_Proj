@@ -6,6 +6,7 @@ public class Hunter extends Enemy {
 	
 	public Hunter(Board board) {
 		super(board);
+		this.icon = " ☻ ";
 	}
 
 	@Override

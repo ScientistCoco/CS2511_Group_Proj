@@ -17,6 +17,7 @@ public class Main {
 		Arrow arrow = new Arrow(board);
 		Sword sword = new Sword(board);
 		InvincibilityPotion IPotion = new InvincibilityPotion(board);
+		Hunter hunter = new Hunter(board);
 		
 		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
 		
@@ -34,6 +35,7 @@ public class Main {
 		board.placeEntity(arrow, 5, 2);
 		board.placeEntity(sword, 3, 0);
 		board.placeEntity(IPotion, 6, 0);
+		board.placeEntity(hunter, 7, 7);
 		
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
