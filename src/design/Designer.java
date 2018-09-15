@@ -4,10 +4,8 @@ import java.util.Scanner;
 
 public class Designer {
 	
-	public String getCmd() {
-		Scanner sc = new Scanner(System.in);
+	public String getCmd(Scanner sc) {
 		String input = sc.nextLine();
-		sc.close();
 		return input;
 	}
 
