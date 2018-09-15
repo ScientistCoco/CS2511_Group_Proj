@@ -27,7 +27,7 @@ public class PlayerTest {
 	@Test
 	public void TestPlayerDiesInRangeOfExplodingBomb() {
 		Board board = new Board();
-		Player player = new Player(board);
+		final Player player = new Player(board);
 		Bomb bomb = new Bomb(board);
 		
 		board.placeEntity(bomb, 3, 4);
