@@ -2,22 +2,30 @@ package testing;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import enemies.Coward;
 import enemies.Hound;
 import enemies.Hunter;
 import other.Board;
 import other.Player;
 
 public class HoundTest {
-
+	Board b1;
+	Player p1;
+	Hunter h1;
+	Hound hound1;
+	@Before
+	public void setUp() throws Exception {
+		b1 = new Board();
+		p1 = new Player(b1);
+		h1 = new Hunter(b1);
+		hound1 = new Hound(b1, h1);
+	}
 	@Test
 	// test when x coordinate is different
 	public void TestIfXisDifferent() {
-		Board b1 = new Board();
-		Hunter h1 = new Hunter(b1);
-		Player p1 = new Player(b1);
-		Hound hound1 = new Hound(b1, h1);
 		
 		b1.placeEntity(h1, 0, 0);
 		b1.placeEntity(p1, 2, 2);
@@ -32,10 +40,6 @@ public class HoundTest {
 	// test when x coordinate is same
 	// only y move
 	public void TestIfXIsTheSame() {
-		Board b1 = new Board();
-		Hunter h1 = new Hunter(b1);
-		Player p1 = new Player(b1);
-		Hound hound1 = new Hound(b1, h1);
 		
 		b1.placeEntity(h1, 0, 0);
 		b1.placeEntity(p1, 1, 1);
@@ -51,10 +55,6 @@ public class HoundTest {
 	// test when hunter is moving at the same time
 	// 
 	public void TestIfHunterMoves() {
-		Board b1 = new Board();
-		Hunter h1 = new Hunter(b1);
-		Player p1 = new Player(b1);
-		Hound hound1 = new Hound(b1, h1);
 		
 		b1.placeEntity(h1, 0, 0);
 		b1.placeEntity(p1, 1, 1);

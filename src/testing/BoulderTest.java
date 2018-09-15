@@ -2,6 +2,7 @@ package testing;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import other.Board;
@@ -12,9 +13,25 @@ import other.Player;
 import other.Wall;
 
 public class BoulderTest {
-	Board b1 = new Board();
-	Boulder bou1 = new Boulder(b1);
-	
+	Board b1;
+	Boulder bou1;
+	Door d1;
+	Player p1;
+	Wall w1;
+	Pit pit1;
+
+	@Before
+	public void setUp() throws Exception {
+		b1 = new Board();
+		bou1 = new Boulder(b1);
+		d1 = new Door(b1, 0);
+		p1 = new Player(b1);
+		w1 = new Wall(b1);
+		pit1 = new Pit(b1);
+		
+		b1.placeEntity(bou1, 2, 1);
+	}
+		
 	@Test
 	public void instantiateABoulderOnBoardWithCorrectCoordinates() {
 		b1.placeEntity(bou1, 2, 1);
@@ -24,10 +41,7 @@ public class BoulderTest {
 	@Test
 	public void otherEntitiesCannotExistOnTopOfTheBoulder() {
 		b1.placeEntity(bou1, 2, 1);
-		
-		Door d1 = new Door(b1, 0);
 		b1.placeEntity(d1, 2, 1);
-		
 		assertEquals(true, b1.getEntity(2, 1) == bou1);
 	}
 	
@@ -35,7 +49,6 @@ public class BoulderTest {
 	public void pushingBoulderIntoAdjacentSquare() {
 		b1.placeEntity(bou1, 2, 1);
 		
-		Player p1 = new Player(b1);
 		b1.placeEntity(p1, 1, 1);
 		
 		// Player will move to the right to push the boulder to the right
@@ -51,7 +64,6 @@ public class BoulderTest {
 		// As a result the player should also not move
 		b1.placeEntity(bou1, 0, 0);
 		
-		Player p1 = new Player(b1);
 		b1.placeEntity(p1, 0, 1);
 		
 		// Player will move up to try move the boulder up into its next adjacent square
@@ -67,8 +79,6 @@ public class BoulderTest {
 		// As a result the player should also not move
 		b1.placeEntity(bou1, 1, 0);
 		
-		Player p1 = new Player(b1);
-		Wall w1 = new Wall(b1);
 		b1.placeEntity(p1, 2, 0);
 		b1.placeEntity(w1, 0, 0);
 		
@@ -83,9 +93,6 @@ public class BoulderTest {
 	public void pushingBoulderIntoAPit() {
 		// Pushing a boulder into a pit will cause the boulder to disappear from the map.
 		b1.placeEntity(bou1, 1, 0);
-		
-		Player p1 = new Player(b1);
-		Pit pit1 = new Pit(b1);
 		b1.placeEntity(p1, 2, 0);
 		b1.placeEntity(pit1, 0, 0);
 		

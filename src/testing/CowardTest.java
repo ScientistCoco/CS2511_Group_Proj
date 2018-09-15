@@ -2,6 +2,7 @@ package testing;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import enemies.Coward;
@@ -9,15 +10,22 @@ import other.Board;
 import other.Player;
 
 public class CowardTest {
-
+	Board b1;
+	Player p1;
+	Coward c1;
+	
+	@Before
+	public void setUp() throws Exception {
+		b1 = new Board();
+		p1 = new Player(b1);
+		c1 = new Coward(b1);
+	}
+	
 	@Test
 	// test when distance between coward and player is beyond safe_distance
 	// it move towards player
 	public void TestCloseToPlayer() {
-		Board b1 = new Board();
-		Player p1 = new Player(b1);
-		Coward c1 = new Coward(b1);
-		
+
 		b1.placeEntity(p1, 4, 4);
 		b1.placeEntity(c1, 1, 1);
 		
@@ -32,10 +40,7 @@ public class CowardTest {
 	// test when distance == safeDistance
 	// coward runaway from player
 	public void TestRunAwayNormalCase() {
-		Board b1 = new Board();
-		Player p1 = new Player(b1);
-		Coward c1 = new Coward(b1);
-		
+
 		b1.placeEntity(p1, 4, 4);
 		b1.placeEntity(c1, 3, 3);
 
@@ -49,9 +54,6 @@ public class CowardTest {
 	@Test
 	// test when coward has nowhere to go and stay in the same point(left up)
 	public void TestRunAwayIfNowhereToGo() {
-		Board b1 = new Board();
-		Player p1 = new Player(b1);
-		Coward c1 = new Coward(b1);
 		
 		b1.placeEntity(p1, 2, 2);
 		b1.placeEntity(c1, 1, 1);
@@ -66,10 +68,7 @@ public class CowardTest {
 	@Test
 	// coward turn direction when reach the end of row
 	public void TestRunAwayTurnDirection() {
-		Board b1 = new Board();
-		Player p1 = new Player(b1);
-		Coward c1 = new Coward(b1);
-		
+
 		b1.placeEntity(p1, 3, 3);
 		b1.placeEntity(c1, 2, 2);
 		

@@ -34,17 +34,8 @@ public class KeyTest {
 		b1.placeEntity(k1, 2, 2);
 		b1.placeEntity(p1, 2, 2);
 		i1.addItem(k1);
-		assertTrue(i1.findItem("key").equals(k1));
+		assertTrue(i1.findItem("Key").equals(k1));
 //		assertFalse(k1.openDoor(d1));
 	}
-	
-	@Test
-	public void assureOnlyOneKey() {
-		b1.placeEntity(k1, 2, 2);
-		i1.addItem(k1);
-		assertTrue(i1.findItemAmount("key")==1);	
-		i1.addItem(k2);
-		assertFalse(i1.findItem("key").equals(k2));
-		assertTrue(i1.findItemAmount("key")==1);	
-	}
+
 }

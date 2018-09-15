@@ -5,33 +5,45 @@ import static org.junit.Assert.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import enemies.Enemy;
 import items.Bomb;
+import items.HoverPotion;
+import items.Item;
 import other.Board;
 import other.Buff;
+import other.Inventory;
 import other.Pit;
 import other.Player;
 
 public class PlayerTest {
+	Board b1;
+	Player p1;
+	Bomb bomb;
+	Pit pit;
+	
+	@Before
+	public void setUp() throws Exception {
+		b1 = new Board();
+		p1 = new Player(b1);
+		bomb = new Bomb(b1);
+		pit = new Pit(b1);
+	}
 	
 	@Test
 	public void testBuffAdded() {
-		Board board = new Board();
-		Player p1 = new Player(board);
 		p1.addBuff(Buff.Invincibility);
 		assertEquals(true, p1.containBuff(Buff.Invincibility));
 	}
 
 	@Test
 	public void TestPlayerDiesInRangeOfExplodingBomb() {
-		Board board = new Board();
-		final Player player = new Player(board);
-		Bomb bomb = new Bomb(board);
+		final Player player = new Player(b1);
 		
-		board.placeEntity(bomb, 3, 4);
-		board.placeEntity(player, 4, 4);
+		b1.placeEntity(bomb, 3, 4);
+		b1.placeEntity(player, 4, 4);
 		
 		bomb.setBombToLight();
 		
@@ -47,27 +59,23 @@ public class PlayerTest {
 	
 	@Test
 	public void TestPlayerDiesByFallingIntoAPit() {
-		Board board = new Board();
-		Player player = new Player(board);
-		Pit pit = new Pit(board);
+
+		b1.placeEntity(p1, 1, 0);
+		b1.placeEntity(pit, 0, 0);
+		b1.placeEntity(p1, 0, 0);
 		
-		board.placeEntity(player, 1, 0);
-		board.placeEntity(pit, 0, 0);
-		board.placeEntity(player, 0, 0);
-		
-		assertEquals(true, player.getHealth() == 0);
+		assertEquals(true, p1.getHealth() == 0);
 	}
 	
 	@Test
 	public void TestPlayerDiesUponCollisionWithEnemy() {
-		Board board = new Board();
-		Player player = new Player(board);
-		Enemy enemy = new Enemy(board);
+
+		Enemy enemy = new Enemy(b1);
 		
-		board.placeEntity(player, 0, 0);
-		board.placeEntity(enemy, 1, 0);
-		board.placeEntity(player, 1, 0);
+		b1.placeEntity(p1, 0, 0);
+		b1.placeEntity(enemy, 1, 0);
+		b1.placeEntity(p1, 1, 0);
 		
-		assertEquals(true, player.getHealth() == 0);
+		assertEquals(true, p1.getHealth() == 0);
 	}
 }
