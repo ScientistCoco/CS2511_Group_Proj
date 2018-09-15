@@ -74,7 +74,7 @@ public class LitBombBehaviour implements BombBehaviour{
 	}
 
 	@Override
-	public boolean useItem(Bomb bomb, Board board) {
+	public boolean useItem(Bomb bomb, final Board board) {
 		
 		this.xCoordinate = bomb.getXCoordinate();
 		this.yCoordinate = bomb.getYCoordinate();
