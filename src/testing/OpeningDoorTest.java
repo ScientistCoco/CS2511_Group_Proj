@@ -2,13 +2,13 @@ package testing;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import org.junit.Test;
 
 import items.Key;
 import other.Board;
 import other.Door;
 import other.DoorStatus;
-import other.Inventory;
 import other.Player;
 
 public class OpeningDoorTest {
@@ -17,9 +17,8 @@ public class OpeningDoorTest {
 	public void testCannotOpen() {
 		Board b1 =new Board();
 		Door d1 = new Door(b1, 1);
-		Inventory i1 = new Inventory();
-		Key k1 = new Key(b1, 0, i1);
-		i1.addItem(k1);
+		Key k1 = new Key(b1, 0);
+		
 		assertFalse(k1.openDoor(d1));
 	}
 	
@@ -27,9 +26,7 @@ public class OpeningDoorTest {
 	public void testCanOpen() {
 		Board b2 =new Board();
 		Door d2 = new Door(b2, 1);
-		Inventory i2 = new Inventory();
-		Key k2 = new Key(b2, 1, i2);
-		i2.addItem(k2);
+		Key k2 = new Key(b2, 1);
 		assertTrue(k2.openDoor(d2));
 	}
 	
@@ -42,12 +39,10 @@ public class OpeningDoorTest {
 	}
 	
 	@Test
-	public void testCanDoorStatusAfterOpening() {
+	public void testDoorStatusAfterOpening() {
 		Board b4 =new Board();
 		Door d4 = new Door(b4, 1);
-		Inventory i4 = new Inventory();
-		Key k4 = new Key(b4, 1, i4);
-		i4.addItem(k4);
+		Key k4 = new Key(b4, 1);
 		k4.openDoor(d4);
 		assertTrue(d4.getDoorStatus() == DoorStatus.Open);
 	}
@@ -56,11 +51,37 @@ public class OpeningDoorTest {
 	public void testKeyDisappearAfterOpeningDoor() {
 		Board b5 =new Board();
 		Door d5 = new Door(b5, 1);
-		Inventory i5 = new Inventory();
-		Key k5 = new Key(b5, 1, i5);
-		i5.addItem(k5);
-		k5.openDoor(d5);
-		assertEquals(null, i5.findItem("key"));
+		Key k5 = new Key(b5, 1);
+		Player p5 = new Player(b5);
+		
+		b5.placeEntity(k5, 0, 0);
+		b5.placeEntity(p5, 0, 0);
+		b5.placeEntity(d5, 1, 0);
+
+		ByteArrayInputStream in = new ByteArrayInputStream("Right\n".getBytes());
+		System.setIn(in);
+
+		p5.getInventory().useItem(p5, "Key");
+		
+		assertEquals(null, p5.getInventory().findItem("Key"));
 	}
 
+	@Test
+	public void testKeyRemainsWithNonMatchingDoor() {
+		Board b5 =new Board();
+		Door d5 = new Door(b5, 2);
+		Key k5 = new Key(b5, 1);
+		Player p5 = new Player(b5);
+		
+		b5.placeEntity(k5, 0, 0);
+		b5.placeEntity(p5, 0, 0);
+		b5.placeEntity(d5, 1, 0);
+		
+		ByteArrayInputStream in = new ByteArrayInputStream("Right\n".getBytes());
+		System.setIn(in);
+
+		p5.getInventory().useItem(p5, "Key");
+		
+		assertNotEquals(null, p5.getInventory().findItem("Key"));
+	}
 }

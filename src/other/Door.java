@@ -7,20 +7,11 @@ public class Door extends Entity{
 	
 	public Door(Board board, int num) {
 		super(board);
-		DoorNum = num;
+		this.DoorNum = num;
 		status = DoorStatus.Closed;
 		this.icon = "[#]";
 		this.zOrder = 2;
 	}
-	
-	// Method removed as overlappingEffect method is used instead. 
-	/*@Override
-	public boolean affectPlayer(Player player) {
-		if (status.equals(DoorStatus.Open)) {
-			return false;
-		}
-		return true;
-	}*/
 	
 	/**
 	 * Method checks if the entity that is passing over the door is allowed to pass through it.
