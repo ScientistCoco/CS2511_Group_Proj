@@ -37,6 +37,19 @@ public class Floor {
 	}
 	
 	/**
+	 *  This methods helps control number of entities as user want.
+	 *  e.g. User want to create no more than three doors in the map.
+	 */
+	/*
+	public int countEntities(Entity e){
+		int counter = 0;
+		for (Entity e1 : entities) {
+			if (e.getClass().equals(e1.getClass()))
+				counter++;
+		}
+		return counter;
+	}*/
+	/**
 	 * This method checks whether the entity that wants to pass over this 'floor' is allowed
 	 * to coexist with any existing entities in the same floor.
 	 * @param entityToBeAdded: The entity that wants to step on this floor space

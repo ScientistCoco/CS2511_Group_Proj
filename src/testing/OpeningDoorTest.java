@@ -11,12 +11,14 @@ import other.Door;
 import other.DoorStatus;
 import other.Inventory;
 import other.Player;
+import other.Floor;
 
 public class OpeningDoorTest {
 	Board b;
 	Door d;
 	Inventory i;
 	Key k;
+	Floor f;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -24,6 +26,17 @@ public class OpeningDoorTest {
 		this.d = new Door(b, 1);
 		this.i = new Inventory();
 		this.k = new Key(b, 0, i);
+	}
+	
+	@Test
+	public void placeNoMoreThan3Doors() {
+		Door d1 = new Door(b, 1);
+		Door d2 = new Door(b, 2);
+		Door d3 = new Door(b, 3);
+		b.placeEntity(d1, 2, 2);
+		b.placeEntity(d2, 3, 3);
+		b.placeEntity(d3, 4, 4);
+		//assertEquals(true, f.countEntities(d1) <= 3);
 	}
 	
 	@Test

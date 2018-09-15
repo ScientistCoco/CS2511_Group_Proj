@@ -27,7 +27,7 @@ public class Main {
 		InvincibilityPotion IPotion = new InvincibilityPotion(board);
 		Hunter hunter = new Hunter(board);
 		Treasure treasure = new Treasure(board);
-		
+
 		board.placeEntity(p1, 1, 1);
 		board.placeEntity(new Wall(board), 0, 0);
 		board.placeEntity(new Wall(board), 0, 1);
@@ -42,7 +42,7 @@ public class Main {
 		board.placeEntity(IPotion, 6, 0);
 		board.placeEntity(hunter, 7, 7);
 		board.placeEntity(treasure, 6, 6);
-		
+
 		Scanner sc = new Scanner(System.in);
 		PlayMode pm = new PlayMode(sc, board, p1);
 		pm.doAction();
