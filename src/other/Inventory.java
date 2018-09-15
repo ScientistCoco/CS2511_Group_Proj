@@ -35,6 +35,16 @@ public class Inventory {
 		return null;
 	}
 	
+	public int findItemAmount(String name) {
+		int counter = 0;
+		for (Item it : items) {
+			if (it.getItemName().equals(name)) {
+				counter++ ;
+			}
+		}
+		return counter;
+	}
+	
 	public void displayItems() {
 		for (Item it : items) {
 			System.out.println("Item name: " + it.getItemName() + "\t" + "Description: " + it.getDescription());
