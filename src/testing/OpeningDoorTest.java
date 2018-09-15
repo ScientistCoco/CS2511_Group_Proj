@@ -2,76 +2,86 @@ package testing;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import java.io.ByteArrayInputStream;
 import org.junit.Test;
 
 import items.Key;
 import other.Board;
 import other.Door;
 import other.DoorStatus;
-import other.Inventory;
 import other.Player;
-import other.Floor;
 
 public class OpeningDoorTest {
-	Board b;
-	Door d;
-	Inventory i;
-	Key k;
-	Floor f;
-	
-	@Before
-	public void setUp() throws Exception {
-		this.b = new Board();
-		this.d = new Door(b, 1);
-		this.i = new Inventory();
-		this.k = new Key(b, 0, i);
-	}
-	
-	@Test
-	public void placeNoMoreThan3Doors() {
-		Door d1 = new Door(b, 1);
-		Door d2 = new Door(b, 2);
-		Door d3 = new Door(b, 3);
-		b.placeEntity(d1, 2, 2);
-		b.placeEntity(d2, 3, 3);
-		b.placeEntity(d3, 4, 4);
-		//assertEquals(true, f.countEntities(d1) <= 3);
-	}
-	
+
 	@Test
 	public void testCannotOpen() {
-		i.addItem(k);
-		assertFalse(k.openDoor(d));
+		Board b1 =new Board();
+		Door d1 = new Door(b1, 1);
+		Key k1 = new Key(b1, 0);
+		
+		assertFalse(k1.openDoor(d1));
 	}
 	
 	@Test
 	public void testCanOpen() {
-		k = new Key(b, 1, i);
-		i.addItem(k);
-		assertTrue(k.openDoor(d));
+		Board b2 =new Board();
+		Door d2 = new Door(b2, 1);
+		Key k2 = new Key(b2, 1);
+		assertTrue(k2.openDoor(d2));
 	}
 	
 	@Test
 	public void testNoKey() {
-		Player p = new Player(b);
-		assertFalse(d.overlappingEffect(p));
+		Board b3 =new Board();
+		Door d3 = new Door(b3, 1);
+		Player p3 = new Player(b3);
+		assertFalse(d3.overlappingEffect(p3));
 	}
 	
 	@Test
-	public void testCanDoorStatusAfterOpening() {
-		k = new Key(b, 1, i);
-		i.addItem(k);
-		k.openDoor(d);
-		assertTrue(d.getDoorStatus() == DoorStatus.Open);
+	public void testDoorStatusAfterOpening() {
+		Board b4 =new Board();
+		Door d4 = new Door(b4, 1);
+		Key k4 = new Key(b4, 1);
+		k4.openDoor(d4);
+		assertTrue(d4.getDoorStatus() == DoorStatus.Open);
 	}
 	
 	@Test
 	public void testKeyDisappearAfterOpeningDoor() {
-		k = new Key(b, 1, i);
-		i.addItem(k);
-		k.openDoor(d);
-		assertEquals(null, i.findItem("key"));
+		Board b5 =new Board();
+		Door d5 = new Door(b5, 1);
+		Key k5 = new Key(b5, 1);
+		Player p5 = new Player(b5);
+		
+		b5.placeEntity(k5, 0, 0);
+		b5.placeEntity(p5, 0, 0);
+		b5.placeEntity(d5, 1, 0);
+
+		ByteArrayInputStream in = new ByteArrayInputStream("Right\n".getBytes());
+		System.setIn(in);
+
+		p5.getInventory().useItem(p5, "Key");
+		
+		assertEquals(null, p5.getInventory().findItem("Key"));
 	}
 
+	@Test
+	public void testKeyRemainsWithNonMatchingDoor() {
+		Board b5 =new Board();
+		Door d5 = new Door(b5, 2);
+		Key k5 = new Key(b5, 1);
+		Player p5 = new Player(b5);
+		
+		b5.placeEntity(k5, 0, 0);
+		b5.placeEntity(p5, 0, 0);
+		b5.placeEntity(d5, 1, 0);
+		
+		ByteArrayInputStream in = new ByteArrayInputStream("Right\n".getBytes());
+		System.setIn(in);
+
+		p5.getInventory().useItem(p5, "Key");
+		
+		assertNotEquals(null, p5.getInventory().findItem("Key"));
+	}
 }

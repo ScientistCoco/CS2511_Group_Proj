@@ -1,36 +1,32 @@
 package items;
 
 import other.Board;
+import other.Direction;
 import other.Door;
 import other.DoorStatus;
-import other.Inventory;
+import other.Entity;
 import other.Player;
 
 public class Key extends Item{
 
 	private int keyNum;
-	private Inventory items;
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
 	 * @param board
 	 * @param key
-	 * @param door
-	 * @pre key
 	 */
-	public Key(Board board, int key, Inventory in) {
+	public Key(Board board, int keyNum) {
 		super(board);
-		keyNum = key;
-		items = in;
-		this.name = "key";
+		this.keyNum = keyNum;
+		this.name = "Key";
+		this.description = "A key used to open the door number - " + keyNum;
+		this.icon = " ℙ ";
 	}
 	
 	public boolean openDoor(Door door) {
 		if (door.getDoorNum() == keyNum) {
 			door.changeStatus(DoorStatus.Open);
-			items.removeItem(this);
 			return true;
 		}
 		return false;
@@ -45,11 +41,46 @@ public class Key extends Item{
 		return "Key Number = " + keyNum;
 	}
 	
-	// With use item we can check if the player position is next to a door
-	// if it is then we can call the openDoor method
+	/**
+	 * Tries to open a door in the indicated direction.
+	 * @param x. The x-coordinate for which the player is trying to open the door at
+	 * @param y. The y-coordinate for which the player is trying to open the door at.
+	 * @param direction. The direction in which the player is trying to open the door at.
+	 * @return true/false depending on whether or not the player was able to successfully open the door
+	 */
+	public boolean tryOpenDoor(int x, int y, Direction direction) {
+		Entity e = null;	
+		switch (direction) {
+		case Up :
+			e = board.getEntity(x, y-1);
+			break;
+		case Down :
+			e = board.getEntity(x, y+1);
+			break;
+		case Right :
+			e = board.getEntity(x+1, y);
+			break;
+		case Left :
+			e = board.getEntity(x-1, y);
+			break;
+		}
+		
+		if (e instanceof Door) {
+			return openDoor((Door)e);
+		}
+		return false;
+	}
+	
 	@Override
 	public void useItem(Player player) {
-		// TODO Auto-generated method stub
+		System.out.println("Which direction would you like to use this key?");
+		boolean res = tryOpenDoor(player.getXCoordinate(), player.getYCoordinate(), this.getPlayerInputForDirection());
+		
+		// If the player did not successfully open the door, we add the key back to their inventory
+		if (res == false) {
+			player.getInventory().addItem(this);
+		} 
+		
 	}
 
 }

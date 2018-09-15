@@ -15,8 +15,8 @@ public class KeyTest {
 	Player p1 = new Player(b1);
 	Door d1 = new Door(b1, 0);
 	Inventory i1 = new Inventory();
-	Key k1 = new Key(b1, 0, i1);
-	Key k2 = new Key(b1, 0, i1);
+	Key k1 = new Key(b1, 0);
+	Key k2 = new Key(b1, 0);
 
 	@Test
 	public void placeAKeyOnBoardWithCorrectCoordinates() {

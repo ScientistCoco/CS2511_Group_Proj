@@ -50,10 +50,11 @@ public class DesignMode {
 		case Switch :
 			return new Switch(board);
 		case Door :
-			return new Door(board, 0);
+			System.out.println("What number will this door have?");
+			return new Door(board, askForInteger());
 		case Key :
-			//return new Key(board);
-			return null;
+			System.out.println("What number will this Key have?");
+			return new Key(board, askForInteger());
 		case Pit :
 			return new Pit(board);
 		case Wall :
@@ -90,10 +91,10 @@ public class DesignMode {
 	 * This method calls on the designer to input a coordinate for where they want to put the entity
 	 * @return an int of the designers requested coordinate.
 	 */
-	public int askForCoordinate() {
+	public int askForInteger() {
 		String input = designer.getCmd(sc).trim();
 		while (!input.matches("^[0-9]*$")) {
-			System.out.println("Please put in a valid coordinate");
+			System.out.println("Please put in a valid integer");
 			input = designer.getCmd(sc).trim();
 		}
 		return Integer.parseInt(input);
@@ -114,17 +115,17 @@ public class DesignMode {
 		Entity entity = askForEntity();
 		
 		System.out.println("Please put in a x-coordinate to put this entity on");
-		int x = askForCoordinate();
+		int x = askForInteger();
 		
 		System.out.println("Please put in a y-coordinate to put this entity on");
-		int y = askForCoordinate();
+		int y = askForInteger();
 		
 		while (board.getEntity(x, y) != null) {
 			System.out.println("Another object already exists in the given location. Please try a different space.");
 			System.out.println("Please put in a x-coordinate to put this entity on");
-			x = askForCoordinate();
+			x = askForInteger();
 			System.out.println("Please put in a y-coordinate to put this entity on");
-			y = askForCoordinate();
+			y = askForInteger();
 		}
 		
 		System.out.println("Putting Object: " + entity.getClass().getName() + " at coordinates: " + x + " " + y);
