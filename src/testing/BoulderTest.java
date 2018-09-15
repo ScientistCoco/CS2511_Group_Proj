@@ -4,12 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Boulder;
-import project.Door;
-import project.Pit;
-import project.Player;
-import project.Wall;
+import other.Board;
+import other.Boulder;
+import other.Door;
+import other.Pit;
+import other.Player;
+import other.Wall;
 
 public class BoulderTest {
 	Board b1 = new Board();

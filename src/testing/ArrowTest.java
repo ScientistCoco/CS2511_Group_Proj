@@ -3,11 +3,11 @@ package testing;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import project.Arrow;
-import project.Board;
-import project.Direction;
-import project.Enemy;
-import project.Wall;
+import enemies.Enemy;
+import items.Arrow;
+import other.Board;
+import other.Direction;
+import other.Wall;
 
 public class ArrowTest {
 

@@ -4,12 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.HoverPotion;
-import project.Inventory;
-import project.Item;
-import project.Player;
-import project.Sword;
+import items.HoverPotion;
+import items.Item;
+import items.Sword;
+import other.Board;
+import other.Inventory;
+import other.Player;
 
 public class InventoryTest {
 

@@ -4,14 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Arrow;
-import project.Board;
-import project.Boulder;
-import project.Direction;
-import project.Enemy;
-import project.Player;
-import project.Switch;
-import project.Treasure;
+import enemies.Enemy;
+import items.Arrow;
+import items.Treasure;
+import other.Board;
+import other.Boulder;
+import other.Direction;
+import other.Player;
+import other.Switch;
 
 public class ObjectiveComponentTest {
 

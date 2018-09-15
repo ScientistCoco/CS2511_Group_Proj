@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Hound;
-import project.Hunter;
-import project.Player;
+import enemies.Hound;
+import enemies.Hunter;
+import other.Board;
+import other.Player;
 
 public class HoundTest {
 

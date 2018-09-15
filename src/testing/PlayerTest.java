@@ -7,12 +7,12 @@ import java.util.TimerTask;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Bomb;
-import project.Buff;
-import project.Enemy;
-import project.Pit;
-import project.Player;
+import enemies.Enemy;
+import items.Bomb;
+import other.Board;
+import other.Buff;
+import other.Pit;
+import other.Player;
 
 public class PlayerTest {
 	

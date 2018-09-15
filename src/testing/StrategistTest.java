@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Direction;
-import project.Hunter;
-import project.Player;
-import project.Strategist;
+import enemies.Hunter;
+import enemies.Strategist;
+import other.Board;
+import other.Direction;
+import other.Player;
 
 public class StrategistTest {
 

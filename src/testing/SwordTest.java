@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import project.Board;
-import project.Direction;
-import project.Enemy;
-import project.Player;
-import project.Sword;
+import enemies.Enemy;
+import items.Sword;
+import other.Board;
+import other.Direction;
+import other.Player;
 
 public class SwordTest {
 

@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Hunter;
-import project.Player;
-import project.Wall;
+import enemies.Hunter;
+import other.Board;
+import other.Player;
+import other.Wall;
 
 public class HunterTest {
 	@Test

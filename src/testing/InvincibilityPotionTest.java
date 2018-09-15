@@ -4,12 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Buff;
-import project.HoverPotion;
-import project.Hunter;
-import project.InvincibilityPotion;
-import project.Player;
+import enemies.Hunter;
+import items.HoverPotion;
+import items.InvincibilityPotion;
+import other.Board;
+import other.Buff;
+import other.Player;
 
 public class InvincibilityPotionTest {
 

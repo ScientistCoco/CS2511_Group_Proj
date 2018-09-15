@@ -3,10 +3,10 @@ package testing;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import project.Board;
-import project.Bomb;
-import project.Boulder;
-import project.Player;
+import items.Bomb;
+import other.Board;
+import other.Boulder;
+import other.Player;
 
 public class BombTest {
 	

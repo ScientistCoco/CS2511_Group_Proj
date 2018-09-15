@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Buff;
-import project.HoverPotion;
-import project.Pit;
-import project.Player;
+import items.HoverPotion;
+import other.Board;
+import other.Buff;
+import other.Pit;
+import other.Player;
 
 public class HoverPotionTest {
 	

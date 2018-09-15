@@ -4,12 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Door;
-import project.DoorStatus;
-import project.Inventory;
-import project.Key;
-import project.Player;
+import items.Key;
+import other.Board;
+import other.Door;
+import other.DoorStatus;
+import other.Inventory;
+import other.Player;
 
 public class OpeningDoorTest {
 

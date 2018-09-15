@@ -3,10 +3,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import project.Board;
-import project.Entity;
-import project.Player;
-import project.Wall;
+import other.Board;
+import other.Entity;
+import other.Player;
+import other.Wall;
 
 public class BoardTest {
 	Board board = new Board();
