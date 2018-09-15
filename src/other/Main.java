@@ -1,22 +1,23 @@
 package other;
 
+import java.util.Scanner;
+
 import enemies.Hunter;
 import items.Arrow;
 import items.Bomb;
 import items.InvincibilityPotion;
 import items.Sword;
 import items.Treasure;
+import play.PlayMode;
 
 public class Main {
 	
 	// Class to test the movement of the character class by receiving playerInput.
-	// Also tests the implementation of the wall class - prevent character from passing through it.
 	public static void main(String[] args) {
 		Board board = new Board();
 		Player p1 = new Player(board);
 		Exit e1 = new Exit(board);
 		Door d1 = new Door(board, 0);
-		//d1.changeStatus(DoorStatus.Open);
 		Pit pit1 = new Pit(board);
 		Boulder bo1 = new Boulder(board);
 		Switch sw1 = new Switch(board);
@@ -42,24 +43,9 @@ public class Main {
 		board.placeEntity(hunter, 7, 7);
 		board.placeEntity(treasure, 6, 6);
 		
-		System.out.println(p1.getObjectiveString());
-		board.printBoard();
-		while (!p1.getKeyboardInput()) {
-			System.out.println(p1.getObjectiveString());
-			board.printBoard();
-			// If the player has completed all objectives then show congratulations message
-			if (p1.checkAllObjectivesCompleted()) {
-				System.out.println("Congratulations you have completed this level!");
-				break;
-			}
-			
-			if (p1.checkIfAlive() == false) {
-				System.out.println("Game over you have died");
-				break;
-			}
-		}
-		
-		// System exit here so the program terminates and stops running in the background.
-		System.exit(0);
+		Scanner sc = new Scanner(System.in);
+		PlayMode pm = new PlayMode(sc, board, p1);
+		pm.doAction();
+		sc.close();
 	}
 }

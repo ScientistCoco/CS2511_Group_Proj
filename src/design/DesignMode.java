@@ -16,16 +16,19 @@ import other.Exit;
 import other.Pit;
 import other.Player;
 import other.Switch;
+import other.UserComponent;
 import other.Wall;
+import play.PlayMode;
 
 public class DesignMode {
 	private Board board;
-	private Designer designer;
+	private UserComponent designer;
 	private Scanner sc;
+	private PlayMode playMode;
 	
 	public DesignMode(Scanner sc) {
 		this.board = new Board();
-		this.designer = new Designer();
+		this.designer = new UserComponent();
 		this.sc = sc;
 	}
 	
@@ -128,5 +131,47 @@ public class DesignMode {
 		putOnBoard(entity, x, y);
 		board.printBoard();
 		
+	}
+	
+	/**
+	 * This method receives a string and determines whether or not it is a valid 'designer' command. i.e.
+	 * Play / Design
+	 * @return true/false
+	 */
+	private boolean checkValidCommand(String cmd) {
+		return cmd.toUpperCase().equals("PLAY") || cmd.toUpperCase().equals("DESIGN");
+	}
+	
+	/**
+	 * This method asks the designer to decide whether they want to design a board or if they want to
+	 * play on the board they have designed. Depending on the input given it will determine which methods
+	 * to use next.
+	 */
+	public void getDesignerCmds() {
+		String input = "";
+	
+		while (!checkValidCommand(input)) {
+			System.out.println("Please enter an option: Play (You can play on the level you have designed) ; Design");
+			input = designer.getCmd(sc);
+		}
+		
+		if (input.toUpperCase().equals("PLAY")) {
+			// Start a playmode on the board designed
+			
+			// First we check if the designer has put a player entity on the board. If they have not
+			// then we need to tell the designer they need to put a player in order to play
+			if (board.getPlayerObject() != null) {
+				this.playMode = new PlayMode(sc, board, board.getPlayerObject());
+				this.playMode.doAction();
+				
+				// TODO: After the designer has finished playing it still retains their 'save mode'
+				//		need to find a way to restart the board so it goes back to how the designer originally made it
+			} else {
+				System.out.println("You need to put a Player object on the board in order to play the board you have designed");
+			}
+		} else {
+			// Allow the designer to design the board
+			doAction();
+		}
 	}
 }

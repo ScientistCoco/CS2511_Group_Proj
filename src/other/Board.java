@@ -30,15 +30,14 @@ public class Board {
  	}
  	
 	/**
-	 * This method returns the index position of the player entity. It searches
-	 * based on the entities instance. This is used to find the player entity so we can
-	 * add objectives to their list.
-	 * @return int index or null if nothing was found.
+	 * This method returns player entity associated with this board. It searches
+	 * based on the entities instance. 
+	 * @return player entity or null if nothing was found.
 	 */
-	private Integer findPlayerIndex() {
+	public Player getPlayerObject() {
 		for (int i = 0; i < entities.size(); i++) {
 			if (entities.get(i) instanceof Player) {
-				return i;
+				return (Player) entities.get(i);
 			}
 		}
 		return null;
@@ -50,9 +49,8 @@ public class Board {
 		// Whenever we add a new entity to the board we can notify the player of this,
 		// the player will check whether or not this new entity is an objective they need to complete.
 		if (entity.getAssociatedPointType() != null) {
-			if (findPlayerIndex() != null) {
-				Player player = (Player) entities.get(findPlayerIndex());
-				player.addObjective(entity.getAssociatedPointType());
+			if (getPlayerObject() != null) {
+				getPlayerObject().addObjective(entity.getAssociatedPointType());
 			}
 		}
 	}
