@@ -2,6 +2,7 @@ package testing;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import items.Key;
@@ -12,55 +13,52 @@ import other.Inventory;
 import other.Player;
 
 public class OpeningDoorTest {
-
+	Board b;
+	Door d;
+	Inventory i;
+	Key k;
+	
+	@Before
+	public void setUp() throws Exception {
+		this.b = new Board();
+		this.d = new Door(b, 1);
+		this.i = new Inventory();
+		this.k = new Key(b, 0, i);
+	}
+	
 	@Test
 	public void testCannotOpen() {
-		Board b1 =new Board();
-		Door d1 = new Door(b1, 1);
-		Inventory i1 = new Inventory();
-		Key k1 = new Key(b1, 0, i1);
-		i1.addItem(k1);
-		assertFalse(k1.openDoor(d1));
+		i.addItem(k);
+		assertFalse(k.openDoor(d));
 	}
 	
 	@Test
 	public void testCanOpen() {
-		Board b2 =new Board();
-		Door d2 = new Door(b2, 1);
-		Inventory i2 = new Inventory();
-		Key k2 = new Key(b2, 1, i2);
-		i2.addItem(k2);
-		assertTrue(k2.openDoor(d2));
+		k = new Key(b, 1, i);
+		i.addItem(k);
+		assertTrue(k.openDoor(d));
 	}
 	
 	@Test
 	public void testNoKey() {
-		Board b3 =new Board();
-		Door d3 = new Door(b3, 1);
-		Player p3 = new Player(b3);
-		assertFalse(d3.overlappingEffect(p3));
+		Player p = new Player(b);
+		assertFalse(d.overlappingEffect(p));
 	}
 	
 	@Test
 	public void testCanDoorStatusAfterOpening() {
-		Board b4 =new Board();
-		Door d4 = new Door(b4, 1);
-		Inventory i4 = new Inventory();
-		Key k4 = new Key(b4, 1, i4);
-		i4.addItem(k4);
-		k4.openDoor(d4);
-		assertTrue(d4.getDoorStatus() == DoorStatus.Open);
+		k = new Key(b, 1, i);
+		i.addItem(k);
+		k.openDoor(d);
+		assertTrue(d.getDoorStatus() == DoorStatus.Open);
 	}
 	
 	@Test
 	public void testKeyDisappearAfterOpeningDoor() {
-		Board b5 =new Board();
-		Door d5 = new Door(b5, 1);
-		Inventory i5 = new Inventory();
-		Key k5 = new Key(b5, 1, i5);
-		i5.addItem(k5);
-		k5.openDoor(d5);
-		assertEquals(null, i5.findItem("key"));
+		k = new Key(b, 1, i);
+		i.addItem(k);
+		k.openDoor(d);
+		assertEquals(null, i.findItem("key"));
 	}
 
 }

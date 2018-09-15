@@ -14,6 +14,8 @@ public class Inventory {
 	public boolean addItem(Item it) {
 		//check sword
 		if (this.findItem("sword") != null) return false;
+		//check key (assuming can't change key held by player)
+		if (this.findItem("key") != null) return false;
 		return items.add(it);
 	}
 	
@@ -33,6 +35,16 @@ public class Inventory {
 			}
 		}
 		return null;
+	}
+	
+	public int findItemAmount(String name) {
+		int amount = 0;
+		for (Item it : items) {
+			if (it.getItemName().equals(name)) {
+				amount++ ;
+			}
+		}
+		return amount;
 	}
 	
 	public void displayItems() {
