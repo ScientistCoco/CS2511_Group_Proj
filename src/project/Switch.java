@@ -12,6 +12,7 @@ public class Switch extends Entity{
 		super(board);
 		this.state = false;
 		this.icon = " Ø ";
+		this.point = new SwitchPoint();
 	}
 	
 	/**
@@ -20,6 +21,7 @@ public class Switch extends Entity{
 	public void activate() {
 		this.state = true;
 		System.out.println("Switch turned on");
+		point.pointAchieved();
 	}
 	
 	/**
@@ -28,6 +30,7 @@ public class Switch extends Entity{
 	public void deactivate() {
 		this.state = false;
 		System.out.println("Switch turned off");
+		point.pointLost();
 	}
 	
 	/**
@@ -36,11 +39,12 @@ public class Switch extends Entity{
 	 */
 	@Override
 	public boolean overlappingEffect(Entity entity) {
-		if (entity instanceof Boulder) {
-			activate();
-		} else {
+		if (!(entity instanceof Boulder)) {
 			deactivate();
+		} else if (entity instanceof Boulder){
+			activate();
 		}
+		System.out.println("Checking: " + entity.getClass().getName());
 		return true;
 	}
 	

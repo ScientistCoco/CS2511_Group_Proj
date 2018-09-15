@@ -1,10 +1,80 @@
 package project;
 
-public class Floor extends Entity{
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-	// A piece on the map that allows other entities to stand on it.
-	public Floor(Board board) {
-		super(board);
-		this.zOrder = 4;
-	}	
+public class Floor {
+	private CopyOnWriteArrayList<Entity> entities; 	// CopyOnWriteArrayList allows for concurrent changes
+	
+	public Floor () {
+		entities = new CopyOnWriteArrayList<Entity>();
+	}
+	
+	/**
+	 * Method that adds an entity to this floor space.
+	 * @param e: The entity to be added
+	 * @return true/false if the entity has been added successfully.
+	 */
+	public boolean addEntity(Entity e) {
+		if (canOccupySameSpace(e)) {
+			entities.add(e);
+			return true;
+		}
+		return false;
+	}
+	
+	public void removeEntity(Entity e) {
+		entities.remove(e);
+	}
+	
+	public ArrayList<Entity> getEntities() {
+		ArrayList<Entity> res = new ArrayList<Entity>();
+		for (Entity e : entities) {
+			res.add(e);
+		}
+		return res;
+	}
+	
+	/**
+	 * This method checks whether the entity that wants to pass over this 'floor' is allowed
+	 * to coexist with any existing entities in the same floor.
+	 * @param entityToBeAdded: The entity that wants to step on this floor space
+	 * @return true/false if the entity is allowed to step on this floor space
+	 */
+	public boolean canOccupySameSpace(Entity entityToBeAdded) {
+		// Make a call to overlappingEffect for each entity in the arraylist to check
+		// whether this new entity is allowed to coexist
+		Iterator<Entity> itEntity = this.entities.iterator();
+		while (itEntity.hasNext()) {
+			if (itEntity.next().overlappingEffect(entityToBeAdded) == false) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// This method is used along with getFrontEntity() to compare the priority of two passed in entities
+	private Entity cmpTwoEntities(Entity entityA, Entity entityB) {
+		return (entityA.getZOrder() <= entityB.getZOrder() ? entityA : entityB);
+	}
+	
+	/**
+	 * This method returns the entity with the highest priority to be displayed on the board.
+	 * i.e. A player must appear on top of a key, but a key should not appear on top of a player.
+	 * @return Entity with the highest priority to be displayed
+	 */
+	public Entity getFrontEntity() {
+		// Cycle through the arraylist and check the 'priorities' of each entity.
+		
+		// Priority order (desc): Exit > Player == Enemy == Pit == Wall > Boulder == Potion == Door == Switch
+		Entity frontEntity = null;
+		for (Entity entity : this.entities) {
+			if (frontEntity == null) frontEntity = entity;
+			else {
+				frontEntity = cmpTwoEntities(frontEntity, entity);
+			}
+		}
+		return frontEntity;
+	}
 }

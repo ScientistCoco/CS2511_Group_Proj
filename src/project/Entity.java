@@ -12,6 +12,7 @@ public class Entity {
 								// 1 : Player, Enemy, Pit, Wall
 								// 2 : Boulder, Potion, Door
 								// 3 : Other items. This is the default value
+	protected Points point;		// Some entities will have objectives that the player needs to complete. By default this will be null
 	
 	/**
 	 * @pre (x > 0 && x < board.length) && (y > 0 && y < board.length)
@@ -23,7 +24,15 @@ public class Entity {
 		this.board = board;
 		this.move = new MovementBehaviour();
 		this.zOrder = 3;
-		this.board.addEntity(this);
+		//this.board.addEntity(this);
+	}
+	
+	/**
+	 * This method is used to check whether or not this entity has an objective that needs to be achieved
+	 * @return true/false
+	 */
+	public Points getAssociatedPointType() {
+		return this.point;
 	}
 	
 	public String getIcon() {
@@ -73,4 +82,5 @@ public class Entity {
 	public boolean overlappingEffect(Entity entity) {
 		return false;
 	}
+	
 }

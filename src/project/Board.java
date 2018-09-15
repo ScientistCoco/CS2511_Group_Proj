@@ -3,30 +3,65 @@ package project;
 import java.util.ArrayList;
 
 public class Board {
-	private Entity[][] map;
+	private Floor[][] map;
 	private ArrayList<Entity> entities;
 	
 	public Board() {
 		// Default size if no given width/height
-		map = new Entity[10][10];
+		map = new Floor[10][10];
 		entities = new ArrayList<>();
+		initFloor(10, 10);
 	}
 	
 	// If width and height are specified
 	public Board(int width, int height) {
 		super();
-		map = new Entity[width][height];
+		map = new Floor[width][height];
+		initFloor(width, height);
+	}
+	
+	// For each grid on the map we need to instantiate a floor object
+ 	public void initFloor(int width, int height) {
+ 		for (int i = 0; i < height; i++) {
+ 			for (int j = 0; j < width; j++) {
+ 				map[i][j] = new Floor();
+ 			}
+ 		}
+ 	}
+ 	
+	/**
+	 * This method returns the index position of the player entity. It searches
+	 * based on the entities instance. This is used to find the player entity so we can
+	 * add objectives to their list.
+	 * @return int index or null if nothing was found.
+	 */
+	private Integer findPlayerIndex() {
+		for (int i = 0; i < entities.size(); i++) {
+			if (entities.get(i) instanceof Player) {
+				return i;
+			}
+		}
+		return null;
 	}
 	
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
+
+		// Whenever we add a new entity to the board we can notify the player of this,
+		// the player will check whether or not this new entity is an objective they need to complete.
+		if (entity.getAssociatedPointType() != null) {
+			if (findPlayerIndex() != null) {
+				Player player = (Player) entities.get(findPlayerIndex());
+				player.addObjective(entity.getAssociatedPointType());
+			}
+		}
 	}
 	
 	/**
 	 * This method checks all the 'alive' entities and their coordinates, checking
 	 * that their coordinates correspond to that on the board.
 	 */
-	public void updateBoard() {
+	/*public void updateBoard() {
 		for (Entity entity : entities) {
 			// Suppose we have two entities that occupy a square, we need to determine their
 			// zOrders to determine which entity gets 'drawn' on the board.
@@ -43,7 +78,7 @@ public class Board {
 				}
 			}
 		}
-	}
+	}*/
 	
 	/**
 	 * Method that returns the object contained on the floor grid
@@ -54,7 +89,7 @@ public class Board {
 	public Entity getEntity(int x, int y) {
 		// Can throw an error if the given x or y coordinate is out of bounds.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
-			return map[x][y];
+			return map[x][y].getFrontEntity();
 		}
 		return null;
 	}
@@ -73,12 +108,12 @@ public class Board {
 		// Board checks that the new coordinates are within the board. Then it checks if the passed in entity
 		// is allowed to pass over the objects that might occupy the new coordinates.
 		if ((x >= 0 && x < map.length) && (y >= 0 && y < map.length)) {
-			Entity e = map[x][y];
-			if (e == null || e.overlappingEffect(entity)) {
+			if (entities.contains(entity) == false) addEntity(entity); // If board does not know about this entity then we add it to the boards entities arraylist
+			
+			if (map[x][y].addEntity(entity)) {
 				entity.setCoordinates(x, y);
-				updateBoard();
 				return true;
-			} 
+			}
 		}
 		return false;
 	}
@@ -89,7 +124,7 @@ public class Board {
 	 */
 	public void removeEntity(Entity e) {
 		this.entities.remove(e);
-		removeFromMap(e.getXCoordinate(), e.getYCoordinate());
+		removeFromMap(e, e.getXCoordinate(), e.getYCoordinate());
 	}
 	
 	/**
@@ -97,22 +132,22 @@ public class Board {
 	 * @param x
 	 * @param y
 	 */
-	public void removeFromMap(int x, int y) {
-		map[x][y] = null;
+	public void removeFromMap(Entity e, int x, int y) {
+		map[x][y].removeEntity(e);
 	}
 	
 	/**
 	 * Method that prints out the board and all the entities on it
 	 */
 	public void printBoard() {
-		updateBoard();
+		//updateBoard();
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
-				if (map[j][i] == null) {
+				if (map[j][i].getFrontEntity() == null) {
 					System.out.print(" . ");
 				}
 				else {
-					System.out.print(map[j][i].getIcon());
+					System.out.print(map[j][i].getFrontEntity().getIcon());
 				}
 			}
 			System.out.print("\n");

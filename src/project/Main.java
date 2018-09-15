@@ -18,10 +18,7 @@ public class Main {
 		Sword sword = new Sword(board);
 		InvincibilityPotion IPotion = new InvincibilityPotion(board);
 		Hunter hunter = new Hunter(board);
-		
-		Objective objExit1 = new Objective(e1, "Pass through this exit to complete the game", 1);
-		
-		p1.addObjective(objExit1);
+		Treasure treasure = new Treasure(board);
 		
 		board.placeEntity(p1, 1, 1);
 		board.placeEntity(new Wall(board), 0, 0);
@@ -36,14 +33,16 @@ public class Main {
 		board.placeEntity(sword, 3, 0);
 		board.placeEntity(IPotion, 6, 0);
 		board.placeEntity(hunter, 7, 7);
+		board.placeEntity(treasure, 6, 6);
 		
+		System.out.println(p1.getObjectiveString());
 		board.printBoard();
 		while (!p1.getKeyboardInput()) {
-			board.printBoard();
 			System.out.println(p1.getObjectiveString());
+			board.printBoard();
 			// If the player has completed all objectives then show congratulations message
-			if (p1.checkObjectives() == true) {
-				System.out.println("Congratulations you completed this level!");
+			if (p1.checkAllObjectivesCompleted()) {
+				System.out.println("Congratulations you have completed this level!");
 				break;
 			}
 			

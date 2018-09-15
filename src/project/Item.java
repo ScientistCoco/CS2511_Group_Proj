@@ -33,6 +33,12 @@ public abstract class Item extends Entity{
 		player.getInventory().addItem(this);
 		items = player.getInventory();
 		board.removeEntity(this);
+		
+		// Check if this item is associated with a point that the player can collect
+		if (this.getAssociatedPointType() != null) {
+			this.getAssociatedPointType().pointAchieved();
+		}
+		
 		return true;
 	}
 	

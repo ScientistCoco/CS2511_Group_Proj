@@ -1,7 +1,6 @@
 package project;
 
 public abstract class Character extends Entity{
-	protected MovementBehaviour move;
 	private Integer health;
 	
 	public Character(Board board) {
@@ -28,6 +27,10 @@ public abstract class Character extends Entity{
 	 * @return true/false
 	 */
 	public boolean checkIfAlive() {
+		// Some characters will have a point associated with them that the player needs to complete
+		if (this.getAssociatedPointType() != null && getHealth() != 1) {
+			this.getAssociatedPointType().pointAchieved();
+		}
 		return getHealth() == 1 ? true : false;
 	}
 }

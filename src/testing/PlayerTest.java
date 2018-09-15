@@ -9,11 +9,20 @@ import org.junit.Test;
 
 import project.Board;
 import project.Bomb;
+import project.Buff;
 import project.Enemy;
 import project.Pit;
 import project.Player;
 
 public class PlayerTest {
+	
+	@Test
+	public void testBuffAdded() {
+		Board board = new Board();
+		Player p1 = new Player(board);
+		p1.addBuff(Buff.Invincibility);
+		assertEquals(true, p1.containBuff(Buff.Invincibility));
+	}
 
 	@Test
 	public void TestPlayerDiesInRangeOfExplodingBomb() {

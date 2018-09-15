@@ -25,7 +25,7 @@ public class MovementBehaviour {
 		
 		//e.setCoordinates(x , y - 1);
 		if (board.placeEntity(e, x, y - 1)) {
-			board.removeFromMap(x, y);
+			board.removeFromMap(e, x, y);
 			return true;
 		}
 		return false;
@@ -37,7 +37,7 @@ public class MovementBehaviour {
 		
 		//e.setCoordinates(x, y + 1);
 		if (board.placeEntity(e, x, y + 1)) {
-			board.removeFromMap(x, y);
+			board.removeFromMap(e, x, y);
 			return true;
 		}
 		return false;
@@ -49,7 +49,7 @@ public class MovementBehaviour {
 		
 		//e.setCoordinates(x + 1, y);
 		if (board.placeEntity(e, x + 1, y)) {
-			board.removeFromMap(x, y);
+			board.removeFromMap(e, x, y);
 			return true;
 		}
 		return false;
@@ -61,7 +61,7 @@ public class MovementBehaviour {
 		
 		//e.setCoordinates(x - 1, y);
 		if (board.placeEntity(e, x - 1, y)) {
-			board.removeFromMap(x, y);
+			board.removeFromMap(e, x, y);
 			return true;
 		}
 		return false;

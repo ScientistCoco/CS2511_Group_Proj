@@ -6,23 +6,20 @@ package project;
  *
  */
 public class Exit extends Entity{
-
+	
 	public Exit(Board board) {
 		super(board);
 		this.icon = "[ ]";
-	}
-
-	public void exitFound(Player player) {
-		player.tickObjective(this);
+		this.point = new ExitPoint();
 	}
 	
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		// If the overlapping entity is a player
 		if (entity instanceof Player) {
-			exitFound((Player)entity);
+			point.pointAchieved();
 			return true;
-		}
+		} 
 		return false;
 	}
 }

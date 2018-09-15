@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Player extends Character {
 	
-	private ArrayList<Objective> objectives;
+	private ObjectiveComponent objectives;
 	private ArrayList<Buff> potionBuff;
 	private Inventory inventory;
 	private ArrayList<Enemy> enemies;
@@ -13,7 +13,7 @@ public class Player extends Character {
 
 	public Player(Board board) {
 		super(board);
-		this.objectives = new ArrayList<>();
+		this.objectives = new ObjectiveComponent();
 		this.potionBuff = new ArrayList<Buff>();
 		inventory = new Inventory();
 		enemies = new ArrayList<Enemy>();
@@ -97,46 +97,22 @@ public class Player extends Character {
 	}
 	
 	public String getObjectiveString() {
-		StringBuilder str = new StringBuilder();
-		for (Objective obj : objectives) {
-			str.append(obj.getDescription() + " " + obj.getAmountCompleted() + " / " + obj.getAmountRequired() + "\n");
-		}
-		return str.toString();
+		return objectives.getStringOfObjectives();
 	}
 	
 	/**
-	 * Method that increases the amountCompleted attribute in the respective Objective class.
-	 * The respective objective class is identified by the Entity type that is passed into the method.
-	 * @param entity
+	 * This method checks whether the player has achieved all the objectives or not
+	 * @return
 	 */
-	public void tickObjective(Entity entity) {
-		// Find the index in the objectives arraylist that is associated with the passed in entity.
-		Integer index = null;
-		for (int i = 0; i < objectives.size(); i++) {
-			if (objectives.get(i).getType().getClass() == entity.getClass()) index = i;
-		}
-		if (index != null) objectives.get(index).increaseAmountCompleted();
+	public boolean checkAllObjectivesCompleted() {
+		return objectives.checkProgressOfObjectives();
 	}
-	
-	/**
-	 * Method that checks how the player is going with the objectives. 
-	 * @return true/false depending on whether the player has completed all the objectives or not.
-	 */
-	public boolean checkObjectives() {
-		int numCompleted = 0;
-		
-		for (Objective obj : objectives) {
-			if (obj.getSatisfiedState()) numCompleted++;
-		}
-		return numCompleted == objectives.size();
-	}
-	
 	/**
 	 * Method that adds a new objective to the players list of objectives
 	 * @param obj
 	 */
-	public void addObjective(Objective obj) {
-		this.objectives.add(obj);
+	public void addObjective(Points obj) {
+		this.objectives.addObjecitve(obj);
 	}
 	
 	@Override
@@ -170,4 +146,5 @@ public class Player extends Character {
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
 	}
+
 }
