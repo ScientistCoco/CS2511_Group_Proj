@@ -31,11 +31,9 @@ public class KeyTest {
 	
 	@Test
 	public void playerPickingUpKey() {
-		b1.placeEntity(k1, 2, 2);
-		b1.placeEntity(p1, 2, 2);
 		i1.addItem(k1);
 		assertTrue(i1.findItem("Key").equals(k1));
-//		assertFalse(k1.openDoor(d1));
+		assertTrue(k1.openDoor(d1));
 	}
 	
 	@Test
@@ -45,7 +43,7 @@ public class KeyTest {
 		assertTrue(i1.findItemAmount("Key")==1);	
 		i1.addItem(k2);
 		assertFalse(i1.findItem("Key").equals(k2));
-		//assertTrue(i1.findItemAmount("Key")==2);	
+		assertTrue(i1.findItemAmount("Key")==1);	
 	}
 
 }

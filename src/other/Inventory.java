@@ -14,6 +14,8 @@ public class Inventory {
 	public boolean addItem(Item it) {
 		//check sword
 		if (this.findItem("sword") != null) return false;
+		//assuming player can't add another key once player has it
+		if (this.findItem("Key") != null) return false;
 		return items.add(it);
 	}
 	
