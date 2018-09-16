@@ -1,5 +1,6 @@
 package design;
 
+import java.util.EnumSet;
 import java.util.Scanner;
 
 import enemies.Hunter;
@@ -78,6 +79,10 @@ public class DesignMode {
 	 */
 	public Entity askForEntity() {
 		System.out.println("What entity would you like to put on the board?");
+		for (EntityTypes entity : EnumSet.allOf(EntityTypes.class)) {
+			System.out.print(entity + " ; ");
+		}
+		System.out.print("\n");
 		String input = designer.getCmd(sc);
 		while (EntityTypes.fromString(input) == null) {
 			System.out.println("Please put in a valid entity name");
@@ -161,8 +166,8 @@ public class DesignMode {
 			
 			// First we check if the designer has put a player entity on the board. If they have not
 			// then we need to tell the designer they need to put a player in order to play
-			if (board.getPlayerObject() != null) {
-				this.playMode = new PlayMode(sc, board, board.getPlayerObject());
+			if (this.board.getPlayerObject() != null) {
+				this.playMode = new PlayMode(sc, this.board, this.board.getPlayerObject());
 				this.playMode.doAction();
 				
 				// TODO: After the designer has finished playing it still retains their 'save mode'

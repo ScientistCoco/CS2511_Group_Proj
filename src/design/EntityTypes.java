@@ -1,7 +1,5 @@
 package design;
 
-import other.PlayerCmds;
-
 public enum EntityTypes {
 	Player("Player"),
 	Exit("Exit"),

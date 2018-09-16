@@ -3,7 +3,6 @@ package other;
 import java.util.ArrayList;
 
 import enemies.Enemy;
-import points.Points;
 
 public class Player extends Character {
 	
@@ -15,7 +14,6 @@ public class Player extends Character {
 
 	public Player(Board board) {
 		super(board);
-		this.objectives = new ObjectiveComponent();
 		this.potionBuff = new ArrayList<Buff>();
 		inventory = new Inventory();
 		enemies = new ArrayList<Enemy>();
@@ -55,6 +53,7 @@ public class Player extends Character {
 	}
 	
 	public String getObjectiveString() {
+		this.objectives = this.board.getObjectivesOnThisBoard();
 		return objectives.getStringOfObjectives();
 	}
 	
@@ -63,22 +62,16 @@ public class Player extends Character {
 	 * @return
 	 */
 	public boolean checkAllObjectivesCompleted() {
+		this.objectives = this.board.getObjectivesOnThisBoard();
 		return objectives.checkProgressOfObjectives();
-	}
-	/**
-	 * Method that adds a new objective to the players list of objectives
-	 * @param obj
-	 */
-	public void addObjective(Points obj) {
-		this.objectives.addObjecitve(obj);
 	}
 	
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		// Check if the being passed is null or not. If null then it means its passing over a 'floor', 
 		// which is passable, so return true.
-		if (entity != null) {
-			return entity.overlappingEffect(this);
+		if (entity instanceof Enemy) {
+			this.deleteHealth();
 		}
 		return true;
 	}
