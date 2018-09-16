@@ -6,7 +6,6 @@ import enemies.Hunter;
 import items.Arrow;
 import items.Bomb;
 import items.InvincibilityPotion;
-import items.Key;
 import items.Sword;
 import items.Treasure;
 import play.PlayMode;

@@ -1,7 +1,9 @@
 package play;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import enemies.Enemy;
 import other.Board;
 import other.Player;
 import other.PlayerCmds;
@@ -12,6 +14,7 @@ public class PlayMode {
 	private Player player;
 	private UserComponent user;
 	private Scanner sc;
+	private ArrayList<Enemy> enemies;
 	
 	// This makes the assumption that the board already has a player placed somewhere.
 	public PlayMode(Scanner sc, Board board, Player player) {
@@ -19,6 +22,7 @@ public class PlayMode {
 		this.board = board;
 		this.player = player;
 		this.user = new UserComponent();
+		this.enemies = this.board.getEnemyObjects();
 	}
 	
 	/**
@@ -78,22 +82,34 @@ public class PlayMode {
 	}
 	
 	/**
+	 * This method goes through the list of enemy objects on the board and gets them to 
+	 * make their move
+	 */
+	private void updateEnemyLocations() {
+		for (Enemy enemy : this.enemies) {
+			enemy.updateMove(this.player);
+		}
+	}
+	
+	/**
 	 * This method does the handles all the work for the play mode.
 	 */
 	public void doAction() {
 		System.out.println(player.getObjectiveString());
 		board.printBoard();
 		while (decipherInput(askForCmd())) {
+			updateEnemyLocations();
 			System.out.println(player.getObjectiveString());
+			if (player.checkIfAlive() == false) {
+				System.out.println("Game over you have died");
+				break;
+			}
+			
 			if (player.checkAllObjectivesCompleted()) {
 				System.out.println("Congratulations you have completed this level!");
 				break;
 			}
 			
-			if (player.checkIfAlive() == false) {
-				System.out.println("Game over you have died");
-				break;
-			}
 			board.printBoard();
 		}
 	}

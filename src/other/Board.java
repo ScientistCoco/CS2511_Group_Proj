@@ -2,6 +2,8 @@ package other;
 
 import java.util.ArrayList;
 
+import enemies.Enemy;
+
 public class Board {
 	private Floor[][] map;
 	private ArrayList<Entity> entities;
@@ -29,6 +31,20 @@ public class Board {
  		}
  	}
  	
+ 	/**
+ 	 * This method returns all the enemy entities associated with this board.
+ 	 * @return an arraylist of the enemy entities
+ 	 */
+ 	public ArrayList<Enemy> getEnemyObjects() {
+ 		ArrayList<Enemy> enemies = new ArrayList<>();
+ 		for (Entity entity : entities) {
+ 			if (entity instanceof Enemy) {
+ 				enemies.add((Enemy) entity);
+ 			}
+ 		}
+ 		return enemies;
+ 	}
+ 	
 	/**
 	 * This method returns player entity associated with this board. It searches
 	 * based on the entities instance. 
@@ -43,40 +59,28 @@ public class Board {
 		return null;
 	}
 	
-	public void addEntity(Entity entity) {
-		this.entities.add(entity);
-
-		// Whenever we add a new entity to the board we can notify the player of this,
-		// the player will check whether or not this new entity is an objective they need to complete.
-		if (entity.getAssociatedPointType() != null) {
-			if (getPlayerObject() != null) {
-				getPlayerObject().addObjective(entity.getAssociatedPointType());
-			}
-		}
-	}
-	
 	/**
-	 * This method checks all the 'alive' entities and their coordinates, checking
-	 * that their coordinates correspond to that on the board.
+	 * This method returns all the objectives that has to be completed on this board 
+	 * in order to complete the level
+	 * @return an objectiveComponent of all the objectives
 	 */
-	/*public void updateBoard() {
+	public ObjectiveComponent getObjectivesOnThisBoard() {
+		ObjectiveComponent obj = new ObjectiveComponent();
+		
 		for (Entity entity : entities) {
-			// Suppose we have two entities that occupy a square, we need to determine their
-			// zOrders to determine which entity gets 'drawn' on the board.
-			if (entity.getXCoordinate() != null) {
-				Entity e = map[entity.getXCoordinate()][entity.getYCoordinate()];
-				if (e != null) {
-					// If the entity we are checking has a higher zorder then the one occupying
-					// the space then we will replace the existing entity with the higher zorder one.
-					if (entity.getZOrder() < e.getZOrder()) {
-						map[entity.getXCoordinate()][entity.getYCoordinate()] = entity;
-					}
-				} else {
-					map[entity.getXCoordinate()][entity.getYCoordinate()] = entity;
+			if (entity.getAssociatedPointType() != null) {
+				if (getPlayerObject() != null) {
+					obj.addObjecitve(entity.getAssociatedPointType());
 				}
 			}
 		}
-	}*/
+		
+		return obj;
+	}
+	
+	public void addEntity(Entity entity) {
+		this.entities.add(entity);
+	}
 	
 	/**
 	 * Method that returns the object contained on the floor grid
