@@ -23,7 +23,7 @@ public class DungeonController {
 	
 	@FXML
 	public void initialize() {
-		StackPane[][] map = new StackPane[10][10];
+		StackPane[][] map = new StackPane[10][10];	// For the gridpane we will set each 'grid' to be a stackable pane so we can overlay with other objects
 		
 		// Since we are doing a 10 x 10 grid and each floor tile is 32x32px
 		// we will need to rescale the GridPane to 320x320px
