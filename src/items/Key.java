@@ -1,5 +1,7 @@
 package items;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
 import other.Door;
@@ -22,6 +24,7 @@ public class Key extends Item{
 		this.name = "Key";
 		this.description = "A key used to open the door number - " + keyNum;
 		this.icon = " ℙ ";
+		this.entityIcon = new ImageView(new Image("icons/key.png"));
 	}
 	
 	public boolean openDoor(Door door) {

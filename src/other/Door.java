@@ -1,5 +1,8 @@
 package other;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Door extends Entity{
 
 	private DoorStatus status;
@@ -11,6 +14,7 @@ public class Door extends Entity{
 		status = DoorStatus.Closed;
 		this.icon = "[#]";
 		this.zOrder = 2;
+		this.entityIcon = new ImageView(new Image("icons/closed_door.png"));
 	}
 	
 	/**
@@ -30,6 +34,8 @@ public class Door extends Entity{
 	
 	public void changeStatus(DoorStatus s) {
 		status = s;
+		if (this.status == DoorStatus.Open) this.entityIcon = new ImageView(new Image("icons/open_door.png"));
+		else this.entityIcon = new ImageView(new Image("icons/closed_door.png"));
 	}
 	
 	public DoorStatus getDoorStatus() {

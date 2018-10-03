@@ -1,18 +1,13 @@
 package visuals;
 
-import com.sun.javafx.scene.traversal.Direction;
-
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import levels.level1;
+import levels.level2;
 import other.Board;
 
 public class DungeonController {
@@ -31,7 +26,7 @@ public class DungeonController {
 	
 	@FXML
 	public void initialize() {
-		board = new level1().getBoard();
+		board = new level2().getBoard();
 		//Floor[][] map = new Floor[10][10];	// Floor is a stackable pane
 		
 		// Since we are doing a 10 x 10 grid and each floor tile is 32x32px

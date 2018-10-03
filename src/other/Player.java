@@ -22,7 +22,7 @@ public class Player extends Character {
 		directions = new ArrayList<Direction>();
 		this.icon = " ♀ ";
 		this.zOrder = 1;
-		this.entityIcon = new ImageView(new Image("icons/human_new.png"));
+		this.entityIcon = new ImageView(new Image("icons/human.png"));
 	}
 	
 	public Inventory getInventory() {
