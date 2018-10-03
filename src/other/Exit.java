@@ -1,5 +1,7 @@
 package other;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import points.ExitPoint;
 
 /**
@@ -13,6 +15,7 @@ public class Exit extends Entity{
 		super(board);
 		this.icon = "[ ]";
 		this.point = new ExitPoint();
+		this.entityIcon = new ImageView(new Image("icons/exit.png"));
 	}
 	
 	@Override

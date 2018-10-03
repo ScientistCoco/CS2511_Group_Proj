@@ -1,5 +1,8 @@
 package other;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 /**
  * The wall class which prevents other entities from passing through it
  * @author court
@@ -11,6 +14,7 @@ public class Wall extends Entity{
 		super(board);
 		this.icon = " # ";
 		this.zOrder = 1;
+		this.entityIcon = new ImageView(new Image("icons/brick_brown_2.png"));
 	}
 	
 	/**

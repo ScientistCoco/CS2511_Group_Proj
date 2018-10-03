@@ -1,5 +1,8 @@
 package other;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Boulder extends Entity{
 	
 	private boolean state; // This state indicates whether the boulder is on the board or not
@@ -9,6 +12,7 @@ public class Boulder extends Entity{
 		this.state = true;
 		this.icon = " • ";
 		this.zOrder = 2;
+		this.entityIcon = new ImageView(new Image("icons/boulder.png"));
 	}
 	
 	/**

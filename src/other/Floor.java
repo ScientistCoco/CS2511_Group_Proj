@@ -15,7 +15,7 @@ public class Floor extends StackPane {
 	
 	public Floor () {
 		entities = new CopyOnWriteArrayList<Entity>();
-		icon = new ImageView(new Image("visuals/dirt_1_new.png"));
+		icon = new ImageView(new Image("icons/dirt_1_new.png"));
 		this.getChildren().add(icon);	// Add the floor icon to its base.
 	}
 	

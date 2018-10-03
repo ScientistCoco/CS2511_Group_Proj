@@ -12,9 +12,8 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import levels.level1;
 import other.Board;
-import other.Floor;
-import other.Player;
 
 public class DungeonController {
 	@FXML
@@ -32,7 +31,7 @@ public class DungeonController {
 	
 	@FXML
 	public void initialize() {
-		board = new Board();
+		board = new level1().getBoard();
 		//Floor[][] map = new Floor[10][10];	// Floor is a stackable pane
 		
 		// Since we are doing a 10 x 10 grid and each floor tile is 32x32px
@@ -41,22 +40,16 @@ public class DungeonController {
 		baseMap.getColumnConstraints().add(new ColumnConstraints(32));
 		for (int i = 0; i < 10; i ++) {
 			for (int j = 0; j < 10; j ++ ) {
-				//map[i][j] = new Floor();
-				baseMap.add(board.getFloor(i, j), i, j);
-				
+				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
-		
-		Player player = new Player(board);
-		board.placeEntity(player, 0, 0);
-		//map[0][0].addEntity(player);
 		
 	}
 	
 	// This method handles the keyboard events - right,left,up and down arrow keys
 	@FXML
 	public void onKeyPressed(KeyEvent key) {
-		System.out.println(key.getCode());
+		//System.out.println(key.getCode());
 		board.getPlayerObject().moveSelf(key.getCode().toString());
 	}
 }
