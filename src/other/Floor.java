@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Floor {
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+
+// Make the floor a StackPane so it can hold items
+public class Floor extends StackPane {
 	private CopyOnWriteArrayList<Entity> entities; 	// CopyOnWriteArrayList allows for concurrent changes
+	private ImageView icon;
 	
 	public Floor () {
 		entities = new CopyOnWriteArrayList<Entity>();
+		icon = new ImageView(new Image("visuals/dirt_1_new.png"));
+		this.getChildren().add(icon);	// Add the floor icon to its base.
 	}
 	
 	/**
@@ -19,6 +27,7 @@ public class Floor {
 	public boolean addEntity(Entity e) {
 		if (canOccupySameSpace(e)) {
 			entities.add(e);
+			this.getChildren().add(e.getEntityIcon());
 			return true;
 		}
 		return false;
@@ -26,6 +35,7 @@ public class Floor {
 	
 	public void removeEntity(Entity e) {
 		entities.remove(e);
+		this.getChildren().remove(e.getEntityIcon());
 	}
 	
 	public ArrayList<Entity> getEntities() {

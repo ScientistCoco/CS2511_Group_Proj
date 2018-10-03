@@ -3,6 +3,8 @@ package other;
 import java.util.ArrayList;
 
 import enemies.Enemy;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Player extends Character {
 	
@@ -20,6 +22,7 @@ public class Player extends Character {
 		directions = new ArrayList<Direction>();
 		this.icon = " ♀ ";
 		this.zOrder = 1;
+		this.entityIcon = new ImageView(new Image("visuals/human_new.png"));
 	}
 	
 	public Inventory getInventory() {

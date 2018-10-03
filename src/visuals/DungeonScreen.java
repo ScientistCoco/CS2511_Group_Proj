@@ -2,9 +2,11 @@ package visuals;
 
 import java.io.IOException;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class DungeonScreen {
@@ -20,10 +22,20 @@ public class DungeonScreen {
 	
 	public void start() {
 		s.setTitle(title);
-		fxmlLoader.setController(new DungeonController(s));
+		DungeonController dungeonController = new DungeonController(s);
+		fxmlLoader.setController(dungeonController);
 		try {
 			Parent root = fxmlLoader.load();
 			Scene sc = new Scene(root, 500, 500);
+			
+			// This bit here handles the keyboard events from the user
+			sc.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+				@Override
+				public void handle(KeyEvent event) {
+					dungeonController.onKeyPressed(event);
+				}
+				
+			});
 			s.setScene(sc);
 			s.show();
 		} catch (IOException e) {

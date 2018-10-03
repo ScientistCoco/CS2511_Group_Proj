@@ -31,6 +31,10 @@ public class Board {
  		}
  	}
  	
+ 	public Floor getFloor(int x, int y) {
+ 		return map[x][y];
+ 	}
+ 	
  	/**
  	 * This method returns all the enemy entities associated with this board.
  	 * @return an arraylist of the enemy entities

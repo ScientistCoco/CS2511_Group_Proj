@@ -1,8 +1,9 @@
 package other;
 
+import javafx.scene.image.ImageView;
 import points.Points;
 
-public class Entity {
+public class Entity {	
 	protected Integer xCoordinate;	// Use Integer so that null values can be used. This will tell us whether or not the entity has been placed on the boar
 	protected Integer yCoordinate;
 	protected Board board;
@@ -15,6 +16,7 @@ public class Entity {
 								// 2 : Boulder, Potion, Door
 								// 3 : Other items. This is the default value
 	protected Points point;		// Some entities will have objectives that the player needs to complete. By default this will be null
+	protected ImageView entityIcon;
 	
 	/**
 	 * @pre (x > 0 && x < board.length) && (y > 0 && y < board.length)
@@ -37,8 +39,13 @@ public class Entity {
 		return this.point;
 	}
 	
+	// TODO: Remove this method once the visual part is finished. It will be replaced with the method getEntityIcon();
 	public String getIcon() {
 		return this.icon;
+	}
+	
+	public ImageView getEntityIcon() {
+		return this.entityIcon;
 	}
 	
 	/**
