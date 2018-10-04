@@ -10,8 +10,8 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setHeight(500);
-		primaryStage.setWidth(500);
+		primaryStage.setHeight(800);
+		primaryStage.setWidth(1280);
 		
 		DungeonScreen dungeonScreen = new DungeonScreen(primaryStage);
 		dungeonScreen.start();
