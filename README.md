@@ -1,5 +1,10 @@
 ## Read Me!
 ---
+**GUI for Play Mode so far:**
+![GUI Image]
+(https://i.imgur.com/zH7xYM8.png)
+<br>
+<br>
 **Link to Class Diagram**: https://drive.google.com/file/d/1tJrCkWCJFE1M5drb4jMfnYwKEh4UfOiY/view?usp=sharing
 <br>
 <br>
