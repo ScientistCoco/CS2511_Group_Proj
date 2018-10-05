@@ -4,17 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import points.Points;
+import visuals.ObjectiveLabel;
 
 public class ObjectiveComponent {
 	private ArrayList<Points> objectives;
-	
+	private HashMap<Points, Integer> toBeCompleted;	// This is a hashmap containing all the objectives grouped
+	private HashMap<Points, Integer> numCompleted;	// This is a hashmap containing the number of objectives completed
 	/**
 	 * Instantiates the ObjectiveComponent class
 	 * 
 	 */
 	public ObjectiveComponent() {
 		this.objectives = new ArrayList<Points>();
+		this.toBeCompleted = new HashMap<>();
+		this.numCompleted = new HashMap<>();
 	}
 	
 	/**
@@ -41,14 +48,9 @@ public class ObjectiveComponent {
 	}
 	
 	/**
-	 * This method will go through its list of points and categorize each point so that
-	 * it can return a string of the proportions that the player needs to complete.
-	 * @return
+	 * This method is called to update the list of objectives it contains, i.e. checking the progress
 	 */
-	public String getStringOfObjectives() {
-		HashMap<Points, Integer> toBeCompleted = new HashMap<>();	// This is a hashmap containing all the objectives grouped
-		HashMap<Points, Integer> numCompleted = new HashMap<>();	// This is a hashmap containing the number of objectives completed
-		
+	public void updateObjectives() {
 		for (Points objective : objectives) {
 			Integer count = toBeCompleted.get(objective);
 			
@@ -72,6 +74,40 @@ public class ObjectiveComponent {
 				numCompleted.put(objective, count + 1);
 			}
 		}
+	}
+	
+	/**
+	 * This method returns a list of ObjectiveLabels that can be added to a scene
+	 * @return
+	 */
+	public ObservableList<Node> getObjectives() {
+		ObservableList<Node> list = FXCollections.observableArrayList();
+		updateObjectives();
+		
+		for (Entry<Points, Integer> entry : toBeCompleted.entrySet()) {
+			// This is a total of all the points
+		    Points key = entry.getKey();
+		    Integer totalPoints = (Integer) entry.getValue();
+		    
+		    // This is a total of points the player has obtained
+		    Integer obtainedPoints = (Integer) numCompleted.get(key);
+		    if (obtainedPoints == null) {
+		    	obtainedPoints = 0;
+		    }
+		    
+		    list.add(new ObjectiveLabel(key.getDescription(), new String(obtainedPoints + "/" + totalPoints)));
+		    //sb.append(key.getDescription() + ":\t" + obtainedPoints + " / " + totalPoints + "\n");
+		}
+		return list;
+	}
+	
+	/**
+	 * This method will go through its list of points and categorize each point so that
+	 * it can return a string of the proportions that the player needs to complete.
+	 * @return
+	 */
+	public String getStringOfObjectives() {
+		updateObjectives();
 		
 		// Now we format the hashmap into a string
 		StringBuilder sb = new StringBuilder();
@@ -86,7 +122,7 @@ public class ObjectiveComponent {
 		    	obtainedPoints = 0;
 		    }
 		    
-		    sb.append(key.getDescription() + "\t" + obtainedPoints + " \\ " + totalPoints + "\n");
+		    sb.append(key.getDescription() + ":\t" + obtainedPoints + " / " + totalPoints + "\n");
 		}
 		return sb.toString();
 	}

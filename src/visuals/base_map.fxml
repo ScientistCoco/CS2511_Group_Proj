@@ -70,11 +70,11 @@
                <children>
                   <AnchorPane prefHeight="419.0" prefWidth="247.0">
                      <children>
-                        <VBox layoutY="37.0" prefHeight="320.0" prefWidth="199.0">
+                        <VBox fx:id="objectivesList" layoutY="37.0" prefHeight="320.0" prefWidth="199.0">
                            <children>
                               <StackPane prefHeight="46.0" prefWidth="199.0" style="-fx-border-color: #CD7F32; -fx-border-width: 2; -fx-background-color: #333;">
                                  <children>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <AnchorPane fx:id="objectiveBox" prefHeight="200.0" prefWidth="200.0">
                                        <children>
                                           <Text fx:id="objectiveText" fill="#bfbebe" layoutX="8.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kill Enemies" wrappingWidth="115.71875" />
                                           <CheckBox fx:id="objectiveCheckBox" alignment="CENTER" disable="true" layoutX="137.0" layoutY="11.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="46.0" text="0/3" textFill="#bfbebe" />

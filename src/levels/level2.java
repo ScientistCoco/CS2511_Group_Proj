@@ -2,9 +2,11 @@ package levels;
 
 import items.Key;
 import other.Board;
+import other.Boulder;
 import other.Door;
 import other.Exit;
 import other.Player;
+import other.Switch;
 import other.Wall;
 
 public class level2 implements boardLevel {
@@ -28,6 +30,8 @@ public class level2 implements boardLevel {
 		this.board.placeEntity(new Door(board, 0), 4, 4);
 		this.board.placeEntity(new Key(board, 0), 0, 8);
 		this.board.placeEntity(new Exit(board), 8, 8);
+		this.board.placeEntity(new Boulder(board), 7, 1);
+		this.board.placeEntity(new Switch(board), 7, 2);
 	}
 	
 	@Override

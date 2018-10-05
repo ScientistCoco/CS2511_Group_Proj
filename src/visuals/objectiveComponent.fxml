@@ -7,24 +7,19 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="199.0" style="-fx-border-color: #CD7F32; -fx-border-width: 2; -fx-background-color: #333;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="StackPane" type="StackPane" prefHeight="46.0" prefWidth="199.0" style="-fx-border-color: #CD7F32; -fx-border-width: 2; -fx-background-color: #333;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <StackPane layoutX="-16.0" layoutY="-48.0" prefHeight="46.0" prefWidth="199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Text fx:id="objectiveText" fill="#bfbebe" layoutX="8.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kill Enemies" wrappingWidth="115.71875" />
-                  <CheckBox fx:id="objectiveCheckBox" alignment="CENTER" disable="true" layoutX="137.0" layoutY="11.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="46.0" text="0/3" textFill="#bfbebe" />
-               </children>
-            </AnchorPane>
+            <Text fx:id="objectiveText" fill="#bfbebe" layoutX="8.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kill Enemies" wrappingWidth="115.71875" />
+            <CheckBox fx:id="objectiveCheckBox" alignment="CENTER" disable="true" layoutX="137.0" layoutY="11.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="46.0" text="0/3" textFill="#bfbebe" />
          </children>
          <effect>
-            <Glow />
+            <Glow level="0.39" />
          </effect>
-      </StackPane>
+      </AnchorPane>
    </children>
    <effect>
       <InnerShadow />
    </effect>
-</AnchorPane>
+</fx:root>

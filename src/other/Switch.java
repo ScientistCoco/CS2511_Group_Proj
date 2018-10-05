@@ -1,5 +1,7 @@
 package other;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import points.SwitchPoint;
 
 public class Switch extends Entity{
@@ -15,6 +17,7 @@ public class Switch extends Entity{
 		this.state = false;
 		this.icon = " Ø ";
 		this.point = new SwitchPoint();
+		this.entityIcon = new ImageView(new Image("icons/floor_switch.png"));
 	}
 	
 	/**
