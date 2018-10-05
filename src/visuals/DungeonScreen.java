@@ -26,7 +26,7 @@ public class DungeonScreen {
 		fxmlLoader.setController(dungeonController);
 		try {
 			Parent root = fxmlLoader.load();
-			Scene sc = new Scene(root, 500, 500);
+			Scene sc = new Scene(root, 800, 1280); // 490 * 500
 			
 			// This bit here handles the keyboard events from the user
 			sc.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {

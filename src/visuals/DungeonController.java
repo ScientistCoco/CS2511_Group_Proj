@@ -1,5 +1,9 @@
 package visuals;
 
+/**
+ * Notes: The Game will be 1280 x 800 in dimensions. In that case we should make the maximum size for the map to be 704 x 704.
+ * That means a 22 x 22 matrix is the biggest we can make
+ */
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
