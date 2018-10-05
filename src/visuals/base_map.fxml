@@ -33,7 +33,7 @@
          <children>
             <ImageView layoutX="11.0" layoutY="8.0">
                <image>
-                  <Image url="@../../../../../../Downloads/Dungeon%20Crawl%20Stone%20Soup%20Full/gui/startup/instructions.png" />
+                  <Image url="@../icons/instructions.png" />
                </image>
             </ImageView>
          </children>

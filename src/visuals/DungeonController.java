@@ -13,6 +13,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
+
 import javafx.stage.Stage;
 import levels.level1;
 import levels.level2;
@@ -27,6 +29,8 @@ public class DungeonController {
 	private VBox objectivesList;
 	
 	private Stage currStage;
+	private boolean invOpen = false;	// True/false depending on whether the window is open or not. Default = false.
+	private Popup pu;
 	
 	public DungeonController(Stage s) {
 		currStage = s;
@@ -45,11 +49,13 @@ public class DungeonController {
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
-		
+	
 		objectivesList.getChildren().clear();
 		objectivesList.getChildren().addAll(board.getObjectivesOnThisBoard().getObjectives());
 		
-		
+		InventoryController inv = new InventoryController();
+		pu = new Popup();
+		pu.getContent().add(inv);
 	}
 	
 	
@@ -57,6 +63,21 @@ public class DungeonController {
 	@FXML
 	public void onKeyPressed(KeyEvent key) {
 		//System.out.println(key.getCode());
-		board.getPlayerObject().moveSelf(key.getCode().toString());
+		if (key.getCode().toString().equals("I")) {
+			openInventory();
+		} else {
+			board.getPlayerObject().moveSelf(key.getCode().toString());
+		}
+	}
+	
+	@FXML
+	public void openInventory() {
+		if (invOpen == false) {
+			pu.show(currStage.getScene().getWindow(), currStage.getWidth()-150, currStage.getHeight()-600);
+			invOpen = true;
+		} else {
+			pu.hide();
+			invOpen = false;
+		}
 	}
 }
