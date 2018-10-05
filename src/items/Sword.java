@@ -1,6 +1,8 @@
 package items;
 
 import enemies.Enemy;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
 import other.Entity;
@@ -17,6 +19,7 @@ public class Sword extends Item {
 		status = ItemStatus.Exist;
 		this.icon = " 🗡 ";
 		this.description = "A very sharp sword, handy for killing enemies.";
+		this.entityIcon = new ImageView(new Image("icons/sword.png"));
 	}
 	
 	/**

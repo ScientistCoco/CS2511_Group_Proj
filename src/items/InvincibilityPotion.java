@@ -3,6 +3,8 @@ package items;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Buff;
 import other.Player;
@@ -19,6 +21,7 @@ public class InvincibilityPotion extends Item{
 		super(board);
 		this.name = "invincibility potion";
 		this.icon = " ♟ ";
+		new ImageView(new Image("icons/invincibility_potion.png"));
 	}
 
 	@Override

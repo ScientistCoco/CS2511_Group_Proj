@@ -8,9 +8,11 @@ import items.Bomb;
 import items.InvincibilityPotion;
 import items.Sword;
 import items.Treasure;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import play.PlayMode;
 
-public class Main {
+public class Main extends Application {
 	
 	// Class to test the movement of the character class by receiving playerInput.
 	public static void main(String[] args) {
@@ -36,10 +38,10 @@ public class Main {
 		board.placeEntity(pit1, 1, 4);
 		board.placeEntity(bo1, 1, 2);
 		board.placeEntity(sw1, 3, 3);
-		board.placeEntity(bomb, 3, 2);
+		//board.placeEntity(bomb, 3, 2);
 		board.placeEntity(arrow, 5, 2);
 		board.placeEntity(sword, 3, 0);
-		board.placeEntity(IPotion, 6, 0);
+		//board.placeEntity(IPotion, 6, 0);
 		board.placeEntity(hunter, 7, 7);
 		board.placeEntity(treasure, 6, 6);
 
@@ -47,5 +49,12 @@ public class Main {
 		PlayMode pm = new PlayMode(sc, board, p1);
 		pm.doAction();
 		sc.close();
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }

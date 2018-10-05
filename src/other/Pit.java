@@ -1,11 +1,15 @@
 package other;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Pit extends Entity{
 
 	public Pit(Board board) {
 		super(board);
 		this.icon = " O ";
 		this.zOrder = 1;
+		this.entityIcon = new ImageView(new Image("icons/pit.png"));
 	}
 
 	@Override

@@ -86,6 +86,7 @@ public class PlayMode {
 	 * make their move
 	 */
 	private void updateEnemyLocations() {
+		this.enemies = this.board.getEnemyObjects();
 		for (Enemy enemy : this.enemies) {
 			enemy.updateMove(this.player);
 		}
@@ -98,7 +99,6 @@ public class PlayMode {
 		System.out.println(player.getObjectiveString());
 		board.printBoard();
 		while (decipherInput(askForCmd())) {
-			updateEnemyLocations();
 			System.out.println(player.getObjectiveString());
 			if (player.checkIfAlive() == false) {
 				System.out.println("Game over you have died");
@@ -109,7 +109,7 @@ public class PlayMode {
 				System.out.println("Congratulations you have completed this level!");
 				break;
 			}
-			
+			updateEnemyLocations();
 			board.printBoard();
 		}
 	}

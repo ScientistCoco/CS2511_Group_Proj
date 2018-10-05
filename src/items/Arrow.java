@@ -1,5 +1,7 @@
 package items;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
 import other.Player;
@@ -10,6 +12,7 @@ public class Arrow extends Item{
 		super(board);
 		this.name = "arrow";
 		this.icon = " ↖ ";
+		this.entityIcon = new ImageView(new Image("icons/arrow.png"));
 	}
 	
 	
