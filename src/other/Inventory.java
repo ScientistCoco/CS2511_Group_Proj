@@ -3,6 +3,7 @@ package other;
 import java.util.ArrayList;
 
 import items.Item;
+import javafx.scene.image.ImageView;
 
 public class Inventory {
 	private ArrayList<Item> items;
@@ -51,6 +52,14 @@ public class Inventory {
 		for (Item it : items) {
 			System.out.println("Item name: " + it.getItemName() + "\t" + "Description: " + it.getDescription());
 		}
+	}
+	
+	public ArrayList<ImageView> getInventoryItems() {
+		ArrayList<ImageView> invItems = new ArrayList<ImageView>();
+		for (Item item : items) {
+			invItems.add(item.getEntityIcon());
+		}
+		return invItems;
 	}
 	
 	/**

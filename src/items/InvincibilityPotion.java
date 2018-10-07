@@ -21,7 +21,7 @@ public class InvincibilityPotion extends Item{
 		super(board);
 		this.name = "invincibility potion";
 		this.icon = " ♟ ";
-		new ImageView(new Image("icons/invincibility_potion.png"));
+		this.entityIcon = new ImageView(new Image("icons/invincibility_potion.png"));
 	}
 
 	@Override
