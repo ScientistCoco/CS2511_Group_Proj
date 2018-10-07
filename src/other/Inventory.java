@@ -3,6 +3,8 @@ package other;
 import java.util.ArrayList;
 
 import items.Item;
+import items.Key;
+import items.Sword;
 import javafx.scene.image.ImageView;
 
 public class Inventory {
@@ -14,9 +16,9 @@ public class Inventory {
 	
 	public boolean addItem(Item it) {
 		//check sword
-		if (this.findItem("sword") != null) return false;
+		if (it instanceof Sword && this.findItem("sword") != null) return false;
 		//assuming player can't add another key once player has it
-		if (this.findItem("Key") != null) return false;
+		if (it instanceof Key && this.findItem("Key") != null) return false;
 		return items.add(it);
 	}
 	
