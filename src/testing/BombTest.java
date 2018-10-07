@@ -24,7 +24,6 @@ public class BombTest {
 		try {
 			Thread.sleep(bomb.getExplosionTime() + 100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals(true, p1.getHealth() == 0);
@@ -47,7 +46,6 @@ public class BombTest {
 		try {
 			Thread.sleep(bomb.getExplosionTime() + 10);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals(true, p2.getHealth() == 1);
@@ -68,7 +66,6 @@ public class BombTest {
 		try {
 			Thread.sleep(bomb.getExplosionTime() + 100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

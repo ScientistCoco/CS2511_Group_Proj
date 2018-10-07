@@ -87,7 +87,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <Pane fx:id="closeBtn" layoutX="370.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #722323; -fx-border-color: #cd7f32; -fx-border-width: 2;">
+      <Pane fx:id="closeBtn" layoutX="370.0" onMouseClicked="#onCloseBtnClicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #722323; -fx-border-color: #cd7f32; -fx-border-width: 2;">
          <effect>
             <InnerShadow blurType="GAUSSIAN" />
          </effect>

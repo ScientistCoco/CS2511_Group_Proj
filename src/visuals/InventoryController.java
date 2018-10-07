@@ -17,10 +17,12 @@ public class InventoryController extends Pane {
 		private StackPane[][] inventoryStackPane;	// We use a stackpane to hold the items. The gridpane is only to help with visually laying out the inventory.
 		private int invColSize = 5;
 		private int invRowSize = 7;
+		private boolean invOpened = false; // True/false depending on whether the window is open or not. Default = false.
 		
 		public InventoryController() {
 			super();
 			inventoryStackPane = new StackPane[5][7];
+			this.setVisible(false);
 			try {
 				FXMLLoader l = new FXMLLoader(getClass().getResource("/visuals/inventory_window.fxml"));
 				l.setRoot(this);
@@ -65,5 +67,19 @@ public class InventoryController extends Pane {
 				curCol++;
 			}
 		}
-
+		
+		@FXML
+		public void onCloseBtnClicked() {
+			onActionInv();
+		}
+		
+		public void onActionInv() {
+			if (this.invOpened == false) {
+				this.invOpened = true;
+				this.setVisible(true);
+			} else {
+				this.invOpened = false;
+				this.setVisible(false);
+			}
+		}
 }
