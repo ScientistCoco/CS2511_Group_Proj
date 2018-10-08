@@ -40,6 +40,20 @@ public class Inventory {
 		return null;
 	}
 	
+	/**
+	 * Finds the item associated with the given image
+	 * @param image
+	 * @return
+	 */
+	public Item findItemByImage(ImageView image) {
+		for (Item it : items) {
+			if (it.getEntityIcon().equals(image)) {
+				return it;
+			}
+		}
+		return null;
+	}
+	
 	public int findItemAmount(String name) {
 		int counter = 0;
 		for (Item it : items) {
@@ -62,6 +76,7 @@ public class Inventory {
 			invItems.add(item.getEntityIcon());
 		}
 		return invItems;
+		//return this.items;
 	}
 	
 	/**

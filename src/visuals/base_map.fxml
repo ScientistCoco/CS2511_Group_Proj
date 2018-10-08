@@ -161,5 +161,6 @@
          </children>
       </HBox>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#707070" height="10.0" layoutX="-1.0" layoutY="-3.0" stroke="#a1a1a100" strokeType="INSIDE" width="1281.0" />
+      <AnchorPane fx:id="inventoryPane" layoutX="845.0" layoutY="150.0" pickOnBounds="false" />
    </children>
 </AnchorPane>

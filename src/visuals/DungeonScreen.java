@@ -22,7 +22,7 @@ public class DungeonScreen {
 	
 	public void start() {
 		s.setTitle(title);
-		DungeonController dungeonController = new DungeonController(s);
+		DungeonController dungeonController = new DungeonController(s, fxmlLoader);
 		fxmlLoader.setController(dungeonController);
 		try {
 			Parent root = fxmlLoader.load();
