@@ -6,6 +6,7 @@ package visuals;
  */
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
@@ -16,10 +17,11 @@ import levels.level1;
 import levels.level2;
 import other.Board;
 
-public class DungeonController {
+public class DungeonController implements Controller {
 	@FXML private AnchorPane base;
 	@FXML private GridPane baseMap;
 	@FXML private VBox objectivesList;
+	@FXML private TextArea systemTextUpdates;
 	
 	private InventoryController inv;
 	@FXML private AnchorPane inventoryPane;
@@ -46,20 +48,28 @@ public class DungeonController {
 		objectivesList.getChildren().clear();
 		objectivesList.getChildren().addAll(board.getObjectivesOnThisBoard().getObjectives());
 		inv = new InventoryController();
-		inv.setInventory(board.getPlayerObject().getInventory());
+		inv.setPlayer(board.getPlayerObject());
 		inventoryPane.getChildren().add(inv);
+		systemTextUpdates.setEditable(false);
 	}
 	
 	
 	// This method handles the keyboard events - right,left,up and down arrow keys
 	@FXML
 	public void onKeyPressed(KeyEvent key) {
-		// TODO: If player has inventory open and they pick up an item, it should automatically show up in the inventory.
 		if (key.getCode().toString().equals("I")) {
 			inv.onActionInv();		
 		} else {
 			board.getPlayerObject().moveSelf(key.getCode().toString());
+			systemTextUpdates.appendText("You moved\n");				
 		}
+		inv.showItems();	// Gets the inventoryController to check if there has been new additions. So that if the player has the inv open and they pick up an item, it will show up in their inv.
+	}
+
+	@Override
+	public void updateController() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

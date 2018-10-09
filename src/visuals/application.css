@@ -7,3 +7,12 @@
 	-fx-background-color: #5b5b5b;
 	-fx-effect: innershadow(one-pass-box, #1e1e1e, 5, 0.3, 2, 1.5);
 }
+
+.text-area .content {
+	-fx-background-color: #333;
+}
+
+.text-area {
+	-fx-text-fill: #fff;
+	-fx-background-color: transparent;
+}

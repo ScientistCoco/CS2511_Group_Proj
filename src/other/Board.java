@@ -3,10 +3,12 @@ package other;
 import java.util.ArrayList;
 
 import enemies.Enemy;
+import visuals.Controller;
 
 public class Board {
 	private Floor[][] map;
 	private ArrayList<Entity> entities;
+	private ArrayList<Controller> controllers; 	// The controllers that might need to be updated if required
 	
 	public Board() {
 		// Default size if no given width/height
@@ -35,6 +37,15 @@ public class Board {
  		return map[x][y];
  	}
  	
+ 	public void addController(Controller c) {
+ 		controllers.add(c);
+ 	}
+ 	
+ 	public void updateControllers() {
+ 		for (Controller c : controllers) {
+ 			c.updateController();
+ 		}
+ 	}
  	/**
  	 * This method returns all the enemy entities associated with this board.
  	 * @return an arraylist of the enemy entities
