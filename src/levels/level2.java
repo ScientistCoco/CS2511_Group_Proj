@@ -2,6 +2,7 @@ package levels;
 
 import enemies.Hunter;
 import items.Arrow;
+import items.HoverPotion;
 import items.InvincibilityPotion;
 import items.Key;
 import items.Sword;
@@ -39,6 +40,8 @@ public class level2 implements boardLevel {
 		this.board.placeEntity(new Arrow(board), 3, 2);
 		this.board.placeEntity(new Sword(board), 2, 5);
 		this.board.placeEntity(new Hunter(board), 3, 8);
+		this.board.placeEntity(new InvincibilityPotion(board), 6, 3);
+		this.board.placeEntity(new HoverPotion(board), 6, 4);
 	}
 	
 	@Override

@@ -17,6 +17,7 @@ public class Bomb extends Item{
 		super(board);
 		this.name = "Bomb";
 		this.icon = " Ò ";
+		//this.entityIcon = new ImageView(new Image("icons/"))
 		effect = new UnlitBombBehaviour();
 		this.bombExplosionTime = 1200;
 	}

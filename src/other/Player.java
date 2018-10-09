@@ -27,6 +27,21 @@ public class Player extends Character {
 		this.cardinalDirection = Direction.Down;
 	}
 	
+	/**
+	 * Returns an arraylist<ImageView> of the buffs on the player 
+	 */
+	public ArrayList<ImageView> getBuffs() {
+		ArrayList<ImageView> buffs = new ArrayList<ImageView>();
+		for (Buff b : potionBuff) {
+			if (b.equals(Buff.Hover)) {
+				buffs.add(new ImageView(new Image("icons/hover_buff.png")));
+			} else if (b.equals(Buff.Invincibility)) {
+				buffs.add(new ImageView(new Image("icons/invincibility_buff.png")));
+			}
+		}
+		return buffs;
+	}
+	
 	public void changeDirection(String d) {
 		this.cardinalDirection = Direction.fromString(d);
 		// We have to change the icon depending on the direction.

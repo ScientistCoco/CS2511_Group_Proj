@@ -175,5 +175,6 @@
             <Point3D />
          </rotationAxis>
       </TextArea>
+      <HBox fx:id="buffBar" layoutX="78.0" layoutY="30.0" prefHeight="42.0" prefWidth="185.0" />
    </children>
 </AnchorPane>
