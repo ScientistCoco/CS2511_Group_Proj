@@ -85,10 +85,17 @@ public class Sword extends Item {
 	 */
 	@Override
 	public String useItem(Player player) {
+		// TODO: Should we let the player know if the sword has disappeared when its durability has reached 0?
+		// To know if the sword has hit anything we can get the number of enemies on the board before the sword was used
+		// then compare it afterwards to see if anything has changed.
+		int enemies = board.getEnemyObjects().size();
 		// When sword is used the system will ask the player for which direction they want to swing the sword
-		System.out.println("Which direction do you want to swing the sword?");
-		swing(player, getPlayerInputForDirection());
-		return null;
+		//System.out.println("Which direction do you want to swing the sword?");
+		swing(player, player.getCardinalDirection());
+		if (enemies != board.getEnemyObjects().size()) {
+			return "You swang the sword and killed an enemy";
+		} 
+		return "You swang the sword but did not kill anything";
 	}
 
 }

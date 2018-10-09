@@ -1,6 +1,8 @@
 package other;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import items.Item;
 import items.Key;
@@ -70,13 +72,26 @@ public class Inventory {
 		}
 	}
 	
-	public ArrayList<ImageView> getInventoryItems() {
+	public ArrayList<ImageView> getInventoryItems() {		
 		ArrayList<ImageView> invItems = new ArrayList<ImageView>();
+		this.sortInventory();
 		for (Item item : items) {
 			invItems.add(item.getEntityIcon());
 		}
 		return invItems;
 		//return this.items;
+	}
+	
+	/**
+	 * This sorts the inventory by the item name - alphabetically
+	 */
+	public void sortInventory() {
+		Collections.sort(items, new Comparator<Item>() {
+			@Override
+			public int compare(Item i1, Item i2) {
+				return i1.getItemName().compareTo(i2.getItemName());
+			}			
+		});
 	}
 	
 	/**

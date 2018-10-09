@@ -4,6 +4,7 @@ import enemies.Hunter;
 import items.Arrow;
 import items.InvincibilityPotion;
 import items.Key;
+import items.Sword;
 import other.Board;
 import other.Boulder;
 import other.Door;
@@ -36,6 +37,7 @@ public class level2 implements boardLevel {
 		this.board.placeEntity(new Boulder(board), 7, 1);
 		this.board.placeEntity(new Switch(board), 7, 2);
 		this.board.placeEntity(new Arrow(board), 3, 2);
+		this.board.placeEntity(new Sword(board), 2, 5);
 		this.board.placeEntity(new Hunter(board), 3, 8);
 	}
 	
