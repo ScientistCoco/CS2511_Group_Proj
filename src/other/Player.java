@@ -13,6 +13,7 @@ public class Player extends Character {
 	private Inventory inventory;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Direction> directions;
+	private Direction cardinalDirection;	// This is the direction in which the player is facing. Default is down (south)
 
 	public Player(Board board) {
 		super(board);
@@ -22,7 +23,28 @@ public class Player extends Character {
 		directions = new ArrayList<Direction>();
 		this.icon = " ♀ ";
 		this.zOrder = 1;
-		this.entityIcon = new ImageView(new Image("icons/human.png"));
+		this.entityIcon = new ImageView(new Image("icons/player_front.png"));
+		this.cardinalDirection = Direction.Down;
+	}
+	
+	public void changeDirection(String d) {
+		this.cardinalDirection = Direction.fromString(d);
+		// We have to change the icon depending on the direction.
+		this.board.removeEntity(this);
+		if (this.cardinalDirection.equals(Direction.Down)) {
+			this.entityIcon = new ImageView(new Image("icons/player_front.png"));
+		} else if (this.cardinalDirection.equals(Direction.Up)) {
+			this.entityIcon = new ImageView(new Image("icons/player_up.png"));
+		} else if (this.cardinalDirection.equals(Direction.Right)) {
+			this.entityIcon = new ImageView(new Image("icons/player_right.png"));
+		} else if (this.cardinalDirection.equals(Direction.Left)) {
+			this.entityIcon = new ImageView(new Image("icons/player_left.png"));
+		}
+		this.board.placeEntity(this, this.getXCoordinate(), this.getYCoordinate());
+	}
+	
+	public Direction getCardinalDirection() {
+		return this.cardinalDirection;
 	}
 	
 	public Inventory getInventory() {
@@ -52,6 +74,7 @@ public class Player extends Character {
 	 * @param direction
 	 */
 	public void moveSelf(String direction) {
+		this.changeDirection(direction);
 		this.move.move(direction, this, board);
 	}
 	
