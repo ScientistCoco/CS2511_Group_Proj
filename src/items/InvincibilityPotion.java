@@ -12,7 +12,7 @@ import other.Player;
 public class InvincibilityPotion extends Item{
 
 	private Timer timer = new Timer();
-	private Integer limitedTime = 10;
+	private Integer limitedTime = 200;
 	
 	public Integer getLimitedTime() {
 		return limitedTime;
@@ -21,6 +21,7 @@ public class InvincibilityPotion extends Item{
 		super(board);
 		this.name = "invincibility potion";
 		this.icon = " ♟ ";
+		this.description = "A potion that grants you invincibility for a limited time";
 		this.entityIcon = new ImageView(new Image("icons/invincibility_potion.png"));
 	}
 
@@ -35,7 +36,7 @@ public class InvincibilityPotion extends Item{
 			}
 			
 		}, limitedTime );
-		return null;
+		return "You drank the invincibility potion";
 	}
 
 }

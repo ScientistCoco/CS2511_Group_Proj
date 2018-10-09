@@ -25,6 +25,7 @@ public class InventoryController extends Pane {
 		private boolean invOpened = false; // True/false depending on whether the window is open or not. Default = false.
 		private Player player;
 		private Inventory inv;
+		private ArrayList<ImageView> items;
 		@FXML private TextArea systemTextUpdates;
 		
 		public InventoryController() {
@@ -87,7 +88,8 @@ public class InventoryController extends Pane {
 		public void useInventoryItem(int col, int row) {
 			if (inventoryStackPane[col][row].getChildren().size() != 0) {
 				Item item = inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0));
-				systemTextUpdates.appendText(inv.useItem(this.player, item.getItemName()) + "\n");				
+				systemTextUpdates.appendText(inv.useItem(this.player, item.getItemName()) + "\n");	
+				showItems();
 			}
 		}
 		
@@ -99,7 +101,7 @@ public class InventoryController extends Pane {
 		 */
 		public void showDescription(int col, int row) {
 			if (inventoryStackPane[col][row].getChildren().size() != 0) {
-				System.out.println(inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0)).getDescription());
+				System.out.println(inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0)).getDescription());			
 			}
 		}
 		
@@ -108,25 +110,38 @@ public class InventoryController extends Pane {
 		 * @param items, an arraylist of imageview nodes
 		 */
 		public void showItems() {
-			ArrayList<ImageView> items = inv.getInventoryItems();
+			this.items = inv.getInventoryItems();
 			int curRow = 0;
 		    int curCol = 0;
-			for (ImageView item : items){
+		    
+		    // First clear the inventoryStackPane;
+		    for (int i = 0; i < invColSize; i ++) {
+		    	for (int j = 0; j < invRowSize; j++) {
+		    		inventoryStackPane[i][j].getChildren().clear();
+		    	}
+		    }
+		    
+			for (ImageView item : this.items){
 				if (curCol == 5) {
 					curCol = 0;
 					curRow++;
 				} 					
-				inventoryStackPane[curCol][curRow].getChildren().clear();
 				inventoryStackPane[curCol][curRow].getChildren().add(0, item);
 				curCol++;
-			}
+			}			
 		}
 		
+		/**
+		 * This is the event that happens when the user pressed on the 'x' button on the inventory
+		 */
 		@FXML
 		public void onCloseBtnClicked() {
 			onActionInv();
 		}
 		
+		/**
+		 * This method determines whether to close the inventory or to open the inventory
+		 */
 		public void onActionInv() {
 			if (this.invOpened == false) {
 				this.invOpened = true;

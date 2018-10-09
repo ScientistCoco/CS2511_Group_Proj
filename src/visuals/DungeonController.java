@@ -1,5 +1,7 @@
 package visuals;
 
+import java.util.ArrayList;
+
 import javafx.event.EventHandler;
 /**
  * Notes: The Game will be 1280 x 800 in dimensions. In that case we should make the maximum size for the map to be 704 x 704.
@@ -8,8 +10,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -23,6 +27,8 @@ public class DungeonController {
 	@FXML private GridPane baseMap;
 	@FXML private VBox objectivesList;
 	@FXML private TextArea systemTextUpdates;
+	@FXML private HBox buffBar;	// Size is 185 (W) * 42 (H)
+	private ArrayList<ImageView> buffs;
 	
 	private InventoryController inv;
 	@FXML private AnchorPane inventoryPane;
@@ -37,7 +43,7 @@ public class DungeonController {
 	@FXML
 	public void initialize() {
 		board = new level2().getBoard();
-		
+		this.buffs = new ArrayList<ImageView>();
 		//baseMap.getRowConstraints().add(new RowConstraints(10));	// To get it to display with no cropping we set the constraints to be the size of the grid
 		//baseMap.getColumnConstraints().add(new ColumnConstraints(10));
 		for (int i = 0; i < 10; i ++) {
@@ -80,9 +86,21 @@ public class DungeonController {
 		});
 	}
 	
+	/**
+	 * This method updates the buffs on the buffBar view
+	 */
+	public void updateBuffs() {		
+		this.buffs = board.getPlayerObject().getBuffs();
+		buffBar.getChildren().clear();
+		for (ImageView b : this.buffs) {
+			buffBar.getChildren().add(b);
+		}
+	}
+	
 	// This method handles events that are not arrow keys
 	@FXML
 	public void onKeyPressed(KeyEvent key) {
+		updateBuffs();
 		if (key.getCode().toString().equals("I")) {
 			inv.onActionInv();		
 		} 

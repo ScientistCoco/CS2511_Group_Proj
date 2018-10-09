@@ -39,10 +39,10 @@ public class Key extends Item{
 		return keyNum;
 	}
 
-	@Override
+	/**@Override
 	public String toString() {
 		return "Key Number = " + keyNum;
-	}
+	}**/
 	
 	/**
 	 * Tries to open a door in the indicated direction.
@@ -76,14 +76,15 @@ public class Key extends Item{
 	
 	@Override
 	public String useItem(Player player) {
-		System.out.println("Which direction would you like to use this key?");
-		boolean res = tryOpenDoor(player.getXCoordinate(), player.getYCoordinate(), this.getPlayerInputForDirection());
+		//System.out.println("Which direction would you like to use this key?");
+		boolean res = tryOpenDoor(player.getXCoordinate(), player.getYCoordinate(), player.getCardinalDirection());
 		
 		// If the player did not successfully open the door, we add the key back to their inventory
 		if (res == false) {
 			player.getInventory().addItem(this);
+			return "The key did nothing";
 		} 
-		return null;
+		return "You opened the door";
 	}
 
 }

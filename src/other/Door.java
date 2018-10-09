@@ -11,7 +11,7 @@ public class Door extends Entity{
 	public Door(Board board, int num) {
 		super(board);
 		this.DoorNum = num;
-		status = DoorStatus.Closed;
+		this.status = DoorStatus.Closed;
 		this.icon = "[#]";
 		this.zOrder = 2;
 		this.entityIcon = new ImageView(new Image("icons/closed_door.png"));
@@ -33,9 +33,15 @@ public class Door extends Entity{
 	}
 	
 	public void changeStatus(DoorStatus s) {
-		status = s;
-		if (this.status == DoorStatus.Open) this.entityIcon = new ImageView(new Image("icons/open_door.png"));
-		else this.entityIcon = new ImageView(new Image("icons/closed_door.png"));
+		this.status = s;
+		this.board.removeFromMap(this, this.getXCoordinate(), this.getYCoordinate());
+		if (this.status == DoorStatus.Open) {
+			this.entityIcon = new ImageView(new Image("icons/open_door.png"));			
+		}
+		else {
+			this.entityIcon = new ImageView(new Image("icons/closed_door.png"));
+		}
+		this.board.placeEntity(this, this.getXCoordinate(), this.getYCoordinate());
 	}
 	
 	public DoorStatus getDoorStatus() {
