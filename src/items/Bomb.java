@@ -43,9 +43,10 @@ public class Bomb extends Item{
 	/**
 	 * When the bomb is used we assume that this means the player is lighting the bomb
 	 * with the intention of placing it on a nearby square to destroy nearby entities.
+	 * @return 
 	 */
 	@Override
-	public void useItem(Player player) {
+	public String useItem(Player player) {
 		//board.placeEntity(this, player.getXCoordinate() + 1, player.getYCoordinate());
 		this.setCoordinates(player.getXCoordinate(), player.getYCoordinate());
 		
@@ -54,6 +55,7 @@ public class Bomb extends Item{
 			System.out.println("Please enter a valid direction for which the bomb can be placed: ");
 		}
 		setBombToLight();
+		return null;
 	}
 	
 	/**

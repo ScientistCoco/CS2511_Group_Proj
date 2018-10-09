@@ -25,7 +25,7 @@ public class InvincibilityPotion extends Item{
 	}
 
 	@Override
-	public void useItem(final Player player) {
+	public String useItem(final Player player) {
 		player.addBuff(Buff.Invincibility);
 		timer.schedule(new TimerTask() {
 
@@ -35,6 +35,7 @@ public class InvincibilityPotion extends Item{
 			}
 			
 		}, limitedTime );
+		return null;
 	}
 
 }

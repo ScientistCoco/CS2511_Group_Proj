@@ -17,7 +17,7 @@ import levels.level1;
 import levels.level2;
 import other.Board;
 
-public class DungeonController implements Controller {
+public class DungeonController {
 	@FXML private AnchorPane base;
 	@FXML private GridPane baseMap;
 	@FXML private VBox objectivesList;
@@ -49,6 +49,7 @@ public class DungeonController implements Controller {
 		objectivesList.getChildren().addAll(board.getObjectivesOnThisBoard().getObjectives());
 		inv = new InventoryController();
 		inv.setPlayer(board.getPlayerObject());
+		inv.setSystemTextUpdates(systemTextUpdates);
 		inventoryPane.getChildren().add(inv);
 		systemTextUpdates.setEditable(false);
 	}
@@ -60,16 +61,9 @@ public class DungeonController implements Controller {
 		if (key.getCode().toString().equals("I")) {
 			inv.onActionInv();		
 		} else {
-			board.getPlayerObject().moveSelf(key.getCode().toString());
-			systemTextUpdates.appendText("You moved\n");				
+			board.getPlayerObject().moveSelf(key.getCode().toString());				
 		}
 		inv.showItems();	// Gets the inventoryController to check if there has been new additions. So that if the player has the inv open and they pick up an item, it will show up in their inv.
-	}
-
-	@Override
-	public void updateController() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

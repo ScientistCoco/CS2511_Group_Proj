@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import items.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -24,6 +25,7 @@ public class InventoryController extends Pane {
 		private boolean invOpened = false; // True/false depending on whether the window is open or not. Default = false.
 		private Player player;
 		private Inventory inv;
+		@FXML private TextArea systemTextUpdates;
 		
 		public InventoryController() {
 			this.setVisible(false);
@@ -42,6 +44,10 @@ public class InventoryController extends Pane {
 		public void setPlayer(Player player) {
 			this.player = player;
 			this.inv = this.player.getInventory();
+		}
+		
+		public void setSystemTextUpdates(TextArea stext) {
+			this.systemTextUpdates = stext;
 		}
 		
 		@FXML
@@ -81,7 +87,7 @@ public class InventoryController extends Pane {
 		public void useInventoryItem(int col, int row) {
 			if (inventoryStackPane[col][row].getChildren().size() != 0) {
 				Item item = inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0));
-				inv.useItem(this.player, item.getItemName());
+				systemTextUpdates.appendText(inv.useItem(this.player, item.getItemName()) + "\n");				
 			}
 		}
 		

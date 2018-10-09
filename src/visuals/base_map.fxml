@@ -164,7 +164,7 @@
       </HBox>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#707070" height="10.0" layoutX="-1.0" layoutY="-3.0" stroke="#a1a1a100" strokeType="INSIDE" width="1281.0" />
       <AnchorPane fx:id="inventoryPane" layoutX="845.0" layoutY="150.0" pickOnBounds="false" />
-      <TextArea fx:id="systemTextUpdates" layoutX="-2.0" layoutY="600.0" prefHeight="200.0" prefWidth="287.0" stylesheets="@application.css" text="You shot an arrow, it hit nothing." wrapText="true">
+      <TextArea fx:id="systemTextUpdates" layoutX="-2.0" layoutY="600.0" prefHeight="200.0" prefWidth="287.0" stylesheets="@application.css" wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="13.0" />
          </font>
