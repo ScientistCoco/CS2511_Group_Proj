@@ -3,8 +3,10 @@ package visuals;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import items.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -12,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import other.Inventory;
+import other.Player;
 
 public class InventoryController extends Pane {
 		@FXML private GridPane inventoryGrid;
@@ -20,7 +23,9 @@ public class InventoryController extends Pane {
 		private int invColSize = 5;
 		private int invRowSize = 7;
 		private boolean invOpened = false; // True/false depending on whether the window is open or not. Default = false.
+		private Player player;
 		private Inventory inv;
+		@FXML private TextArea systemTextUpdates;
 		
 		public InventoryController() {
 			this.setVisible(false);
@@ -36,8 +41,13 @@ public class InventoryController extends Pane {
 			}
 		}
 		
-		public void setInventory(Inventory inv) {
-			this.inv = inv;
+		public void setPlayer(Player player) {
+			this.player = player;
+			this.inv = this.player.getInventory();
+		}
+		
+		public void setSystemTextUpdates(TextArea stext) {
+			this.systemTextUpdates = stext;
 		}
 		
 		@FXML
@@ -59,7 +69,26 @@ public class InventoryController extends Pane {
 					showDescription(col, row);
 				});
 			});
+			inventoryGrid.getChildren().forEach((item) -> {
+				item.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+					int row = inventoryGrid.getRowIndex(item);
+					int col = inventoryGrid.getColumnIndex(item);
+					useInventoryItem(col, row);
+				});
+			});
 
+		}
+		
+		/**
+		 * This method uses the item in the given col and row if there is one
+		 * @param col
+		 * @param row
+		 */
+		public void useInventoryItem(int col, int row) {
+			if (inventoryStackPane[col][row].getChildren().size() != 0) {
+				Item item = inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0));
+				systemTextUpdates.appendText(inv.useItem(this.player, item.getItemName()) + "\n");				
+			}
 		}
 		
 		/**

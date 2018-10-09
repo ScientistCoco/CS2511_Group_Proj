@@ -84,10 +84,11 @@ public class Sword extends Item {
 	 * This method is called when the player wants to use the sword item in their inventory
 	 */
 	@Override
-	public void useItem(Player player) {
+	public String useItem(Player player) {
 		// When sword is used the system will ask the player for which direction they want to swing the sword
 		System.out.println("Which direction do you want to swing the sword?");
 		swing(player, getPlayerInputForDirection());
+		return null;
 	}
 
 }

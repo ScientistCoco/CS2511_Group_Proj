@@ -75,7 +75,7 @@ public class Key extends Item{
 	}
 	
 	@Override
-	public void useItem(Player player) {
+	public String useItem(Player player) {
 		System.out.println("Which direction would you like to use this key?");
 		boolean res = tryOpenDoor(player.getXCoordinate(), player.getYCoordinate(), this.getPlayerInputForDirection());
 		
@@ -83,7 +83,7 @@ public class Key extends Item{
 		if (res == false) {
 			player.getInventory().addItem(this);
 		} 
-		
+		return null;
 	}
 
 }

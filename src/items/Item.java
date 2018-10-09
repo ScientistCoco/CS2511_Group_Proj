@@ -77,7 +77,8 @@ public abstract class Item extends Entity{
 	}
 	
 	/**
-	 * This method is called when the player wants to use the item
+	 * This method is called when the player wants to use the item. Returns a string incase the system
+	 * wants to print anything to the console to let the player know the result of their action.
 	 */
-	public abstract void useItem(Player player);
+	public abstract String useItem(Player player);
 }

@@ -12,8 +12,9 @@ public class HoverPotion extends Item {
 	}
 
 	@Override
-	public void useItem(Player player) {
+	public String useItem(Player player) {
 		player.addBuff(Buff.Hover);
+		return null;
 	}
 
 }

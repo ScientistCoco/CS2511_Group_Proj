@@ -19,8 +19,8 @@ public class Treasure extends Item {
 	
 	// The treasure has no actions when it is used
 	@Override
-	public void useItem(Player player) {
-
+	public String useItem(Player player) {
+		return null;
 	}
 
 }
