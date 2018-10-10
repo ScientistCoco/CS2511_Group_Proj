@@ -3,6 +3,11 @@ package items;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import enemies.Enemy;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import other.Board;
 import other.Boulder;
 import other.Buff;
@@ -14,6 +19,7 @@ public class LitBombBehaviour implements BombBehaviour{
 	private Timer timer = new Timer();
 	private int xCoordinate;
 	private int yCoordinate;
+	private Bomb bomb;
 	
 	public boolean effect(Board board) {
 		// Have to check all the grids around the bomb.
@@ -32,6 +38,7 @@ public class LitBombBehaviour implements BombBehaviour{
 		
 		System.out.println("BOOM!");
 		// After the bomb explodes it should also remove itself
+		//board.removeEntity(this.bomb);
 		removeBomb(board, this.xCoordinate, this.yCoordinate);
 		board.printBoard();
 		return true;
@@ -71,6 +78,11 @@ public class LitBombBehaviour implements BombBehaviour{
 				((Character)e).deleteHealth();
 			}
 		}
+		
+		if (e instanceof Enemy) {
+			((Enemy) e).deleteHealth();
+			board.removeEntity(e);
+		}
 	}
 
 	@Override
@@ -78,11 +90,18 @@ public class LitBombBehaviour implements BombBehaviour{
 		
 		this.xCoordinate = bomb.getXCoordinate();
 		this.yCoordinate = bomb.getYCoordinate();
+		this.bomb = bomb;
 		
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				effect(board);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						effect(board);
+					}					
+				});
+				
 			}
 		}, bomb.getExplosionTime());
 		

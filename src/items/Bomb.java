@@ -1,5 +1,7 @@
 package items;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
 import other.Entity;
@@ -17,14 +19,20 @@ public class Bomb extends Item{
 		super(board);
 		this.name = "Bomb";
 		this.icon = " Ò ";
-		//this.entityIcon = new ImageView(new Image("icons/"))
+		this.entityIcon = new ImageView(new Image("icons/bomb_unlit.png"));
 		effect = new UnlitBombBehaviour();
 		this.bombExplosionTime = 1200;
+		this.description = "Put this bomb down to create an explosion";
 	}
 	
 	public void changeBehaviour(BombBehaviour b) {
 		effect = b;
-		if (b instanceof LitBombBehaviour) this.icon = " Õ ";
+		if (b instanceof LitBombBehaviour) {
+			this.icon = " Õ ";
+			this.entityIcon = new ImageView(new Image("icons/bomb_lit.png"));
+		} else if (b instanceof UnlitBombBehaviour) {
+			this.entityIcon = new ImageView(new Image("icons/bomb_unlit.png"));
+		}
 	}
 	
 	public Integer getExplosionTime() {
@@ -36,8 +44,8 @@ public class Bomb extends Item{
 	 * 
 	 */
 	public void setBombToLight() {
-		this.changeBehaviour(new LitBombBehaviour());
-		board.addEntity(this);
+		//this.changeBehaviour(new LitBombBehaviour());
+		//board.addEntity(this);
 		effect.useItem(this, board);
 	}
 	
@@ -50,13 +58,20 @@ public class Bomb extends Item{
 	public String useItem(Player player) {
 		//board.placeEntity(this, player.getXCoordinate() + 1, player.getYCoordinate());
 		this.setCoordinates(player.getXCoordinate(), player.getYCoordinate());
+		this.changeBehaviour(new LitBombBehaviour());
+		//System.out.println("Where would you like to place the bomb?");
+		//while (checkValidPlacement(getPlayerInputForDirection())) {
+		//	System.out.println("Please enter a valid direction for which the bomb can be placed: ");
+		//}
 		
-		System.out.println("Where would you like to place the bomb?");
-		while (checkValidPlacement(getPlayerInputForDirection())) {
-			System.out.println("Please enter a valid direction for which the bomb can be placed: ");
+		// We can check that the player is placing the bomb in an appropriate location, if not then we return a message telling them that
+		if (!checkValidPlacement(player.getCardinalDirection())) {
+			this.changeBehaviour(new UnlitBombBehaviour());
+			player.getInventory().addItem(this);
+			return "The bomb can not be placed in this location";
 		}
 		setBombToLight();
-		return null;
+		return "Bomb has been lit";
 	}
 	
 	/**

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -36,6 +37,7 @@ public class Floor extends StackPane {
 	public void removeEntity(Entity e) {
 		entities.remove(e);
 		this.getChildren().remove(e.getEntityIcon());
+		//System.out.println("Removing " + e.getClass() + " Image: " + e.getEntityIcon() + " before: " + this.getChildren() + " result: " + );
 	}
 	
 	public ArrayList<Entity> getEntities() {

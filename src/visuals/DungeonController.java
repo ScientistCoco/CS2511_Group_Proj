@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -29,12 +30,13 @@ public class DungeonController {
 	@FXML private TextArea systemTextUpdates;
 	@FXML private HBox buffBar;	// Size is 185 (W) * 42 (H)
 	private ArrayList<ImageView> buffs;
-	
 	private InventoryController inv;
 	@FXML private AnchorPane inventoryPane;
 	
 	private Stage currStage;
 	private Board board;
+	private int rowSize = 10;
+	private int colSize = 10;
 	
 	public DungeonController(Stage s, FXMLLoader loader) {
 		currStage = s;
@@ -44,10 +46,10 @@ public class DungeonController {
 	public void initialize() {
 		board = new level2().getBoard();
 		this.buffs = new ArrayList<ImageView>();
-		//baseMap.getRowConstraints().add(new RowConstraints(10));	// To get it to display with no cropping we set the constraints to be the size of the grid
-		//baseMap.getColumnConstraints().add(new ColumnConstraints(10));
-		for (int i = 0; i < 10; i ++) {
-			for (int j = 0; j < 10; j ++ ) {
+		
+		// Now the gridpane will observe the board:
+		for (int i = 0; i < colSize; i ++) {
+			for (int j = 0; j < rowSize; j ++ ) {
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
