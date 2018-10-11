@@ -2,11 +2,14 @@ package other;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import other.switchState.SwitchOffState;
+import other.switchState.SwitchOnState;
+import other.switchState.SwitchState;
 import points.SwitchPoint;
 
 public class Switch extends Entity{
 	
-	private Boolean state;
+	private SwitchState state;
 	
 	/**
 	 * Instantiates the Switch, its default state is off (false).
@@ -14,28 +17,10 @@ public class Switch extends Entity{
 	 */
 	public Switch(Board board) {
 		super(board);
-		this.state = false;
+		this.state = new SwitchOffState();
 		this.icon = " Ø ";
 		this.point = new SwitchPoint();
 		this.entityIcon = new ImageView(new Image("icons/floor_switch.png"));
-	}
-	
-	/**
-	 * This method activates the switch, which can occur when a boulder is placed on top of it
-	 */
-	public void activate() {
-		this.state = true;
-		System.out.println("Switch turned on");
-		point.pointAchieved();
-	}
-	
-	/**
-	 * This method deactivates the switch, which can occur when a boulder is moved off it.
-	 */
-	public void deactivate() {
-		this.state = false;
-		System.out.println("Switch turned off");
-		point.pointLost();
 	}
 	
 	/**
@@ -45,11 +30,11 @@ public class Switch extends Entity{
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		if (!(entity instanceof Boulder)) {
-			deactivate();
+			this.state = new SwitchOffState();
 		} else if (entity instanceof Boulder){
-			activate();
+			this.state = new SwitchOnState();
 		}
-		System.out.println("Checking: " + entity.getClass().getName());
+		this.state.doAction(this.point);
 		return true;
 	}
 	
@@ -58,6 +43,6 @@ public class Switch extends Entity{
 	 * @return true/false depending on whether the switch has been activated or not
 	 */
 	public boolean getState() {
-		return this.state;
+		return this.state.getState();
 	}
 }
