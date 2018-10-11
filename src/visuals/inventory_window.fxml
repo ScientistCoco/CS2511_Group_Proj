@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
@@ -102,5 +103,24 @@
             </ImageView>
          </children>
       </Pane>
+      <AnchorPane fx:id="itemDescriptionPane" layoutX="196.0" layoutY="3.0" mouseTransparent="true" style="-fx-opacity: 0;">
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black; -fx-opacity: 80%;">
+               <children>
+                  <Label fx:id="itemName" layoutX="82.0" layoutY="8.0" text="Sword" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Text fx:id="itemDescription" fill="WHITE" layoutX="20.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A very sharp sword that can be used to kill enemies" wrappingWidth="159.13671875" />
+                  <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-width: 1.5px;">
+                     <effect>
+                        <InnerShadow blurType="TWO_PASS_BOX" color="#030202" height="29.64" radius="11.3575" width="17.79" />
+                     </effect>
+                  </AnchorPane>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
    </children>
 </fx:root>

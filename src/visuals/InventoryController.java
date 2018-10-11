@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import items.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -27,6 +29,9 @@ public class InventoryController extends Pane {
 		private Inventory inv;
 		private ArrayList<ImageView> items;
 		@FXML private TextArea systemTextUpdates;
+		@FXML private AnchorPane itemDescriptionPane;
+		@FXML private Text itemDescription;
+		@FXML private Label itemName;
 		
 		public InventoryController() {
 			this.setVisible(false);
@@ -71,6 +76,13 @@ public class InventoryController extends Pane {
 				});
 			});
 			inventoryGrid.getChildren().forEach((item) -> {
+				item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+					int row = inventoryGrid.getRowIndex(item);
+					int col = inventoryGrid.getColumnIndex(item);
+					hideDescription();
+				});
+			});
+			inventoryGrid.getChildren().forEach((item) -> {
 				item.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
 					int row = inventoryGrid.getRowIndex(item);
 					int col = inventoryGrid.getColumnIndex(item);
@@ -101,8 +113,20 @@ public class InventoryController extends Pane {
 		 */
 		public void showDescription(int col, int row) {
 			if (inventoryStackPane[col][row].getChildren().size() != 0) {
-				System.out.println(inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0)).getDescription());			
+				//System.out.println(inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0)).getDescription());			
+				Item it = inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0));
+				itemName.setText(it.getItemName());
+				itemDescription.setText(it.getDescription());
+				itemDescriptionPane.setOpacity(1);
+				
 			}
+		}
+		
+		/** This method hides the description of the item from the user
+		 * 
+		 */
+		public void hideDescription() {
+			itemDescriptionPane.setOpacity(0);
 		}
 		
 		/**
