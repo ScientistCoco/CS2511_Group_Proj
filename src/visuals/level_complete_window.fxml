@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="levelAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text fill="WHITE" layoutX="181.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Congratulations you have completed this level!" wrappingWidth="905.0703125">
          <font>
@@ -24,12 +24,12 @@
       </Text>
       <HBox layoutX="475.0" layoutY="406.0" prefHeight="100.0" prefWidth="312.0" spacing="100.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="105.0" style="-fx-background-color: white;" text="Yes">
+            <Button fx:id="yesBtn" mnemonicParsing="false" prefHeight="61.0" prefWidth="105.0" style="-fx-background-color: white;" text="Yes">
                <font>
                   <Font name="SansSerif Bold" size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="108.0" style="-fx-background-color: white;" text="No">
+            <Button fx:id="noBtn" mnemonicParsing="false" prefHeight="61.0" prefWidth="108.0" style="-fx-background-color: white;" text="No">
                <font>
                   <Font name="SansSerif Bold" size="24.0" />
                </font>
