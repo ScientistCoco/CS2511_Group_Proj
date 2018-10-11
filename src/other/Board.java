@@ -75,9 +75,9 @@ public class Board {
 		
 		for (Entity entity : entities) {
 			if (entity.getAssociatedPointType() != null) {
-				if (getPlayerObject() != null) {
+				//if (getPlayerObject() != null) { // once player is dead, there is no point of returning obj.
 					obj.addObjecitve(entity.getAssociatedPointType());
-				}
+				//}
 			}
 		}
 		
@@ -160,6 +160,7 @@ public class Board {
 			}
 			System.out.print("\n");
 		}
+		
 	}
 	
 	/**

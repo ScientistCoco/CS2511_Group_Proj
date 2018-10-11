@@ -54,9 +54,10 @@ public class DungeonController {
 		}
 		
 		updateObjectives();
+		
 		inv = new InventoryController();
 		inv.setPlayer(board.getPlayerObject());
-		inv.setSystemTextUpdates(systemTextUpdates);//?
+		inv.setSystemTextUpdates(systemTextUpdates);
 		inventoryPane.getChildren().add(inv);
 		systemTextUpdates.setEditable(false);
 		
@@ -82,9 +83,11 @@ public class DungeonController {
 						}
 					}
 				}
+				checkPlayerDeath();
 				updateObjectives();
 			}
 		});
+		
 	}
 	
 	/**
@@ -118,6 +121,13 @@ public class DungeonController {
 			inv.onActionInv();		
 		} 
 		inv.showItems();	// Gets the inventoryController to check if there has been new additions. So that if the player has the inv open and they pick up an item, it will show up in their inv.		
+	}
+	
+	public void checkPlayerDeath() {
+		if (board.getPlayerObject() == null) {
+			GameFailScreen sc = new GameFailScreen(currStage);
+			sc.start();
+		}
 	}
 	
 }
