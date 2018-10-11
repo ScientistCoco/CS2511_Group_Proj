@@ -52,10 +52,9 @@ public class DungeonController {
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
-		
 		updateObjectives();
 		
-		inv = new InventoryController();
+		inv = new InventoryController(currStage, board);
 		inv.setPlayer(board.getPlayerObject());
 		inv.setSystemTextUpdates(systemTextUpdates);
 		inventoryPane.getChildren().add(inv);
@@ -67,7 +66,6 @@ public class DungeonController {
 		// If it was pressed for > 100 ms then we assume the player wants to move.
 		base.addEventFilter(KeyEvent.ANY, new EventHandler<KeyEvent>() {
 			long startTime;
-			
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().isArrowKey()) {
