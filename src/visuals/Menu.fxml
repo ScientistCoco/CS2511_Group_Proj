@@ -4,15 +4,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="476.0" prefWidth="786.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<AnchorPane prefHeight="476.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="249.0" layoutY="111.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="243.0" text="Play Mode" textFill="#14a3d7">
+      <Button fx:id="PlayMode" layoutX="249.0" layoutY="111.0" mnemonicParsing="false" onAction="#handlePlayMode" prefHeight="65.0" prefWidth="243.0" text="Play Mode" textFill="#14a3d7">
          <font>
             <Font name="DejaVu Sans Condensed Bold" size="36.0" />
          </font>
       </Button>
-      <Button layoutX="246.0" layoutY="262.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="243.0" text="Design Mode" textFill="#098df2">
+      <Button fx:id="DesignMode" layoutX="246.0" layoutY="262.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="243.0" text="Design Mode" textFill="#098df2">
          <font>
             <Font name="DejaVu Sans Condensed Bold" size="29.0" />
          </font>

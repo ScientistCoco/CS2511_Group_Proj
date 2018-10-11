@@ -13,8 +13,10 @@ public class Main extends Application {
 		primaryStage.setHeight(800);
 		primaryStage.setWidth(1280);
 		
-		DungeonScreen dungeonScreen = new DungeonScreen(primaryStage);
-		dungeonScreen.start();
+		MenuScreen menuScreen = new MenuScreen(primaryStage);
+		menuScreen.start();
+		//DungeonScreen dungeonScreen = new DungeonScreen(primaryStage);
+		//dungeonScreen.start();
 	}
 
 	public static void main(String[] args) {

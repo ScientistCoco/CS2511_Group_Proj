@@ -56,7 +56,7 @@ public class DungeonController {
 		updateObjectives();
 		inv = new InventoryController();
 		inv.setPlayer(board.getPlayerObject());
-		inv.setSystemTextUpdates(systemTextUpdates);
+		inv.setSystemTextUpdates(systemTextUpdates);//?
 		inventoryPane.getChildren().add(inv);
 		systemTextUpdates.setEditable(false);
 		

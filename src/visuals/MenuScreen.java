@@ -10,13 +10,16 @@ import javafx.stage.Stage;
 public class MenuScreen {
 	private Stage stage;
 	private FXMLLoader fxmlloader;
+	private String title;
 	
 	public MenuScreen(Stage s) {
 		this.stage = s;
+		this.title = "Menu Screen";
 		this.fxmlloader = new FXMLLoader(getClass().getClassLoader().getResource("visuals/Menu.fxml"));
 	}
 	
 	public void start() {
+		stage.setTitle(title);
 		MenuController menuController = new MenuController(this.stage);
 		this.fxmlloader.setController(menuController);
 		try {
