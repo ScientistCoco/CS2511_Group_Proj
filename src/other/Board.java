@@ -65,7 +65,9 @@ public class Board {
 	
 	/**
 	 * This method returns all the objectives that has to be completed on this board 
-	 * in order to complete the level
+	 * in order to complete the level. This method should only be called once at the start of the game.
+	 * If it is called during the game and the player has killed an enemy then it will lose
+	 * track of the enemy objective.
 	 * @return an objectiveComponent of all the objectives
 	 */
 	public ObjectiveComponent getObjectivesOnThisBoard() {

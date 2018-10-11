@@ -8,7 +8,6 @@ import javafx.event.EventHandler;
  * That means a 22 x 22 matrix is the biggest we can make
  */
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -38,7 +37,7 @@ public class DungeonController {
 	private int rowSize = 10;
 	private int colSize = 10;
 	
-	public DungeonController(Stage s, FXMLLoader loader) {
+	public DungeonController(Stage s) {
 		currStage = s;
 	}
 	
@@ -54,8 +53,7 @@ public class DungeonController {
 			}
 		}
 		
-		objectivesList.getChildren().clear();
-		objectivesList.getChildren().addAll(board.getObjectivesOnThisBoard().getObjectives());
+		updateObjectives();
 		inv = new InventoryController();
 		inv.setPlayer(board.getPlayerObject());
 		inv.setSystemTextUpdates(systemTextUpdates);
@@ -76,7 +74,7 @@ public class DungeonController {
 						startTime = System.currentTimeMillis();
 					} else if (event.getEventType().equals(KeyEvent.KEY_RELEASED)) {
 						long length = System.currentTimeMillis() - startTime;
-						if (length < 50) {
+						if (length < 40) {
 							board.getPlayerObject().changeDirection(event.getCode().toString());
 						} else {
 							board.getPlayerObject().moveSelf(event.getCode().toString());
@@ -84,8 +82,21 @@ public class DungeonController {
 						}
 					}
 				}
+				updateObjectives();
 			}
 		});
+	}
+	
+	/**
+	 * This method updates all the objectives on the board;
+	 */
+	public void updateObjectives() {
+		objectivesList.getChildren().clear();
+		objectivesList.getChildren().addAll(board.getObjectivesOnThisBoard().getObjectives());
+		if (board.getObjectivesOnThisBoard().checkProgressOfObjectives()) {
+			GameCompleteScreen sc = new GameCompleteScreen(currStage);
+			sc.start();
+		}
 	}
 	
 	/**
@@ -106,7 +117,7 @@ public class DungeonController {
 		if (key.getCode().toString().equals("I")) {
 			inv.onActionInv();		
 		} 
-		inv.showItems();	// Gets the inventoryController to check if there has been new additions. So that if the player has the inv open and they pick up an item, it will show up in their inv.
+		inv.showItems();	// Gets the inventoryController to check if there has been new additions. So that if the player has the inv open and they pick up an item, it will show up in their inv.		
 	}
 	
 }
