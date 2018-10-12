@@ -1,6 +1,6 @@
 package other.switchState;
 
-import points.Points;
+import points.Points1;
 
 /**
  * The switch is turned off when a boulder is moved off it.
@@ -9,7 +9,7 @@ import points.Points;
 public class SwitchOffState implements SwitchState{
 
 	@Override
-	public String doAction(Points point) {
+	public String doAction(Points1 point) {
 		point.pointLost();
 		return "Switch has been turned off";
 	}

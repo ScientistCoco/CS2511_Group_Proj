@@ -2,12 +2,16 @@ package visuals;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 /**
  * Notes: The Game will be 1280 x 800 in dimensions. In that case we should make the maximum size for the map to be 704 x 704.
  * That means a 22 x 22 matrix is the biggest we can make
  */
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +25,7 @@ import javafx.stage.Stage;
 import levels.level1;
 import levels.level2;
 import other.Board;
+import other.ObjectiveComponent1;
 
 public class DungeonController {
 	@FXML private AnchorPane base;
@@ -31,7 +36,7 @@ public class DungeonController {
 	private ArrayList<ImageView> buffs;
 	private InventoryController inv;
 	@FXML private AnchorPane inventoryPane;
-	
+	private ObservableList<Node> objectives; 
 	private Stage currStage;
 	private Board board;
 	private int rowSize = 10;
@@ -52,8 +57,19 @@ public class DungeonController {
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
-		updateObjectives();
+    
+		// We get the objectives to 'observe' the objectiveComponent for any changes
+		// if there are any changes it will update the visual component to reflect this.
+		this.objectives = this.board.getObjectivesOnThisBoard().getObservableObjectives();
+		this.objectives.addListener((ListChangeListener<Node>) event -> {
+			objectivesList.getChildren().clear();
+			objectivesList.getChildren().addAll(this.objectives);
+			// We can also check if all the objectives have been cleared as well
+			checkIfObjectivesClear();
+		});
 		
+		objectivesList.getChildren().clear();
+		objectivesList.getChildren().addAll(this.objectives);	
 		inv = new InventoryController(currStage, board);
 		inv.setPlayer(board.getPlayerObject());
 		inv.setSystemTextUpdates(systemTextUpdates);
@@ -82,7 +98,6 @@ public class DungeonController {
 					}
 				}
 				checkPlayerDeath();
-				updateObjectives();
 			}
 		});
 		
@@ -91,10 +106,21 @@ public class DungeonController {
 	/**
 	 * This method updates all the objectives on the board;
 	 */
-	public void updateObjectives() {
+	/**public void updateObjectives() {
 		objectivesList.getChildren().clear();
 		objectivesList.getChildren().addAll(board.getObjectivesOnThisBoard().getObjectives());
 		if (board.getObjectivesOnThisBoard().checkProgressOfObjectives()) {
+			GameCompleteScreen sc = new GameCompleteScreen(currStage);
+			sc.start();
+		}
+	}**/
+	
+	/**
+	 * This method checks on the progress of the objectives, if all the objectives 
+	 * have been cleared then it will change the game screen to reflect this.
+	 */
+	public void checkIfObjectivesClear() {
+		if (board.getObjectivesOnThisBoard().checkProgress()) {
 			GameCompleteScreen sc = new GameCompleteScreen(currStage);
 			sc.start();
 		}

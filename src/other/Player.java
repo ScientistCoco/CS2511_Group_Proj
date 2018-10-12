@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 
 public class Player extends Character {
 	
-	private ObjectiveComponent objectives;
+	private ObjectiveComponent1 objectives;
 	private ArrayList<Buff> potionBuff;
 	private Inventory inventory;
 	private ArrayList<Enemy> enemies;
@@ -21,7 +21,7 @@ public class Player extends Character {
 		inventory = new Inventory();
 		enemies = new ArrayList<Enemy>();
 		directions = new ArrayList<Direction>();
-		this.icon = " ♀ ";
+		this.icon = "P";
 		this.zOrder = 1;
 		this.entityIcon = new ImageView(new Image("icons/player_front.png"));
 		this.cardinalDirection = Direction.Down;
@@ -104,7 +104,7 @@ public class Player extends Character {
 	 */
 	public boolean checkAllObjectivesCompleted() {
 		this.objectives = this.board.getObjectivesOnThisBoard();
-		return objectives.checkProgressOfObjectives();
+		return objectives.checkProgress();
 	}
 	
 	@Override

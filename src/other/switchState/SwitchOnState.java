@@ -1,6 +1,6 @@
 package other.switchState;
 
-import points.Points;
+import points.Points1;
 
 /**
  * The switch is turned on when a boulder is placed on top of it.
@@ -9,7 +9,7 @@ import points.Points;
 public class SwitchOnState implements SwitchState{
 
 	@Override
-	public String doAction(Points point) {
+	public String doAction(Points1 point) {
 		point.pointAchieved();
 		return "Switch has been turned on";
 	}
