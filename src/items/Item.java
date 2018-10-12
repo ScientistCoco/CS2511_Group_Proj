@@ -37,14 +37,8 @@ public abstract class Item extends Entity{
 	@Override
 	public boolean affectPlayer(Player player) {
 		player.getInventory().addItem(this);
-		items = player.getInventory();
+		items = player.getInventory();				
 		board.removeEntity(this);
-		
-		// Check if this item is associated with a point that the player can collect
-		if (this.getAssociatedPointType() != null) {
-			this.getAssociatedPointType().pointAchieved();
-		}
-		
 		return true;
 	}
 	
@@ -54,7 +48,6 @@ public abstract class Item extends Entity{
 	@Override
 	public boolean overlappingEffect(Entity entity) {
 		if (entity instanceof Player) {
-			board.removeEntity(this);
 			return affectPlayer((Player)entity);
 		}
 		return true;

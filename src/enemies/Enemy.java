@@ -6,14 +6,15 @@ import other.Buff;
 import other.Character;
 import other.Entity;
 import other.Player;
-import points.EnemyPoint;
+import points.PointType;
+import points.Points1;
 
 public class Enemy extends Character{
 	
 	public Enemy(Board board) {
 		super(board);
 		this.zOrder = 1;
-		this.point = new EnemyPoint(); // An enemy is an objective that the player needs to kill
+		this.point = new Points1(PointType.EnemyPoint); // An enemy is an objective that the player needs to kill
 	}
 
 	

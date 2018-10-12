@@ -1,6 +1,6 @@
 package other.switchState;
 
-import points.Points;
+import points.Points1;
 
 public interface SwitchState {
 	/**
@@ -8,7 +8,7 @@ public interface SwitchState {
 	 * @param point, that will be gained/lost.
 	 * @return a string indicating whether a point was lost or gained
 	 */
-	public String doAction(Points point); 
+	public String doAction(Points1 point); 
 	
 	public boolean getState();
 }

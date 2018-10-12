@@ -2,7 +2,8 @@ package other;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import points.ExitPoint;
+import points.PointType;
+import points.Points1;
 
 /**
  * If the player goes through this exit class then the puzzle is complete.
@@ -14,7 +15,7 @@ public class Exit extends Entity{
 	public Exit(Board board) {
 		super(board);
 		this.icon = "[ ]";
-		this.point = new ExitPoint();
+		this.point = new Points1(PointType.ExitPoint);
 		this.entityIcon = new ImageView(new Image("icons/exit.png"));
 	}
 	

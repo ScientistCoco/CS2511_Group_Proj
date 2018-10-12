@@ -5,7 +5,8 @@ import javafx.scene.image.ImageView;
 import other.switchState.SwitchOffState;
 import other.switchState.SwitchOnState;
 import other.switchState.SwitchState;
-import points.SwitchPoint;
+import points.PointType;
+import points.Points1;
 
 public class Switch extends Entity{
 	
@@ -19,7 +20,7 @@ public class Switch extends Entity{
 		super(board);
 		this.state = new SwitchOffState();
 		this.icon = " Ø ";
-		this.point = new SwitchPoint();
+		this.point = new Points1(PointType.SwitchPoint);
 		this.entityIcon = new ImageView(new Image("icons/floor_switch.png"));
 	}
 	

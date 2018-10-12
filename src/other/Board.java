@@ -7,11 +7,13 @@ import enemies.Enemy;
 public class Board {
 	private Floor[][] map;
 	private ArrayList<Entity> entities;
+	private ObjectiveComponent1 objectivesOnBoard;	// A board will have objectives that the player needs to complete
 	
 	public Board() {
 		// Default size if no given width/height
 		map = new Floor[10][10];
 		entities = new ArrayList<>();
+		this.objectivesOnBoard = new ObjectiveComponent1();
 		initFloor(10, 10);
 	}
 	
@@ -34,7 +36,20 @@ public class Board {
  	public Floor getFloor(int x, int y) {
  		return map[x][y];
  	}
-
+ 	
+ 	/**
+ 	 * If an entity is added to the board that has an objective associated with it, then
+ 	 * we need to update the ObjectiveComponent on the board so it stores this.
+ 	 * @param e
+ 	 */
+ 	public void addNewObjective(Entity e) {
+ 		if (e.getAssociatedPointType() != null) {
+ 			// Use observer pattern here, subscribe objectivesOnBoard to the point
+ 			objectivesOnBoard.addPoint(e.getAssociatedPointType());
+ 			e.getAssociatedPointType().addObserver(objectivesOnBoard);
+ 		}
+ 	}
+ 	
  	/**
  	 * This method returns all the enemy entities associated with this board.
  	 * @return an arraylist of the enemy entities
@@ -65,27 +80,16 @@ public class Board {
 	
 	/**
 	 * This method returns all the objectives that has to be completed on this board 
-	 * in order to complete the level. This method should only be called once at the start of the game.
-	 * If it is called during the game and the player has killed an enemy then it will lose
-	 * track of the enemy objective.
+	 * in order to complete the level.
 	 * @return an objectiveComponent of all the objectives
 	 */
-	public ObjectiveComponent getObjectivesOnThisBoard() {
-		ObjectiveComponent obj = new ObjectiveComponent();
-		
-		for (Entity entity : entities) {
-			if (entity.getAssociatedPointType() != null) {
-				if (getPlayerObject() != null) {
-					obj.addObjecitve(entity.getAssociatedPointType());
-				}
-			}
-		}
-		
-		return obj;
+	public ObjectiveComponent1 getObjectivesOnThisBoard() {
+		return this.objectivesOnBoard;
 	}
 	
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
+		this.addNewObjective(entity);
 	}
 	
 	/**
@@ -127,12 +131,19 @@ public class Board {
 	}
 	
 	/**
-	 * Method that removes the entity from the map & game as a result of the entity dying.
+	 * Method that removes the entity from the map & game as a result of the entity dying,
+	 * or from the player removing it during the design mode
 	 * @param e
 	 */
 	public void removeEntity(Entity e) {
 		this.entities.remove(e);
 		removeFromMap(e, e.getXCoordinate(), e.getYCoordinate());
+		// If the entity is being removed during the design mode then that means
+		// the point has not yet been obtained. In which case we need to
+		// remove it from the objectives that the board has.
+		if (e.getAssociatedPointType() != null && !e.getAssociatedPointType().checkPointObtained()) {
+			this.objectivesOnBoard.removePoint(e.getAssociatedPointType());
+		}
 	}
 	
 	/**

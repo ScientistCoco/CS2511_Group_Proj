@@ -29,7 +29,7 @@ public abstract class Character extends Entity{
 	public boolean checkIfAlive() {
 		// Some characters will have a point associated with them that the player needs to complete
 		if (this.getAssociatedPointType() != null && getHealth() != 1) {
-			this.getAssociatedPointType().pointAchieved();
+			this.point.pointAchieved();;
 		}
 		return getHealth() == 1 ? true : false;
 	}
