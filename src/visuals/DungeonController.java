@@ -2,6 +2,7 @@ package visuals;
 
 import java.util.ArrayList;
 
+import enemies.Enemy;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -91,9 +92,14 @@ public class DungeonController {
 						long length = System.currentTimeMillis() - startTime;
 						if (length < 40) {
 							board.getPlayerObject().changeDirection(event.getCode().toString());
-						} else {
+						} else {							
 							board.getPlayerObject().moveSelf(event.getCode().toString());
 							inv.showItems();
+							// The enemies will move only when the player has changed their position on the map
+							// TODO: When player collides with enemy - player dies. Instead results in an error
+							for (Enemy e : board.getEnemyObjects()) {
+								e.updateMove(board.getPlayerObject());
+							}
 						}
 					}
 				}
