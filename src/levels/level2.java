@@ -11,6 +11,7 @@ import other.Board;
 import other.Boulder;
 import other.Door;
 import other.Exit;
+import other.Pit;
 import other.Player;
 import other.Switch;
 import other.Wall;
@@ -41,6 +42,8 @@ public class level2 implements boardLevel {
 		this.board.placeEntity(new Arrow(board), 3, 2);
 		this.board.placeEntity(new Sword(board), 2, 5);
 		this.board.placeEntity(new Hunter(board), 3, 8);
+		this.board.placeEntity(new Pit(board), 3, 9);
+
 		//this.board.placeEntity(new InvincibilityPotion(board), 6, 3);
 		//this.board.placeEntity(new HoverPotion(board), 6, 4);
 		this.board.placeEntity(new Bomb(board), 6, 2);

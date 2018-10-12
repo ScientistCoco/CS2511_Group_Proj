@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="476.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="levelAnchorPane" blendMode="SRC_ATOP" cache="true" layoutX="10.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: black;">
+         <children>
+            <Text layoutX="181.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DUNGEON GAME" textAlignment="CENTER" wrappingWidth="905.0703125">
+               <font>
+                  <Font name="SansSerif Bold" size="75.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#d70909" />
+                        <Stop color="#5b0122b2" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
+            <Text layoutX="355.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please choose a mode to play with:" wrappingWidth="570.4296875">
+               <font>
+                  <Font name="SansSerif Regular" size="36.0" />
+               </font>
+               <fill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#d70909" />
+                        <Stop color="#902525" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Text>
+            <HBox layoutX="475.0" layoutY="406.0" prefHeight="100.0" prefWidth="312.0" spacing="100.0">
+               <children>
+                  <Button fx:id="PlayMode" alignment="CENTER" mnemonicParsing="false" onAction="#handlePlayMode" prefHeight="93.0" prefWidth="285.0" text="Play Mode">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="BLACK" />
+                              <Stop color="#ff152d" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Button>
+               </children>
+            </HBox>
+            <Line endX="248.33331298828125" layoutX="273.0" layoutY="263.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+            <Line endX="248.33331298828125" layoutX="842.0" layoutY="264.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+            <ImageView fitHeight="33.0" fitWidth="200.0" layoutX="531.0" layoutY="245.0">
+               <image>
+                  <Image url="@game_completion_border_white.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="DesignMode" alignment="CENTER" layoutX="475.0" layoutY="537.0" mnemonicParsing="false" prefHeight="93.0" prefWidth="285.0" text="Design Mode">
+               <font>
+                  <Font size="33.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="#ff152d" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

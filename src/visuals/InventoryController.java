@@ -1,9 +1,12 @@
 package visuals;
+import java.util.Timer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 import items.Item;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -15,6 +18,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import other.Board;
 import other.Inventory;
 import other.Player;
 
@@ -25,6 +30,7 @@ public class InventoryController extends Pane {
 		private int invColSize = 5;
 		private int invRowSize = 7;
 		private boolean invOpened = false; // True/false depending on whether the window is open or not. Default = false.
+		private Board board;
 		private Player player;
 		private Inventory inv;
 		private ArrayList<ImageView> items;
@@ -32,9 +38,12 @@ public class InventoryController extends Pane {
 		@FXML private AnchorPane itemDescriptionPane;
 		@FXML private Text itemDescription;
 		@FXML private Label itemName;
+		private Stage currStage;
 		
-		public InventoryController() {
+		public InventoryController(Stage s, Board board) {
 			this.setVisible(false);
+			this.board = board;
+			this.currStage = s;
 			inventoryStackPane = new StackPane[5][7];
 			try {
 				FXMLLoader l = new FXMLLoader(getClass().getResource("/visuals/inventory_window.fxml"));
@@ -100,7 +109,25 @@ public class InventoryController extends Pane {
 		public void useInventoryItem(int col, int row) {
 			if (inventoryStackPane[col][row].getChildren().size() != 0) {
 				Item item = inv.findItemByImage((ImageView) inventoryStackPane[col][row].getChildren().get(0));
-				systemTextUpdates.appendText(inv.useItem(this.player, item.getItemName()) + "\n");	
+				systemTextUpdates.appendText(inv.useItem(this.player, item.getItemName()) + "\n");
+				
+				// player could be killed by using bomb within one square distance
+				if (item.getItemName().equals("Bomb")) {
+					Timer timer = new Timer();
+					timer.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							Platform.runLater(new Runnable() {
+								@Override
+								public void run() {
+									checkPlayerDeath();
+								}					
+							});
+							
+						}
+					}, 1201);
+				}
+				
 				showItems();
 			}
 		}
@@ -175,6 +202,12 @@ public class InventoryController extends Pane {
 			} else {
 				this.invOpened = false;
 				this.setVisible(false);
+			}
+		}
+		public void checkPlayerDeath() {
+			if (board.getPlayerObject() == null) {
+				GameFailScreen sc = new GameFailScreen(currStage);
+				sc.start();
 			}
 		}
 }

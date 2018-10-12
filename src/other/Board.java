@@ -171,6 +171,7 @@ public class Board {
 			}
 			System.out.print("\n");
 		}
+		
 	}
 	
 	/**

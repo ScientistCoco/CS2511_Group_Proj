@@ -57,7 +57,7 @@ public class DungeonController {
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
-		
+    
 		// We get the objectives to 'observe' the objectiveComponent for any changes
 		// if there are any changes it will update the visual component to reflect this.
 		this.objectives = this.board.getObjectivesOnThisBoard().getObservableObjectives();
@@ -69,10 +69,8 @@ public class DungeonController {
 		});
 		
 		objectivesList.getChildren().clear();
-		objectivesList.getChildren().addAll(this.objectives);
-		
-		//updateObjectives();
-		inv = new InventoryController();
+		objectivesList.getChildren().addAll(this.objectives);	
+		inv = new InventoryController(currStage, board);
 		inv.setPlayer(board.getPlayerObject());
 		inv.setSystemTextUpdates(systemTextUpdates);
 		inventoryPane.getChildren().add(inv);
@@ -84,7 +82,6 @@ public class DungeonController {
 		// If it was pressed for > 100 ms then we assume the player wants to move.
 		base.addEventFilter(KeyEvent.ANY, new EventHandler<KeyEvent>() {
 			long startTime;
-			
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().isArrowKey()) {
@@ -100,9 +97,10 @@ public class DungeonController {
 						}
 					}
 				}
-				//updateObjectives();
+				checkPlayerDeath();
 			}
 		});
+		
 	}
 	
 	/**
@@ -147,6 +145,13 @@ public class DungeonController {
 			inv.onActionInv();		
 		} 
 		inv.showItems();	// Gets the inventoryController to check if there has been new additions. So that if the player has the inv open and they pick up an item, it will show up in their inv.		
+	}
+	
+	public void checkPlayerDeath() {
+		if (board.getPlayerObject() == null) {
+			GameFailScreen sc = new GameFailScreen(currStage);
+			sc.start();
+		}
 	}
 	
 }

@@ -1,21 +1,19 @@
 package visuals;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.util.Duration;
 
-public class GameCompleteController {
+public class GameFailController{
+	
 	private Stage stage;
 	@FXML AnchorPane levelAnchorPane;
 	@FXML Button yesBtn;
 	@FXML Button noBtn;
+
 	
-	
-	public GameCompleteController(Stage s) {
+	public GameFailController(Stage s) {
 		this.stage = s;
 	}
 	
@@ -34,5 +32,4 @@ public class GameCompleteController {
 		MenuScreen ms = new MenuScreen(stage);
 		ms.start();
 	}
-	
 }
