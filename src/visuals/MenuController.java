@@ -26,4 +26,11 @@ public class MenuController {
 		DungeonScreen dungeonScreen = new DungeonScreen(currStage);
 		dungeonScreen.start();
 	}
+	
+	@FXML
+	public void handleDesignMode() {
+		DesignScreen designScreen = new DesignScreen(this.currStage);
+		designScreen.start();
+		
+	}
 }
