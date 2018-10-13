@@ -1,6 +1,7 @@
 package visuals;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import other.Board;
@@ -12,6 +13,7 @@ public class DesignController {
 	private int colSize = 10;
 	private Board board;
 	@FXML private GridPane grid;
+	@FXML private AnchorPane itemsPane;
 	
 	public DesignController(Stage s) {
 		this.board = new Board();
@@ -25,6 +27,8 @@ public class DesignController {
 				grid.add(board.getFloor(i, j), i, j);		
 			}
 		}
+		ItemsController its = new ItemsController(this.currStage);
+		itemsPane.getChildren().add(its);
 	}
 
 }
