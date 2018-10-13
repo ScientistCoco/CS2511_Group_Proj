@@ -6,25 +6,25 @@ import enemies.Enemy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Player extends Character {
+public class Player extends Character implements PlayerObservable {
 	
-	private ObjectiveComponent1 objectives;
+	private ObjectiveComponent objectives;
 	private ArrayList<Buff> potionBuff;
 	private Inventory inventory;
-	private ArrayList<Enemy> enemies;
-	private ArrayList<Direction> directions;
+	private ArrayList<Direction> pastMoves;
 	private Direction cardinalDirection;	// This is the direction in which the player is facing. Default is down (south)
+	private ArrayList<PlayerObserver> observers;	// These are the observers that the player will notify when the player has had a change.
 
 	public Player(Board board) {
 		super(board);
 		this.potionBuff = new ArrayList<Buff>();
 		inventory = new Inventory();
-		enemies = new ArrayList<Enemy>();
-		directions = new ArrayList<Direction>();
+		pastMoves = new ArrayList<Direction>();
 		this.icon = "P";
 		this.zOrder = 1;
 		this.entityIcon = new ImageView(new Image("icons/player_front.png"));
 		this.cardinalDirection = Direction.Down;
+		this.observers = new ArrayList<PlayerObserver>();
 	}
 	
 	/**
@@ -90,7 +90,9 @@ public class Player extends Character {
 	 */
 	public void moveSelf(String direction) {
 		this.changeDirection(direction);
+		this.addMove(Direction.fromString(direction));
 		this.move.move(direction, this, board);
+		this.notifyObservers();
 	}
 	
 	public String getObjectiveString() {
@@ -108,35 +110,45 @@ public class Player extends Character {
 	}
 	
 	@Override
+	public void deleteHealth() {	
+		super.deleteHealth();
+		notifyObservers();			
+	}
+	
+	@Override
 	public boolean overlappingEffect(Entity entity) {
 		// Check if the being passed is null or not. If null then it means its passing over a 'floor', 
 		// which is passable, so return true.
 		if (entity instanceof Enemy) {
-			this.deleteHealth();
+			this.deleteHealth();	
 		}
 		return true;
 	}
 	
-	public void notifyAllEnemies() {
-		for (Enemy e : enemies) {
-			e.updateMove(this);
+	
+	public void addMove(Direction d) {
+		this.pastMoves.add(d);
+	}
+	
+	public ArrayList<Direction> getPastMoves() {
+		return this.pastMoves;
+	}
+	
+	@Override
+	public void addObserver(PlayerObserver po) {
+		this.observers.add(po);
+	}
+
+	@Override
+	public void removeObserver(PlayerObserver po) {
+		this.observers.remove(po);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (PlayerObserver po : observers) {
+			po.update(this);
 		}
-	}
-	
-	public void addDirection(Direction d) {
-		directions.add(d);
-	}
-	
-	public ArrayList<Direction> getDirections() {
-		return this.directions;
-	}
-	
-	public boolean addEnemy(Enemy e) {
-		return enemies.add(e);
-	}
-	
-	public ArrayList<Enemy> getEnemies() {
-		return enemies;
 	}
 
 }

@@ -1,5 +1,7 @@
 package enemies;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Player;
 
@@ -11,6 +13,7 @@ public class Hound extends Enemy {
 	public Hound(Board board, Hunter hunter) {
 		super(board);
 		this.hunter = hunter;
+		this.entityIcon = new ImageView(new Image("icons/hound.png"));
 		//hunter = new Hunter(board);
 		//xHunter = hunter.getXCoordinate();
 		//yHunter = hunter.getYCoordinate();

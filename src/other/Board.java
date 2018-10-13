@@ -7,13 +7,13 @@ import enemies.Enemy;
 public class Board {
 	private Floor[][] map;
 	private ArrayList<Entity> entities;
-	private ObjectiveComponent1 objectivesOnBoard;	// A board will have objectives that the player needs to complete
+	private ObjectiveComponent objectivesOnBoard;	// A board will have objectives that the player needs to complete
 	
 	public Board() {
 		// Default size if no given width/height
 		map = new Floor[10][10];
 		entities = new ArrayList<>();
-		this.objectivesOnBoard = new ObjectiveComponent1();
+		this.objectivesOnBoard = new ObjectiveComponent();
 		initFloor(10, 10);
 	}
 	
@@ -83,12 +83,16 @@ public class Board {
 	 * in order to complete the level.
 	 * @return an objectiveComponent of all the objectives
 	 */
-	public ObjectiveComponent1 getObjectivesOnThisBoard() {
+	public ObjectiveComponent getObjectivesOnThisBoard() {
 		return this.objectivesOnBoard;
 	}
 	
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
+		// If the entity is an enemy we need to 'subscribe' them to the player object
+		if (entity instanceof Enemy) {
+			getPlayerObject().addObserver((PlayerObserver)entity); 
+		}
 		this.addNewObjective(entity);
 	}
 	
@@ -143,6 +147,12 @@ public class Board {
 		// remove it from the objectives that the board has.
 		if (e.getAssociatedPointType() != null && !e.getAssociatedPointType().checkPointObtained()) {
 			this.objectivesOnBoard.removePoint(e.getAssociatedPointType());
+		}
+		
+		// If the entity is an enemy that has died/been removed we need to remove it
+		// from the players observers list so they don't randomly pop up after dying
+		if (e instanceof Enemy) {
+			this.getPlayerObject().removeObserver((PlayerObserver) e);
 		}
 	}
 	

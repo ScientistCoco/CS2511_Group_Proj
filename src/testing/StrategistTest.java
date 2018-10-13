@@ -36,15 +36,15 @@ public class StrategistTest {
 	public void TestPredictDirection() {
 
 		Direction d = Direction.Up;
-		p1.addDirection(d);
-		assertTrue(s.predictDirection(p1.getDirections()).equals(Direction.Up));
+		p1.addMove(d);
+		assertTrue(s.predictDirection(p1.getPastMoves()).equals(Direction.Up));
 	}
 	
 	@Test
 	public void TestMoveNormalCase() {
 
 		Direction d = Direction.Up;
-		p1.addDirection(d);
+		p1.addMove(d);
 		b1.placeEntity(p1, 3, 3);
 		b1.placeEntity(s, 1, 1);
 		s.updateMove(p1);
@@ -58,7 +58,7 @@ public class StrategistTest {
 	public void TestMoveRandomCase() {
 
 		Direction d = Direction.Left;
-		p1.addDirection(d);
+		p1.addMove(d);
 		b1.placeEntity(p1, 3, 3);
 		b1.placeEntity(s, 2, 6);
 		

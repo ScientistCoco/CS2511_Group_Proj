@@ -12,7 +12,7 @@ public abstract class Character extends Entity{
 	//public abstract void move(String direction);
 	
 	public void deleteHealth() {
-		this.health -= 1;
+		this.health = this.health - 1;
 		if (!checkIfAlive()) {
 			this.board.removeEntity(this);
 		}

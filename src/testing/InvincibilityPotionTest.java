@@ -34,8 +34,7 @@ public class InvincibilityPotionTest {
 	public void testWithoutPotion() {
 		b1.placeEntity(p1, 2, 2);
 		b1.placeEntity(h1, 2, 1);
-		p1.addEnemy(h1);
-		p1.notifyAllEnemies();
+		p1.notifyObservers();
 		
 		//System.out.println(h1.getYCoordinate());
 		assertTrue(p1.checkIfAlive() == false);

@@ -13,7 +13,7 @@ import points.PointType;
 import points.Points1;
 import visuals.ObjectiveLabel;
 
-public class ObjectiveComponent1 implements ObjectiveObserver {	
+public class ObjectiveComponent implements ObjectiveObserver {	
 	// The arraylist contains the 'objects' this objectiveComponent has subscribed to.
 	// They are categorized by the 'type' of point they are. 
 	// i.e. Key : TreasurePoint | Value : [object1 - treasurePoint1, object2 - treasurePoint2]
@@ -30,7 +30,7 @@ public class ObjectiveComponent1 implements ObjectiveObserver {
 	private ObservableList<Node> _list; 
 	private ArrayList<PointType> _listIndex;	
 	
-	public ObjectiveComponent1() {
+	public ObjectiveComponent() {
 		this.listOfPoints = new HashMap<PointType, ArrayList<PointSubject>>();
 		this._list = FXCollections.observableArrayList();	
 		this._listIndex = new ArrayList<PointType>();

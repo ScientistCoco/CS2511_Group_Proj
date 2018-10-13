@@ -3,6 +3,8 @@ package enemies;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
 import other.Player;
@@ -11,11 +13,12 @@ public class Strategist extends Enemy{
 
 	public Strategist(Board board) {
 		super(board);
+		this.entityIcon = new ImageView(new Image("icons/strategist.png"));
 	}
 
 	@Override
 	public void updateMove(Player player) {
-		ArrayList<Direction> directions = player.getDirections();
+		ArrayList<Direction> directions = player.getPastMoves();
 		int x = player.getXCoordinate();
 		int y = player.getYCoordinate();
 		// predict next move

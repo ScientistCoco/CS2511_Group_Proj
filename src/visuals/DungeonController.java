@@ -26,9 +26,13 @@ import javafx.stage.Stage;
 import levels.level1;
 import levels.level2;
 import other.Board;
-import other.ObjectiveComponent1;
+import other.ObjectiveComponent;
+import other.Player;
+import other.PlayerObservable;
+import other.PlayerObserver;
 
-public class DungeonController {
+
+public class DungeonController implements PlayerObserver{
 	@FXML private AnchorPane base;
 	@FXML private GridPane baseMap;
 	@FXML private VBox objectivesList;
@@ -58,7 +62,11 @@ public class DungeonController {
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
-    
+		
+		// We add this controller to the players list of observers so that when the player dies
+		// it can notify the controller about this
+		board.getPlayerObject().addObserver(this);
+		
 		// We get the objectives to 'observe' the objectiveComponent for any changes
 		// if there are any changes it will update the visual component to reflect this.
 		this.objectives = this.board.getObjectivesOnThisBoard().getObservableObjectives();
@@ -95,15 +103,10 @@ public class DungeonController {
 						} else {							
 							board.getPlayerObject().moveSelf(event.getCode().toString());
 							inv.showItems();
-							// The enemies will move only when the player has changed their position on the map
-							// TODO: When player collides with enemy - player dies. Instead results in an error
-							for (Enemy e : board.getEnemyObjects()) {
-								e.updateMove(board.getPlayerObject());
-							}
+				
 						}
 					}
 				}
-				checkPlayerDeath();
 			}
 		});
 		
@@ -153,8 +156,10 @@ public class DungeonController {
 		inv.showItems();	// Gets the inventoryController to check if there has been new additions. So that if the player has the inv open and they pick up an item, it will show up in their inv.		
 	}
 	
-	public void checkPlayerDeath() {
-		if (board.getPlayerObject() == null) {
+
+	@Override
+	public void update(PlayerObservable po) {
+		if (!po.checkIfAlive()) {
 			GameFailScreen sc = new GameFailScreen(currStage);
 			sc.start();
 		}

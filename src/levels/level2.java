@@ -1,6 +1,9 @@
 package levels;
 
+import enemies.Coward;
+import enemies.Hound;
 import enemies.Hunter;
+import enemies.Strategist;
 import items.Arrow;
 import items.Bomb;
 import items.HoverPotion;

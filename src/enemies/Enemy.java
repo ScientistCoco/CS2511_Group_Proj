@@ -6,10 +6,12 @@ import other.Buff;
 import other.Character;
 import other.Entity;
 import other.Player;
+import other.PlayerObservable;
+import other.PlayerObserver;
 import points.PointType;
 import points.Points1;
 
-public class Enemy extends Character{
+public class Enemy extends Character implements PlayerObserver {
 	
 	public Enemy(Board board) {
 		super(board);
@@ -99,6 +101,15 @@ public class Enemy extends Character{
 			this.move.moveDown(this, this.board);
 		} else {
 			this.move.moveUp(this, this.board);
+		}
+	}
+
+
+	@Override
+	public void update(PlayerObservable po) {
+		// Check if player is still alive before making a move
+		if (po.checkIfAlive()) {
+			this.updateMove((Player)po);
 		}
 	}
 	

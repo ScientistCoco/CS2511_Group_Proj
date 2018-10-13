@@ -1,11 +1,14 @@
 package enemies;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import other.Board;
 import other.Player;
 
 public class Coward extends Enemy {
 	public Coward(Board board) {
 		super(board);
+		this.entityIcon = new ImageView(new Image("icons/coward.png"));
 	}
 
 	@Override
