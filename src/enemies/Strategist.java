@@ -13,6 +13,7 @@ public class Strategist extends Enemy{
 
 	public Strategist(Board board) {
 		super(board);
+		this.setEnemyName("Strategist");
 		this.entityIcon = new ImageView(new Image("icons/strategist.png"));
 	}
 

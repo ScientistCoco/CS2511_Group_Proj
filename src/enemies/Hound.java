@@ -12,6 +12,7 @@ public class Hound extends Enemy {
 
 	public Hound(Board board, Hunter hunter) {
 		super(board);
+		this.setEnemyName("Hound");
 		this.hunter = hunter;
 		this.entityIcon = new ImageView(new Image("icons/hound.png"));
 		//hunter = new Hunter(board);

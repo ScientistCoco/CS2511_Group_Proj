@@ -9,8 +9,9 @@ public class Coward extends Enemy {
 	public Coward(Board board) {
 		super(board);
 		this.entityIcon = new ImageView(new Image("icons/coward.png"));
+		this.setEnemyName("Coward");
 	}
-
+	
 	@Override
 	public void updateMove(Player player) {
 			int x = player.getXCoordinate();

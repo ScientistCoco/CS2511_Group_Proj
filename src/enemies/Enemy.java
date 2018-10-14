@@ -12,6 +12,7 @@ import points.PointType;
 import points.Points1;
 
 public class Enemy extends Character implements PlayerObserver {
+	protected String name;
 	
 	public Enemy(Board board) {
 		super(board);
@@ -113,6 +114,12 @@ public class Enemy extends Character implements PlayerObserver {
 		}
 	}
 	
+	public String getEnemyName() {
+		return this.name;
+	}
 	
+	protected void setEnemyName(String name) {
+		this.name = name;
+	}
 
 }

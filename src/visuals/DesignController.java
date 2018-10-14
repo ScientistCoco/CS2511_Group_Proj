@@ -13,6 +13,11 @@ import other.Board;
 
 import java.util.ArrayList;
 
+import enemies.Coward;
+import enemies.Enemy;
+import enemies.Hound;
+import enemies.Hunter;
+import enemies.Strategist;
 import items.Arrow;
 import items.Bomb;
 import items.HoverPotion;
@@ -31,10 +36,15 @@ public class DesignController {
 	@FXML private GridPane grid;
 	@FXML private AnchorPane itemsPane;
 	@FXML private GridPane itemsGrid;
+	@FXML private GridPane characterGrid;
 	private StackPane[][] itemsStackPane;
-	private int itemsPaneRow = 5;
+	private StackPane[][] characterStackPane;
+	private int itemsPaneRow = 3;
 	private int itemsPaneCol = 3;
+	private int characterPaneRow = 3;
+	private int characterPaneCol = 3;
 	private ArrayList<Item> allitems;
+	private ArrayList<Enemy> allcharacters;
 	@FXML Label itemName;
 	@FXML AnchorPane itemDescriptionPane;
 	@FXML Text itemDescription;
@@ -42,8 +52,10 @@ public class DesignController {
 	public DesignController(Stage s) {
 		this.board = new Board();
 		this.currStage = s;
-		itemsStackPane = new StackPane[3][5];
+		itemsStackPane = new StackPane[3][3];
+		characterStackPane = new StackPane[3][3];
 		initAllitems();
+		initAllcharacters();
 	}
 	
 	private void initAllitems() {
@@ -55,6 +67,14 @@ public class DesignController {
 		//allitems.addAll(new Key(board));
 		allitems.add(new Sword(board));
 		allitems.add(new Treasure(board));
+	}
+	
+	private void initAllcharacters() {
+		allcharacters = new ArrayList<Enemy>();
+		allcharacters.add(new Coward(board));
+		allcharacters.add(new Hound(board, null));
+		allcharacters.add(new Hunter(board));
+		allcharacters.add(new Strategist(board));
 	}
 
 	@FXML
@@ -69,8 +89,8 @@ public class DesignController {
 		for (int i = 0; i < itemsPaneCol; i++) {
 			for (int j = 0; j < itemsPaneRow; j++) {
 				if ((itemsPaneCol*j + i) < allitems.size()) {
-					System.out.println(i);
-					System.out.println(j);
+					//System.out.println(i);
+					//System.out.println(j);
 					Item it = allitems.get(itemsPaneCol*j + i);
 					//System.out.println(it.getItemName());
 					itemsStackPane[i][j] = new StackPane();
@@ -87,29 +107,65 @@ public class DesignController {
 			item.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
 				int row = itemsGrid.getRowIndex(item);
 				int col = itemsGrid.getColumnIndex(item);
-				showDescription(col, row);
+				showItemDescription(col, row);
 			});
 		});
 		itemsGrid.getChildren().forEach((item) -> {
 			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
 				int row = itemsGrid.getRowIndex(item);
 				int col = itemsGrid.getColumnIndex(item);
-				hideDescription();
+				hideItemDescription();
+				itemName.setVisible(false);
+			});
+		});
+		
+		// init characters grid
+		for (int i = 0; i < characterPaneCol; i++) {
+			for (int j = 0; j < characterPaneRow; j++) {
+				if ((characterPaneCol*j + i) < allcharacters.size()) {
+					//System.out.println(i);
+					//System.out.println(j);
+					Enemy en = allcharacters.get(characterPaneCol*j + i);
+					//System.out.println(it.getItemName());
+					characterStackPane[i][j] = new StackPane();
+					characterStackPane[i][j].getChildren().add(0, en.getEntityIcon());
+					characterStackPane[i][j].getStylesheets().add("/visuals/application.css");
+					characterStackPane[i][j].getStyleClass().add("inventory-cells");	
+					characterGrid.add(characterStackPane[i][j], i, j);
+				}
+			}
+		}
+		
+		// add mouse event to characterPane
+		characterGrid.getChildren().forEach((enemy) -> {
+			enemy.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
+				int row = characterGrid.getRowIndex(enemy);
+				int col = characterGrid.getColumnIndex(enemy);
+				showItemDescription(col, row);
+			});
+		});
+		itemsGrid.getChildren().forEach((item) -> {
+			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+				int row = itemsGrid.getRowIndex(item);
+				int col = itemsGrid.getColumnIndex(item);
+				hideItemDescription();
+				itemName.setVisible(false);
 			});
 		});
 	}
 	
-	public void showDescription(int col, int row) {
+	public void showItemDescription(int col, int row) {
 		if (itemsStackPane[col][row].getChildren().size() != 0) {
 			Item it = this.findItemByImage((ImageView) itemsStackPane[col][row].getChildren().get(0));
 			itemName.setText(it.getItemName());
+			itemName.setVisible(true);
 			itemDescription.setText(it.getDescription());
 			itemDescriptionPane.setOpacity(1);
 			
 		}
 	}
 	
-	public void hideDescription() {
+	public void hideItemDescription() {
 		itemDescriptionPane.setOpacity(0);
 	}
 	
@@ -117,6 +173,23 @@ public class DesignController {
 		for (Item it : allitems) {
 			if (it.getEntityIcon().equals(image)) {
 				return it;
+			}
+		}
+		return null;
+	}
+	
+	public void showEnemyDescription(int col, int row) {
+		if (characterStackPane[col][row].getChildren().size() != 0) {
+			Enemy enemy = this.findEnemyByImage((ImageView) characterStackPane[col][row].getChildren().get(0));
+			itemName.setText(enemy.getEnemyName());
+			itemName.setVisible(true);
+		}
+	}
+	
+	public Enemy findEnemyByImage(ImageView image) {
+		for (Enemy en : allcharacters) {
+			if (en.getEntityIcon().equals(image)) {
+				return en;
 			}
 		}
 		return null;
