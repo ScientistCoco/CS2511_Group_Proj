@@ -9,6 +9,7 @@ public class Boulder extends Entity{
 	
 	public Boulder(Board board) {
 		super(board);
+		this.setName("Boulder");
 		this.state = true;
 		this.icon = " • ";
 		this.zOrder = 2;

@@ -15,6 +15,7 @@ public class Exit extends Entity{
 	public Exit(Board board) {
 		super(board);
 		this.icon = "[ ]";
+		this.setName("Exit");
 		this.point = new Points1(PointType.ExitPoint);
 		this.entityIcon = new ImageView(new Image("icons/exit.png"));
 	}

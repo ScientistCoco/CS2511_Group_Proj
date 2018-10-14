@@ -9,6 +9,7 @@ public class Pit extends Entity{
 		super(board);
 		this.icon = " O ";
 		this.zOrder = 1;
+		this.setName("Pit");
 		this.entityIcon = new ImageView(new Image("icons/pit.png"));
 	}
 

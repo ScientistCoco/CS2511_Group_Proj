@@ -20,6 +20,7 @@ public class Switch extends Entity{
 		super(board);
 		this.state = new SwitchOffState();
 		this.icon = " Ø ";
+		this.setName("Switch");
 		this.point = new Points1(PointType.SwitchPoint);
 		this.entityIcon = new ImageView(new Image("icons/floor_switch.png"));
 	}

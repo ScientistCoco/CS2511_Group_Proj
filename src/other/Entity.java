@@ -10,6 +10,7 @@ public class Entity {
 	protected Board board;
 	protected MovementBehaviour move;
 	protected String icon;	// This is the icon that gets displayed on the board
+	protected String name;
 	protected Integer zOrder;	// Z-order is an ordering of overlapping 2d objects. 
 								// The ranks in descending order are: 0 > 1 > 2 > 3 ...
 								// 0 : Exit
@@ -91,6 +92,14 @@ public class Entity {
 	 */
 	public boolean overlappingEffect(Entity entity) {
 		return false;
+	}
+	
+	public String getEntityName() {
+		return this.name;
+	}
+	
+	protected void setName(String name) {
+		this.name = name;
 	}
 	
 }

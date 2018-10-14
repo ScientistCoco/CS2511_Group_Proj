@@ -10,6 +10,7 @@ public class Door extends Entity{
 	
 	public Door(Board board, int num) {
 		super(board);
+		this.setName("Door");
 		this.DoorNum = num;
 		this.status = DoorStatus.Closed;
 		this.icon = "[#]";

@@ -10,6 +10,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import other.Board;
+import other.Door;
+import other.Entity;
+import other.Exit;
+import other.Pit;
+import other.Switch;
+import other.Wall;
 
 import java.util.ArrayList;
 
@@ -37,14 +43,15 @@ public class DesignController {
 	@FXML private AnchorPane itemsPane;
 	@FXML private GridPane itemsGrid;
 	@FXML private GridPane characterGrid;
+	@FXML private GridPane EntityGrid;
 	private StackPane[][] itemsStackPane;
 	private StackPane[][] characterStackPane;
-	private int itemsPaneRow = 3;
-	private int itemsPaneCol = 3;
-	private int characterPaneRow = 3;
-	private int characterPaneCol = 3;
+	private StackPane[][] entityStackPane;
+	private int rowPane = 3;
+	private int colPane = 3;
 	private ArrayList<Item> allitems;
 	private ArrayList<Enemy> allcharacters;
+	private ArrayList<Entity> allentities;
 	@FXML Label itemName;
 	@FXML AnchorPane itemDescriptionPane;
 	@FXML Text itemDescription;
@@ -54,8 +61,10 @@ public class DesignController {
 		this.currStage = s;
 		itemsStackPane = new StackPane[3][3];
 		characterStackPane = new StackPane[3][3];
+		entityStackPane = new StackPane[3][3];
 		initAllitems();
 		initAllcharacters();
+		initAllentities();
 	}
 	
 	private void initAllitems() {
@@ -76,6 +85,15 @@ public class DesignController {
 		allcharacters.add(new Hunter(board));
 		allcharacters.add(new Strategist(board));
 	}
+	
+	private void initAllentities() {
+		allentities = new ArrayList<Entity>();
+		//allentities.add(new Door(board, 0));
+		allentities.add(new Exit(board));
+		allentities.add(new Pit(board));
+		allentities.add(new Switch(board));
+		allentities.add(new Wall(board));
+	}
 
 	@FXML
 	public void initialize() {
@@ -86,12 +104,12 @@ public class DesignController {
 			}
 		}
 		// init items grid
-		for (int i = 0; i < itemsPaneCol; i++) {
-			for (int j = 0; j < itemsPaneRow; j++) {
-				if ((itemsPaneCol*j + i) < allitems.size()) {
+		for (int i = 0; i < colPane; i++) {
+			for (int j = 0; j < rowPane; j++) {
+				if ((colPane*j + i) < allitems.size()) {
 					//System.out.println(i);
 					//System.out.println(j);
-					Item it = allitems.get(itemsPaneCol*j + i);
+					Item it = allitems.get(colPane*j + i);
 					//System.out.println(it.getItemName());
 					itemsStackPane[i][j] = new StackPane();
 					itemsStackPane[i][j].getChildren().add(0, it.getEntityIcon());
@@ -120,12 +138,12 @@ public class DesignController {
 		});
 		
 		// init characters grid
-		for (int i = 0; i < characterPaneCol; i++) {
-			for (int j = 0; j < characterPaneRow; j++) {
-				if ((characterPaneCol*j + i) < allcharacters.size()) {
+		for (int i = 0; i < colPane; i++) {
+			for (int j = 0; j < rowPane; j++) {
+				if ((colPane*j + i) < allcharacters.size()) {
 					//System.out.println(i);
 					//System.out.println(j);
-					Enemy en = allcharacters.get(characterPaneCol*j + i);
+					Enemy en = allcharacters.get(colPane*j + i);
 					//System.out.println(it.getItemName());
 					characterStackPane[i][j] = new StackPane();
 					characterStackPane[i][j].getChildren().add(0, en.getEntityIcon());
@@ -141,19 +159,69 @@ public class DesignController {
 			enemy.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
 				int row = characterGrid.getRowIndex(enemy);
 				int col = characterGrid.getColumnIndex(enemy);
-				showItemDescription(col, row);
+				showEnemyDescription(col, row);
 			});
 		});
-		itemsGrid.getChildren().forEach((item) -> {
+		characterGrid.getChildren().forEach((item) -> {
 			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
-				int row = itemsGrid.getRowIndex(item);
-				int col = itemsGrid.getColumnIndex(item);
-				hideItemDescription();
+				int row = characterGrid.getRowIndex(item);
+				int col = characterGrid.getColumnIndex(item);
 				itemName.setVisible(false);
 			});
 		});
+		
+		// add entities grid
+		for (int i = 0; i < colPane; i++) {
+			for (int j = 0; j < rowPane; j++) {
+				if ((colPane*j + i) < allentities.size()) {
+					//System.out.println(i);
+					//System.out.println(j);
+					Entity en = allentities.get(colPane*j + i);
+					//System.out.println(it.getItemName());
+					entityStackPane[i][j] = new StackPane();
+					entityStackPane[i][j].getChildren().add(0, en.getEntityIcon());
+					entityStackPane[i][j].getStylesheets().add("/visuals/application.css");
+					entityStackPane[i][j].getStyleClass().add("inventory-cells");	
+					EntityGrid.add(entityStackPane[i][j], i, j);
+				}
+			}
+		}
+		// add mouse event into entity grid
+		EntityGrid.getChildren().forEach((entity) -> {
+			entity.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
+				int row = EntityGrid.getRowIndex(entity);
+				int col = EntityGrid.getColumnIndex(entity);
+				showEntityDescription(col, row);
+			});
+		});
+		EntityGrid.getChildren().forEach((entity) -> {
+			entity.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+				int row = EntityGrid.getRowIndex(entity);
+				int col = EntityGrid.getColumnIndex(entity);
+				itemName.setVisible(false);
+			});
+		});
+		
 	}
 	
+	private void showEntityDescription(int col, int row) {
+		if (entityStackPane[col][row].getChildren().size() != 0) {
+			Entity it = this.findEntityByImage((ImageView) entityStackPane[col][row].getChildren().get(0));
+			itemName.setText(it.getEntityName());
+			itemName.setVisible(true);
+		}
+		
+	}
+
+	private Entity findEntityByImage(ImageView imageView) {
+		for (Entity en : allentities) {
+			if (en.getEntityIcon().equals(imageView)) {
+				return en;
+			}
+		}
+		return null;
+	}
+
 	public void showItemDescription(int col, int row) {
 		if (itemsStackPane[col][row].getChildren().size() != 0) {
 			Item it = this.findItemByImage((ImageView) itemsStackPane[col][row].getChildren().get(0));
