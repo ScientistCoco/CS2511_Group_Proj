@@ -241,8 +241,8 @@ public class DesignController {
 		
 		itemsGrid.getChildren().forEach((item) -> {
 			item.setOnDragOver((DragEvent event) -> {
-				if(event.getGestureSource() != board) {
-					event.acceptTransferModes(TransferMode.MOVE);
+				if (event.getDragboard().hasImage()) {
+					event.acceptTransferModes(TransferMode.ANY);
 				}
 				event.consume();
 			});
