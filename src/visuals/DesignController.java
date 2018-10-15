@@ -1,12 +1,19 @@
 package visuals;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import other.Board;
@@ -97,111 +104,17 @@ public class DesignController {
 
 	@FXML
 	public void initialize() {
-		// init player grid
-		for (int i = 0; i < colSize; i ++) {
-			for (int j = 0; j < rowSize; j ++ ) {
-				grid.add(board.getFloor(i, j), i, j);		
-			}
-		}
-		// init items grid
-		for (int i = 0; i < colPane; i++) {
-			for (int j = 0; j < rowPane; j++) {
-				if ((colPane*j + i) < allitems.size()) {
-					//System.out.println(i);
-					//System.out.println(j);
-					Item it = allitems.get(colPane*j + i);
-					//System.out.println(it.getItemName());
-					itemsStackPane[i][j] = new StackPane();
-					itemsStackPane[i][j].getChildren().add(0, it.getEntityIcon());
-					itemsStackPane[i][j].getStylesheets().add("/visuals/application.css");
-					itemsStackPane[i][j].getStyleClass().add("inventory-cells");	
-					itemsGrid.add(itemsStackPane[i][j], i, j);
-				}
-			}
-		}
+		this.initPlayerGrid();
 		
-		// when mouse entered each item, it shows description
-		itemsGrid.getChildren().forEach((item) -> {
-			item.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
-				int row = itemsGrid.getRowIndex(item);
-				int col = itemsGrid.getColumnIndex(item);
-				showItemDescription(col, row);
-			});
-		});
-		itemsGrid.getChildren().forEach((item) -> {
-			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
-				int row = itemsGrid.getRowIndex(item);
-				int col = itemsGrid.getColumnIndex(item);
-				hideItemDescription();
-				itemName.setVisible(false);
-			});
-		});
+		// init items grid
+		this.initItemsGrid();
 		
 		// init characters grid
-		for (int i = 0; i < colPane; i++) {
-			for (int j = 0; j < rowPane; j++) {
-				if ((colPane*j + i) < allcharacters.size()) {
-					//System.out.println(i);
-					//System.out.println(j);
-					Enemy en = allcharacters.get(colPane*j + i);
-					//System.out.println(it.getItemName());
-					characterStackPane[i][j] = new StackPane();
-					characterStackPane[i][j].getChildren().add(0, en.getEntityIcon());
-					characterStackPane[i][j].getStylesheets().add("/visuals/application.css");
-					characterStackPane[i][j].getStyleClass().add("inventory-cells");	
-					characterGrid.add(characterStackPane[i][j], i, j);
-				}
-			}
-		}
-		
-		// add mouse event to characterPane
-		characterGrid.getChildren().forEach((enemy) -> {
-			enemy.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
-				int row = characterGrid.getRowIndex(enemy);
-				int col = characterGrid.getColumnIndex(enemy);
-				showEnemyDescription(col, row);
-			});
-		});
-		characterGrid.getChildren().forEach((item) -> {
-			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
-				int row = characterGrid.getRowIndex(item);
-				int col = characterGrid.getColumnIndex(item);
-				itemName.setVisible(false);
-			});
-		});
+		this.initCharacterGrid();
 		
 		// add entities grid
-		for (int i = 0; i < colPane; i++) {
-			for (int j = 0; j < rowPane; j++) {
-				if ((colPane*j + i) < allentities.size()) {
-					//System.out.println(i);
-					//System.out.println(j);
-					Entity en = allentities.get(colPane*j + i);
-					//System.out.println(it.getItemName());
-					entityStackPane[i][j] = new StackPane();
-					entityStackPane[i][j].getChildren().add(0, en.getEntityIcon());
-					entityStackPane[i][j].getStylesheets().add("/visuals/application.css");
-					entityStackPane[i][j].getStyleClass().add("inventory-cells");	
-					EntityGrid.add(entityStackPane[i][j], i, j);
-				}
-			}
-		}
-		// add mouse event into entity grid
-		EntityGrid.getChildren().forEach((entity) -> {
-			entity.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
-				int row = EntityGrid.getRowIndex(entity);
-				int col = EntityGrid.getColumnIndex(entity);
-				showEntityDescription(col, row);
-			});
-		});
-		EntityGrid.getChildren().forEach((entity) -> {
-			entity.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
-				int row = EntityGrid.getRowIndex(entity);
-				int col = EntityGrid.getColumnIndex(entity);
-				itemName.setVisible(false);
-			});
-		});
-		
+		this.initEntityGrid();
+
 	}
 	
 	private void showEntityDescription(int col, int row) {
@@ -262,5 +175,223 @@ public class DesignController {
 		}
 		return null;
 	}
+	
+	private void initPlayerGrid() {
+		// init player grid
+		for (int i = 0; i < colSize; i ++) {
+			for (int j = 0; j < rowSize; j ++ ) {
+				grid.add(board.getFloor(i, j), i, j);		
+			}
+		}
+	}
+	
+	
+	private void initItemsGrid() {
+		for (int i = 0; i < colPane; i++) {
+			for (int j = 0; j < rowPane; j++) {
+				if ((colPane*j + i) < allitems.size()) {
+					//System.out.println(i);
+					//System.out.println(j);
+					Item it = allitems.get(colPane*j + i);
+					//System.out.println(it.getItemName());
+					itemsStackPane[i][j] = new StackPane();
+					itemsStackPane[i][j].getChildren().add(0, it.getEntityIcon());
+					itemsStackPane[i][j].getStylesheets().add("/visuals/application.css");
+					itemsStackPane[i][j].getStyleClass().add("inventory-cells");	
+					itemsGrid.add(itemsStackPane[i][j], i, j);
+				}
+			}
+		}
+	
+		// when mouse entered each item, it shows description
+		itemsGrid.getChildren().forEach((item) -> {
+			item.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
+				int row = itemsGrid.getRowIndex(item);
+				int col = itemsGrid.getColumnIndex(item);
+				showItemDescription(col, row);
+			});
+		});
+		itemsGrid.getChildren().forEach((item) -> {
+			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+				int row = itemsGrid.getRowIndex(item);
+				int col = itemsGrid.getColumnIndex(item);
+				hideItemDescription();
+				itemName.setVisible(false);
+			});
+		});
+		
+		// user can drag each item
+		itemsGrid.getChildren().forEach((item) -> {
+			item.setOnDragDetected((MouseEvent event)->{
+				Dragboard db = item.startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent content = new ClipboardContent();
+				int row = itemsGrid.getRowIndex(item);
+				int col = itemsGrid.getColumnIndex(item);
+				content.putImage(((ImageView) itemsStackPane[col][row].getChildren().get(0)).getImage());
+				db.setContent(content);
+				event.consume();
+			});
+		});
+		
+		itemsGrid.getChildren().forEach((item) -> {
+			item.setOnDragDone((DragEvent event)->{
+	            event.consume();
+			});
+		});
+		
+		itemsGrid.getChildren().forEach((item) -> {
+			item.setOnDragOver((DragEvent event) -> {
+				if(event.getGestureSource() != board) {
+					event.acceptTransferModes(TransferMode.MOVE);
+				}
+				event.consume();
+			});
+		});
+		
+		itemsGrid.getChildren().forEach((item) -> {
+			item.setOnDragDropped((DragEvent event) -> {
+				System.out.println("will drop ...");
+				Dragboard db = event.getDragboard();
+				if (db.hasImage()) {
+					ImageView im = new ImageView(db.getImage());
+					Item it = this.findItemByImage(im);
+					this.board.placeEntity(it, 0, 0);
+					Entity en = board.getEntity(0, 0);
+					if (en != null) {
+						System.out.println(en.getEntityName());
+					}else {
+						System.out.println("fail to place entity");
+					}
+				}
+				event.setDropCompleted(true);
+				event.consume();
+			});
+		});
+		
+		itemsGrid.getChildren().forEach((item) -> {
+			item.setOnDragEntered((DragEvent event) -> {
+
+				System.out.println("Drag entered");
+
+				event.consume();
+			});
+		});
+		
+		itemsGrid.getChildren().forEach((item) -> {
+			item.setOnDragExited((DragEvent event) -> {
+				System.out.println("Drag exited");
+				event.consume();
+			});
+		});
+		
+		
+		
+	}
+	
+	private void initCharacterGrid() {
+		for (int i = 0; i < colPane; i++) {
+			for (int j = 0; j < rowPane; j++) {
+				if ((colPane*j + i) < allcharacters.size()) {
+					//System.out.println(i);
+					//System.out.println(j);
+					Enemy en = allcharacters.get(colPane*j + i);
+					//System.out.println(it.getItemName());
+					characterStackPane[i][j] = new StackPane();
+					characterStackPane[i][j].getChildren().add(0, en.getEntityIcon());
+					characterStackPane[i][j].getStylesheets().add("/visuals/application.css");
+					characterStackPane[i][j].getStyleClass().add("inventory-cells");	
+					characterGrid.add(characterStackPane[i][j], i, j);
+				}
+			}
+		}
+		
+		// add mouse event to characterPane
+		characterGrid.getChildren().forEach((enemy) -> {
+			enemy.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
+				int row = characterGrid.getRowIndex(enemy);
+				int col = characterGrid.getColumnIndex(enemy);
+				showEnemyDescription(col, row);
+			});
+		});
+		characterGrid.getChildren().forEach((item) -> {
+			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+				int row = characterGrid.getRowIndex(item);
+				int col = characterGrid.getColumnIndex(item);
+				itemName.setVisible(false);
+			});
+		});
+		
+		// user can drag each item
+		characterGrid.getChildren().forEach((en) -> {
+			en.setOnDragDetected((MouseEvent event)->{
+				Dragboard db = en.startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent content = new ClipboardContent();
+				int row = characterGrid.getRowIndex(en);
+				int col = characterGrid.getColumnIndex(en);
+				content.putImage(((ImageView) characterStackPane[col][row].getChildren().get(0)).getImage());
+				db.setContent(content);
+				event.consume();
+			});
+		});
+				
+		characterGrid.getChildren().forEach((en) -> {
+			en.setOnDragDone((DragEvent event)->{
+				event.consume();
+			});
+		});
+	}
+	
+	private void initEntityGrid() {
+		for (int i = 0; i < colPane; i++) {
+			for (int j = 0; j < rowPane; j++) {
+				if ((colPane*j + i) < allentities.size()) {
+					//System.out.println(i);
+					//System.out.println(j);
+					Entity en = allentities.get(colPane*j + i);
+					//System.out.println(it.getItemName());
+					entityStackPane[i][j] = new StackPane();
+					entityStackPane[i][j].getChildren().add(0, en.getEntityIcon());
+					entityStackPane[i][j].getStylesheets().add("/visuals/application.css");
+					entityStackPane[i][j].getStyleClass().add("inventory-cells");	
+					EntityGrid.add(entityStackPane[i][j], i, j);
+				}
+			}
+		}
+		// add mouse event into entity grid
+		EntityGrid.getChildren().forEach((entity) -> {
+			entity.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
+				int row = EntityGrid.getRowIndex(entity);
+				int col = EntityGrid.getColumnIndex(entity);
+				showEntityDescription(col, row);
+			});
+		});
+		EntityGrid.getChildren().forEach((entity) -> {
+			entity.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+				int row = EntityGrid.getRowIndex(entity);
+				int col = EntityGrid.getColumnIndex(entity);
+				itemName.setVisible(false);
+			});
+		});
+		
+		// user can drag each item
+		EntityGrid.getChildren().forEach((item) -> {
+			item.setOnDragDetected((MouseEvent event)->{
+				Dragboard db = item.startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent content = new ClipboardContent();
+				int row = EntityGrid.getRowIndex(item);
+				int col = EntityGrid.getColumnIndex(item);
+				content.putImage(((ImageView) entityStackPane[col][row].getChildren().get(0)).getImage());
+				db.setContent(content);
+				event.consume();
+			});
+		});
+				
+		EntityGrid.getChildren().forEach((item) -> {
+			item.setOnDragDone((DragEvent event)->{
+				event.consume();
+			});
+		});
+	}
+	
 
 }
