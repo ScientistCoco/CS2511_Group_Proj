@@ -5,16 +5,17 @@ import other.Exit;
 import other.Player;
 import other.Wall;
 
-public class level1 implements boardLevel {
+public class level1 implements BoardLevel {
 	
 	private Board board;
 	private Player player;
-	
+	private int level;	// This is the level number
 	// This will be a simple level consisting of just walls and an exit that the
 	// player has to find. It is a 10x10 grid.
 	public level1 () {
 		this.board = new Board();
 		this.player = new Player(board);
+		this.level = 1;
 		buildMap();
 	}
 	
@@ -46,6 +47,11 @@ public class level1 implements boardLevel {
 	@Override
 	public Board getBoard() {
 		return this.board;
+	}
+
+	@Override
+	public int getLevel() {
+		return this.level;
 	}
 
 }

@@ -19,7 +19,7 @@ public class Board {
 	
 	// If width and height are specified
 	public Board(int width, int height) {
-		super();
+		this();
 		map = new Floor[width][height];
 		initFloor(width, height);
 	}

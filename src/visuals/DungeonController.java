@@ -23,6 +23,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
+import levels.BoardLevel;
+import levels.LevelSaver;
 import levels.level1;
 import levels.level2;
 import other.Board;
@@ -30,7 +32,6 @@ import other.ObjectiveComponent;
 import other.Player;
 import other.PlayerObservable;
 import other.PlayerObserver;
-
 
 public class DungeonController implements PlayerObserver{
 	@FXML private AnchorPane base;
@@ -44,16 +45,51 @@ public class DungeonController implements PlayerObserver{
 	private ObservableList<Node> objectives; 
 	private Stage currStage;
 	private Board board;
+	private LevelSaver levelSaver;
 	private int rowSize = 10;
 	private int colSize = 10;
+	private Class<?> boardLevel;	// This holds the playing level instance so we can retrieve the board object
 	
 	public DungeonController(Stage s) {
 		currStage = s;
+		
+		// When dungeonController gets instantiated we also
+		// need to instantiate the level that the dungeonController
+		// will show to the View.
+		if (checkIfLevelExists()) {
+			try {
+				this.board = ((BoardLevel)boardLevel.newInstance()).getBoard();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		} else {
+			// If level doesn't exist then that means player has completed all the levels
+			// We are making the assumption here that there are no levels missing and that
+			// the levels are always incrementing
+			GameCompleteScreen screen = new GameCompleteScreen(currStage);
+			screen.start();
+		}
+	}
+	
+	/**
+	 * This method checks the players current progress and determines whether the 
+	 * player has anymore levels that they can play.
+	 * @return true/false
+	 */
+	private boolean checkIfLevelExists() {
+		levelSaver = new LevelSaver();
+		try {
+			this.boardLevel = Class.forName("levels.level"+levelSaver.getNextLevel());
+			return true;
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
 	}
 	
 	@FXML
 	public void initialize() {
-		board = new level2().getBoard();
 		this.buffs = new ArrayList<ImageView>();
 		
 		// Now the gridpane will observe the board:
@@ -113,25 +149,25 @@ public class DungeonController implements PlayerObserver{
 	}
 	
 	/**
-	 * This method updates all the objectives on the board;
-	 */
-	/**public void updateObjectives() {
-		objectivesList.getChildren().clear();
-		objectivesList.getChildren().addAll(board.getObjectivesOnThisBoard().getObjectives());
-		if (board.getObjectivesOnThisBoard().checkProgressOfObjectives()) {
-			GameCompleteScreen sc = new GameCompleteScreen(currStage);
-			sc.start();
-		}
-	}**/
-	
-	/**
 	 * This method checks on the progress of the objectives, if all the objectives 
 	 * have been cleared then it will change the game screen to reflect this.
 	 */
 	public void checkIfObjectivesClear() {
-		if (board.getObjectivesOnThisBoard().checkProgress()) {
-			GameCompleteScreen sc = new GameCompleteScreen(currStage);
-			sc.start();
+		if (board.getObjectivesOnThisBoard().checkProgress()) {			
+			levelSaver.levelComplete();
+			// We determine which screen to show next. If there are more levels that the
+			// player can player then we prompt them with a screen asking if they
+			// would like to continue playing
+			if (this.checkIfLevelExists()) {
+				LevelCompleteScreen sc = new LevelCompleteScreen(currStage);
+				sc.start();
+			}
+			// If not then we congratulate the player for finishing the game
+			else {
+				GameCompleteScreen screen = new GameCompleteScreen(currStage);
+				screen.start();
+			}
+			
 		}
 	}
 	
@@ -160,7 +196,7 @@ public class DungeonController implements PlayerObserver{
 	@Override
 	public void update(PlayerObservable po) {
 		if (!po.checkIfAlive()) {
-			GameFailScreen sc = new GameFailScreen(currStage);
+			LevelFailScreen sc = new LevelFailScreen(currStage);
 			sc.start();
 		}
 	}

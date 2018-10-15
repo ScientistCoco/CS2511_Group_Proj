@@ -21,7 +21,7 @@ public enum Direction{
 			if (b.text.equalsIgnoreCase(text)) {
 				return b;
 			}
-		}
+		}		
 		return null;
 	}
 }

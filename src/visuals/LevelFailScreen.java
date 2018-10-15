@@ -17,17 +17,17 @@ import javafx.util.Duration;
  * @author court
  *
  */
-public class GameFailScreen {
+public class LevelFailScreen {
 	private Stage stage;
 	private FXMLLoader fxmlLoader;
 	
-	public GameFailScreen(Stage s) {
+	public LevelFailScreen(Stage s) {
 		this.stage = s;
 		this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("visuals/level_fail_window.fxml"));
 	}
 	
 	public void start() {
-		GameFailController failController = new GameFailController(stage);
+		LevelFailController failController = new LevelFailController(stage);
 		fxmlLoader.setController(failController);
 		
 		try {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="835.0" fitWidth="1302.0" layoutX="-12.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../bin/visuals/game_complete_background.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="char1" fitHeight="90.0" fitWidth="110.0" layoutX="615.0" layoutY="597.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../bin/icons/player_front.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="char2" fitHeight="94.0" fitWidth="98.0" layoutX="748.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../bin/icons/char_2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="char3" fitHeight="96.0" fitWidth="118.0" layoutX="881.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../bin/icons/char_3.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="286.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Congratulations you have completed all the levels!">
+         <font>
+            <Font name="SansSerif Bold" size="31.0" />
+         </font>
+      </Text>
+      <Button fx:id="mainMenuBtn" layoutX="370.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#mainMenuBtnClicked" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: #ac2525; -fx-opacity: 90%;" text="Main Menu" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="exitGameBtn" layoutX="795.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#exitGameBtnClicked" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: #ac2525; -fx-opacity: 90%;" text="Exit Game" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="resetBtn" layoutX="581.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#resetBtnClicked" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: #ac2525; -fx-opacity: 90%;" text="Reset" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

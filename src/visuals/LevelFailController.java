@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class GameFailController{
+public class LevelFailController{
 	
 	private Stage stage;
 	@FXML AnchorPane levelAnchorPane;
@@ -13,7 +13,7 @@ public class GameFailController{
 	@FXML Button noBtn;
 
 	
-	public GameFailController(Stage s) {
+	public LevelFailController(Stage s) {
 		this.stage = s;
 	}
 	

@@ -15,6 +15,9 @@ public class Main extends Application {
 		
 		MenuScreen menuScreen = new MenuScreen(primaryStage);
 		menuScreen.start();
+		
+		//GameCompleteScreen screen = new GameCompleteScreen(primaryStage);
+		//screen.start();
 		//DungeonScreen dungeonScreen = new DungeonScreen(primaryStage);
 		//dungeonScreen.start();
 	}

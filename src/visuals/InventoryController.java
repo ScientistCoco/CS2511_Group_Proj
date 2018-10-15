@@ -206,7 +206,7 @@ public class InventoryController extends Pane {
 		}
 		public void checkPlayerDeath() {
 			if (board.getPlayerObject() == null) {
-				GameFailScreen sc = new GameFailScreen(currStage);
+				LevelFailScreen sc = new LevelFailScreen(currStage);
 				sc.start();
 			}
 		}

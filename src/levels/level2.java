@@ -19,15 +19,17 @@ import other.Player;
 import other.Switch;
 import other.Wall;
 
-public class level2 implements boardLevel {
+public class level2 implements BoardLevel {
 
 	private Board board;
 	private Player player;
+	private int level;
 	
 	// This will be a simple level consisting of a door, key and an exit. It is a 10x10 grid.
 	public level2 () {
 		this.board = new Board();
 		this.player = new Player(board);
+		this.level = 2;
 		buildMap();
 	}
 	
@@ -55,5 +57,10 @@ public class level2 implements boardLevel {
 	@Override
 	public Board getBoard() {
 		return this.board;
+	}
+
+	@Override
+	public int getLevel() {
+		return this.level;
 	}
 }
