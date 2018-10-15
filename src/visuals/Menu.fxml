@@ -5,81 +5,50 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="476.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="levelAnchorPane" blendMode="SRC_ATOP" cache="true" layoutX="10.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: black;">
+      <ImageView fitHeight="811.0" fitWidth="1303.0" layoutX="-10.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@menu_background.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="PlayMode" layoutX="354.0" layoutY="331.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handlePlayMode" prefHeight="63.0" prefWidth="204.0" style="-fx-background-color: #ac2525; -fx-opacity: 90%;" text="Play" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="DesignMode" layoutX="736.0" layoutY="333.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleDesignMode" prefHeight="63.0" prefWidth="204.0" style="-fx-background-color: #ac2525; -fx-opacity: 90%;" text="Design" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+      </Button>
+      <HBox layoutX="460.0" layoutY="453.0" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text layoutX="181.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DUNGEON GAME" textAlignment="CENTER" wrappingWidth="905.0703125">
-               <font>
-                  <Font name="SansSerif Bold" size="75.0" />
-               </font>
-               <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#d70909" />
-                        <Stop color="#5b0122b2" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Text>
-            <Text layoutX="355.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please choose a mode to play with:" wrappingWidth="570.4296875">
-               <font>
-                  <Font name="SansSerif Regular" size="36.0" />
-               </font>
-               <fill>
-                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                     <stops>
-                        <Stop color="#d70909" />
-                        <Stop color="#902525" offset="1.0" />
-                     </stops>
-                  </RadialGradient>
-               </fill>
-            </Text>
-            <HBox layoutX="475.0" layoutY="406.0" prefHeight="100.0" prefWidth="312.0" spacing="100.0">
-               <children>
-                  <Button fx:id="PlayMode" alignment="CENTER" mnemonicParsing="false" onAction="#handlePlayMode" prefHeight="93.0" prefWidth="285.0" text="Play Mode">
-                     <font>
-                        <Font size="33.0" />
-                     </font>
-                     <textFill>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop color="BLACK" />
-                              <Stop color="#ff152d" offset="1.0" />
-                           </stops>
-                        </LinearGradient>
-                     </textFill>
-                  </Button>
-               </children>
-            </HBox>
-            <Line endX="248.33331298828125" layoutX="273.0" layoutY="263.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
-            <Line endX="248.33331298828125" layoutX="842.0" layoutY="264.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
-            <ImageView fitHeight="33.0" fitWidth="200.0" layoutX="531.0" layoutY="245.0">
+            <ImageView fx:id="char1" fitHeight="125.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 40%;">
                <image>
-                  <Image url="@game_completion_border_white.png" />
+                  <Image url="@../icons/player_front.png" />
                </image>
             </ImageView>
-            <Button fx:id="DesignMode" alignment="CENTER" layoutX="475.0" layoutY="537.0" mnemonicParsing="false" onAction="#handleDesignMode" prefHeight="93.0" prefWidth="285.0" text="Design Mode">
-               <font>
-                  <Font size="33.0" />
-               </font>
-               <textFill>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="BLACK" />
-                        <Stop color="#ff152d" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </textFill>
-            </Button>
+            <ImageView fx:id="char2" fitHeight="118.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 40%;">
+               <image>
+                  <Image url="@../icons/char_2.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="char3" fitHeight="126.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 40%;">
+               <image>
+                  <Image url="@../icons/char_3.png" />
+               </image>
+            </ImageView>
          </children>
-      </AnchorPane>
+      </HBox>
+      <Text fill="WHITE" layoutX="403.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select A Game Mode" wrappingWidth="475.0767822265625">
+         <font>
+            <Font name="SansSerif Bold" size="48.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
