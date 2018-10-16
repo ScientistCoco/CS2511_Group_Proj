@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -183,6 +184,36 @@ public class DesignController {
 				grid.add(board.getFloor(i, j), i, j);		
 			}
 		}
+		
+		// user can drag entity into grid
+		grid.setOnDragOver((DragEvent event) -> {
+			//System.out.println("drag over...");
+			if (event.getDragboard().hasImage()) {
+				event.acceptTransferModes(TransferMode.ANY);
+			}
+			event.consume();
+		});
+		
+		grid.setOnDragDropped((DragEvent event) -> {
+			System.out.println("drag drop ...");
+			Dragboard db = event.getDragboard();
+			if (db.hasImage()) {
+				ImageView im = new ImageView(db.getImage());
+				this.grid.add(im, 0, 0);
+				
+				Item it = this.findItemByImage(im);
+				if (it != null) {
+					System.out.println(it.getItemName());
+				} else {
+					System.out.println("item not found");
+				}
+				
+				//this.board.placeEntity(it, 0, 0);
+				
+			}
+			event.setDropCompleted(true);
+			event.consume();
+		});
 	}
 	
 	
@@ -190,14 +221,12 @@ public class DesignController {
 		for (int i = 0; i < colPane; i++) {
 			for (int j = 0; j < rowPane; j++) {
 				if ((colPane*j + i) < allitems.size()) {
-					//System.out.println(i);
-					//System.out.println(j);
 					Item it = allitems.get(colPane*j + i);
 					//System.out.println(it.getItemName());
 					itemsStackPane[i][j] = new StackPane();
 					itemsStackPane[i][j].getChildren().add(0, it.getEntityIcon());
-					itemsStackPane[i][j].getStylesheets().add("/visuals/application.css");
-					itemsStackPane[i][j].getStyleClass().add("inventory-cells");	
+					//itemsStackPane[i][j].getStylesheets().add("/visuals/application.css");
+					//itemsStackPane[i][j].getStyleClass().add("inventory-cells");	
 					itemsGrid.add(itemsStackPane[i][j], i, j);
 				}
 			}
@@ -230,15 +259,28 @@ public class DesignController {
 				ClipboardContent content = new ClipboardContent();
 				int row = itemsGrid.getRowIndex(item);
 				int col = itemsGrid.getColumnIndex(item);
-				ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
-				Item it = this.findItemByImage(i);
+				
+				Bomb ip = new Bomb(board);
+				Item bitem = this.findItemByImage(ip.getEntityIcon());
+				if (bitem != null) {
+					System.out.println(bitem.getItemName());
+					
+				} else {
+					System.out.println("cannot find bomb item");
+				}
+				
+				//ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
+				content.putImage(((ImageView) itemsStackPane[col][row].getChildren().get(0)).getImage());
+				db.setContent(content);
+				Image ii = db.getImage();
+				ImageView im = new ImageView(ii);
+				Item it = this.findItemByImage(im);
 				if (it == null) {
-					System.out.println("item cannot be found");
+					System.out.println("cannot find item");
+					
 				} else {
 					System.out.println(it.getItemName());
 				}
-				content.putImage(((ImageView) itemsStackPane[col][row].getChildren().get(0)).getImage());
-				db.setContent(content);
 				event.consume();
 			});
 		});
@@ -252,31 +294,7 @@ public class DesignController {
 		});
 		
 		
-	
-		grid.setOnDragOver((DragEvent event) -> {
-			//System.out.println("drag over...");
-			if (event.getDragboard().hasImage()) {
-				event.acceptTransferModes(TransferMode.ANY);
-			}
-			event.consume();
-		});
 		
-		
-		
-		grid.setOnDragDropped((DragEvent event) -> {
-			System.out.println("drag drop ...");
-			Dragboard db = event.getDragboard();
-			if (db.hasImage()) {
-				ImageView im = new ImageView(db.getImage());
-				
-				Item it = this.findItemByImage(im);
-				
-				this.board.placeEntity(it, 0, 0);
-				
-			}
-			event.setDropCompleted(true);
-			event.consume();
-		});
 
 			
 		grid.setOnDragEntered((DragEvent event) -> {
