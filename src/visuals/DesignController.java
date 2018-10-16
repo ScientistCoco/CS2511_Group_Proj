@@ -1,10 +1,13 @@
 package visuals;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
@@ -22,10 +25,12 @@ import other.Door;
 import other.Entity;
 import other.Exit;
 import other.Pit;
+import other.Player;
 import other.Switch;
 import other.Wall;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import enemies.Coward;
 import enemies.Enemy;
@@ -63,6 +68,10 @@ public class DesignController {
 	@FXML Label itemName;
 	@FXML AnchorPane itemDescriptionPane;
 	@FXML Text itemDescription;
+	
+	
+	final GridPane target = grid;
+	
 	
 	public DesignController(Stage s) {
 		this.board = new Board();
@@ -129,7 +138,7 @@ public class DesignController {
 
 	private Entity findEntityByImage(ImageView imageView) {
 		for (Entity en : allentities) {
-			if (en.getEntityIcon().equals(imageView)) {
+			if (this.compareImageView(en.getEntityIcon(), imageView) > 95) {
 				return en;
 			}
 		}
@@ -153,13 +162,28 @@ public class DesignController {
 	
 	public Item findItemByImage(ImageView image) {
 		for (Item it : allitems) {
-			if (it.getEntityIcon().equals(image)) {
+			if (compareImageView(it.getEntityIcon(), image) > 95.0) {
 				return it;
 			}
 		}
 		return null;
 	}
 	
+	private double compareImageView(ImageView imageView1, ImageView imageView2) {
+		Image image1 = imageView1.getImage();
+		Image image2 = imageView2.getImage();
+
+		final int width = (int) image1.getWidth();
+		final int height = (int) image1.getHeight();
+		final PixelReader reader1 = image1.getPixelReader();
+		final PixelReader reader2 = image2.getPixelReader();
+
+		final double nbNonSimilarPixels = IntStream.range(0, width).parallel().
+			mapToLong(i -> IntStream.range(0, height).parallel().filter(j -> reader1.getArgb(i, j) != reader2.getArgb(i, j)).count()).sum();
+
+		return 100d - nbNonSimilarPixels / (width * height) * 100d;
+	}
+
 	public void showEnemyDescription(int col, int row) {
 		if (characterStackPane[col][row].getChildren().size() != 0) {
 			Enemy enemy = this.findEnemyByImage((ImageView) characterStackPane[col][row].getChildren().get(0));
@@ -170,14 +194,28 @@ public class DesignController {
 	
 	public Enemy findEnemyByImage(ImageView image) {
 		for (Enemy en : allcharacters) {
-			if (en.getEntityIcon().equals(image)) {
+			if (this.compareImageView(en.getEntityIcon(), image) > 95.0) {
 				return en;
 			}
 		}
 		return null;
 	}
 	
+	private Entity findByImage(ImageView image) {
+		if (this.findEnemyByImage(image) != null) {
+			return this.findEnemyByImage(image);
+		} else if (this.findItemByImage(image) != null) {
+			return this.findItemByImage(image);
+		} else if (this.findEntityByImage(image)!=null) {
+			return this.findEntityByImage(image);
+		}
+		return null;
+	}
+	
+	
 	private void initPlayerGrid() {
+		Player player = new Player(board);
+		board.placeEntity(player, 0, 0);
 		// init player grid
 		for (int i = 0; i < colSize; i ++) {
 			for (int j = 0; j < rowSize; j ++ ) {
@@ -185,33 +223,75 @@ public class DesignController {
 			}
 		}
 		
+		
+		
 		// user can drag entity into grid
 		grid.setOnDragOver((DragEvent event) -> {
-			//System.out.println("drag over...");
-			if (event.getDragboard().hasImage()) {
-				event.acceptTransferModes(TransferMode.ANY);
-			}
+			if(event.getGestureSource() != grid && event.getDragboard().hasImage()){
+                //allow for moving
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
 			event.consume();
 		});
 		
 		grid.setOnDragDropped((DragEvent event) -> {
-			System.out.println("drag drop ...");
+			//System.out.println("drag drop ...");
 			Dragboard db = event.getDragboard();
-			if (db.hasImage()) {
-				ImageView im = new ImageView(db.getImage());
-				this.grid.add(im, 0, 0);
+			Node node = (Node) event.getGestureTarget();
+			System.out.println(node.getClass());
+			System.out.println(node.getLayoutBounds());
+
+			if (node == null) {
+				System.out.println("node is null");
+			} else {
+				System.out.println(node.getLayoutX());
+				System.out.println(node.getLayoutY());
+			}
+			boolean success = false;
+			if ( db.hasImage()) {
+				success = true;
+				Integer cIndex = grid.getColumnSpan(node);
+		        Integer rIndex = grid.getRowIndex(node);
+		        int x = cIndex == null ? 0 : cIndex;
+		        int y = rIndex == null ? 0 : rIndex;
+				System.out.println(x);
+				System.out.println(y);
 				
-				Item it = this.findItemByImage(im);
-				if (it != null) {
-					System.out.println(it.getItemName());
-				} else {
-					System.out.println("item not found");
+				ImageView im = new ImageView(db.getImage());
+				
+				Entity en = this.findByImage(im);
+				/*
+				try {
+					en = (Entity) this.findByImage(im).clone();
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace();
+					
+				}*/
+				if (en == null) {
+					System.out.println("cannot find entity by this image");
 				}
 				
-				//this.board.placeEntity(it, 0, 0);
+				this.board.placeEntity(en, x, y);
+				//this.initPlayerGrid();
 				
 			}
-			event.setDropCompleted(true);
+			event.setDropCompleted(success);
+			event.consume();
+		});
+		
+		grid.setOnDragEntered((DragEvent event) -> {
+			if(event.getGestureSource() != grid && event.getDragboard().hasImage()){
+                //source.setVisible(false);
+                grid.setOpacity(0.7);
+                //System.out.println("Drag entered");
+            }
+
+			event.consume();
+		});
+		
+		
+		grid.setOnDragExited((DragEvent event) -> {
+			grid.setOpacity(1);
 			event.consume();
 		});
 	}
@@ -222,11 +302,10 @@ public class DesignController {
 			for (int j = 0; j < rowPane; j++) {
 				if ((colPane*j + i) < allitems.size()) {
 					Item it = allitems.get(colPane*j + i);
-					//System.out.println(it.getItemName());
 					itemsStackPane[i][j] = new StackPane();
 					itemsStackPane[i][j].getChildren().add(0, it.getEntityIcon());
-					//itemsStackPane[i][j].getStylesheets().add("/visuals/application.css");
-					//itemsStackPane[i][j].getStyleClass().add("inventory-cells");	
+					itemsStackPane[i][j].getStylesheets().add("/visuals/application.css");
+					itemsStackPane[i][j].getStyleClass().add("inventory-cells");	
 					itemsGrid.add(itemsStackPane[i][j], i, j);
 				}
 			}
@@ -260,27 +339,11 @@ public class DesignController {
 				int row = itemsGrid.getRowIndex(item);
 				int col = itemsGrid.getColumnIndex(item);
 				
-				Bomb ip = new Bomb(board);
-				Item bitem = this.findItemByImage(ip.getEntityIcon());
-				if (bitem != null) {
-					System.out.println(bitem.getItemName());
-					
-				} else {
-					System.out.println("cannot find bomb item");
-				}
+
 				
 				//ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
 				content.putImage(((ImageView) itemsStackPane[col][row].getChildren().get(0)).getImage());
 				db.setContent(content);
-				Image ii = db.getImage();
-				ImageView im = new ImageView(ii);
-				Item it = this.findItemByImage(im);
-				if (it == null) {
-					System.out.println("cannot find item");
-					
-				} else {
-					System.out.println(it.getItemName());
-				}
 				event.consume();
 			});
 		});
@@ -291,29 +354,8 @@ public class DesignController {
 				//System.out.println("drag done...");
 	            event.consume();
 			});
-		});
-		
-		
-		
+		});		
 
-			
-		grid.setOnDragEntered((DragEvent event) -> {
-
-			//System.out.println("Drag entered");
-
-			event.consume();
-		});
-		
-		
-		grid.setOnDragExited((DragEvent event) -> {
-			//System.out.println("Drag exited");
-			event.consume();
-		});
-	
-		
-		
-		
-		
 	}
 	
 	private void initCharacterGrid() {

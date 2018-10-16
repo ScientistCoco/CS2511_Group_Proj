@@ -102,4 +102,12 @@ public class Entity {
 		this.name = name;
 	}
 	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		try{  
+	        return super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
+	}
 }
