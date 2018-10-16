@@ -211,6 +211,8 @@ public class DesignController {
 				showItemDescription(col, row);
 			});
 		});
+		
+		
 		itemsGrid.getChildren().forEach((item) -> {
 			item.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
 				int row = itemsGrid.getRowIndex(item);
@@ -219,6 +221,7 @@ public class DesignController {
 				itemName.setVisible(false);
 			});
 		});
+		
 		
 		// user can drag each item
 		itemsGrid.getChildren().forEach((item) -> {
@@ -233,56 +236,61 @@ public class DesignController {
 			});
 		});
 		
+		
 		itemsGrid.getChildren().forEach((item) -> {
 			item.setOnDragDone((DragEvent event)->{
+				System.out.println("drag done...");
 	            event.consume();
 			});
 		});
 		
-		itemsGrid.getChildren().forEach((item) -> {
-			item.setOnDragOver((DragEvent event) -> {
-				if (event.getDragboard().hasImage()) {
-					event.acceptTransferModes(TransferMode.ANY);
+		
+		
+		
+	
+		grid.setOnDragOver((DragEvent event) -> {
+			System.out.println("drag over...");
+			if (event.getDragboard().hasImage()) {
+				event.acceptTransferModes(TransferMode.ANY);
+			}
+			event.consume();
+		});
+		
+		
+		
+		grid.setOnDragDropped((DragEvent event) -> {
+			System.out.println("drag drop ...");
+			Dragboard db = event.getDragboard();
+			if (db.hasImage()) {
+				ImageView im = new ImageView(db.getImage());
+				Item it = this.findItemByImage(im);
+				this.board.placeEntity(it, 0, 0);
+				Entity en = board.getEntity(0, 0);
+				if (en != null) {
+					System.out.println(en.getEntityName());
+				}else {
+					System.out.println("fail to place entity");
 				}
-				event.consume();
-			});
+			}
+			event.setDropCompleted(true);
+			event.consume();
 		});
-		
-		itemsGrid.getChildren().forEach((item) -> {
-			item.setOnDragDropped((DragEvent event) -> {
-				System.out.println("will drop ...");
-				Dragboard db = event.getDragboard();
-				if (db.hasImage()) {
-					ImageView im = new ImageView(db.getImage());
-					Item it = this.findItemByImage(im);
-					this.board.placeEntity(it, 0, 0);
-					Entity en = board.getEntity(0, 0);
-					if (en != null) {
-						System.out.println(en.getEntityName());
-					}else {
-						System.out.println("fail to place entity");
-					}
-				}
-				event.setDropCompleted(true);
-				event.consume();
-			});
-		});
-		
-		itemsGrid.getChildren().forEach((item) -> {
-			item.setOnDragEntered((DragEvent event) -> {
 
-				System.out.println("Drag entered");
+			
+		grid.setOnDragEntered((DragEvent event) -> {
 
-				event.consume();
-			});
+			System.out.println("Drag entered");
+
+			event.consume();
 		});
 		
-		itemsGrid.getChildren().forEach((item) -> {
-			item.setOnDragExited((DragEvent event) -> {
-				System.out.println("Drag exited");
-				event.consume();
-			});
+		
+		grid.setOnDragExited((DragEvent event) -> {
+			System.out.println("Drag exited");
+			event.consume();
 		});
+	
+		
 		
 		
 		
