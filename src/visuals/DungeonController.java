@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -28,6 +29,7 @@ import levels.LevelSaver;
 import levels.level1;
 import levels.level2;
 import other.Board;
+import other.Buff;
 import other.ObjectiveComponent;
 import other.Player;
 import other.PlayerObservable;
@@ -39,7 +41,7 @@ public class DungeonController implements PlayerObserver{
 	@FXML private VBox objectivesList;
 	@FXML private TextArea systemTextUpdates;
 	@FXML private HBox buffBar;	// Size is 185 (W) * 42 (H)
-	private ArrayList<ImageView> buffs;
+	private ArrayList<Buff> buffs;
 	private InventoryController inv;
 	@FXML private AnchorPane inventoryPane;
 	private ObservableList<Node> objectives; 
@@ -90,7 +92,7 @@ public class DungeonController implements PlayerObserver{
 	
 	@FXML
 	public void initialize() {
-		this.buffs = new ArrayList<ImageView>();
+		this.buffs = new ArrayList<Buff>();
 		
 		// Now the gridpane will observe the board:
 		for (int i = 0; i < colSize; i ++) {
@@ -175,9 +177,21 @@ public class DungeonController implements PlayerObserver{
 	 * This method updates the buffs on the buffBar view
 	 */
 	public void updateBuffs() {		
-		this.buffs = board.getPlayerObject().getBuffs();
-		buffBar.getChildren().clear();
-		for (ImageView b : this.buffs) {
+		// We remove the reference to the buff list in the player object so we can
+		// check later on if a buff has been removed through comparison of before & after.
+		this.buffs = new ArrayList<>(board.getPlayerObject().getBuffs());
+		
+		ArrayList<ImageView> buffIcons = new ArrayList<ImageView>();
+		for (Buff b : this.buffs) {
+			if (b.equals(Buff.Hover)) {
+				buffIcons.add(new ImageView(new Image("icons/hover_buff.png")));
+			} else if (b.equals(Buff.Invincibility)) {
+				buffIcons.add(new ImageView(new Image("icons/invincibility_buff.png")));
+			}
+		}
+		
+		buffBar.getChildren().clear();		
+		for (ImageView b : buffIcons) {
 			buffBar.getChildren().add(b);
 		}
 	}
@@ -185,7 +199,6 @@ public class DungeonController implements PlayerObserver{
 	// This method handles events that are not arrow keys
 	@FXML
 	public void onKeyPressed(KeyEvent key) {
-		updateBuffs();
 		if (key.getCode().toString().equals("I")) {
 			inv.onActionInv();		
 		} 
@@ -198,7 +211,15 @@ public class DungeonController implements PlayerObserver{
 		if (!po.checkIfAlive()) {
 			LevelFailScreen sc = new LevelFailScreen(currStage);
 			sc.start();
+			return;
 		}
+		
+		// Check if an invincibility buff has been removed
+		if (this.buffs.contains(Buff.Invincibility) && !board.getPlayerObject().containBuff(Buff.Invincibility)) {
+			systemTextUpdates.appendText("Invinciblity Buff has expired");
+		}
+
+		updateBuffs();
 	}
 	
 }

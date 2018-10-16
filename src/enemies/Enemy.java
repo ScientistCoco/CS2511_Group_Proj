@@ -54,7 +54,7 @@ public class Enemy extends Character implements PlayerObserver {
 	public boolean overlappingEffect(Entity entity) {
 		if (entity instanceof Player) {
 			Player p = (Player)entity;
-			if(p.containBuff(Buff.Invincibility)) {
+			if(p.containBuff(Buff.Invincibility)) {				
 				this.deleteHealth();
 			} else {
 				p.deleteHealth();

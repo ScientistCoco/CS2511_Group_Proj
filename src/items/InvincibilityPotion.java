@@ -3,6 +3,7 @@ package items;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
@@ -12,7 +13,7 @@ import other.Player;
 public class InvincibilityPotion extends Item{
 
 	private Timer timer = new Timer();
-	private Integer limitedTime = 200;
+	private Integer limitedTime = 5000;	// 2 minutes in milliseconds = 120000
 	
 	public Integer getLimitedTime() {
 		return limitedTime;
@@ -26,13 +27,15 @@ public class InvincibilityPotion extends Item{
 	}
 
 	@Override
-	public String useItem(final Player player) {
+	public String useItem(Player player) {
 		player.addBuff(Buff.Invincibility);
 		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-				player.deleteInvincibility();
+				// Use runLater so it runs on the same thread as the JavaFX application,
+				// hence allowing the buff icon to be deleted at the same time too.
+				Platform.runLater(() -> player.deleteInvincibility());
 			}
 			
 		}, limitedTime );

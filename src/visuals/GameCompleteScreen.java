@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+// Background pictures sourced from: https://steamcommunity.com/sharedfiles/filedetails/?id=844946240
 public class GameCompleteScreen {
 	private Stage stage;
 	private String title;

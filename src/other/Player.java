@@ -30,16 +30,8 @@ public class Player extends Character implements PlayerObservable {
 	/**
 	 * Returns an arraylist<ImageView> of the buffs on the player 
 	 */
-	public ArrayList<ImageView> getBuffs() {
-		ArrayList<ImageView> buffs = new ArrayList<ImageView>();
-		for (Buff b : potionBuff) {
-			if (b.equals(Buff.Hover)) {
-				buffs.add(new ImageView(new Image("icons/hover_buff.png")));
-			} else if (b.equals(Buff.Invincibility)) {
-				buffs.add(new ImageView(new Image("icons/invincibility_buff.png")));
-			}
-		}
-		return buffs;
+	public ArrayList<Buff> getBuffs() {
+		return this.potionBuff;
 	}
 	
 	public void changeDirection(String d) {
@@ -68,11 +60,14 @@ public class Player extends Character implements PlayerObservable {
 	
 	public void addBuff(Buff b) {
 		potionBuff.add(b);
+		notifyObservers();
 	}
 	
 	public void deleteInvincibility() {
 		potionBuff.remove(Buff.Invincibility);
-		System.out.println(Buff.Invincibility.name() + " has expired");
+		// We can notify any objects observing the player that the invincibility buff has expired
+		notifyObservers();
+		//System.out.println(Buff.Invincibility.name() + " has expired");
 	}
 	
 	public boolean containBuff(Buff b) {
@@ -117,10 +112,12 @@ public class Player extends Character implements PlayerObservable {
 	
 	@Override
 	public boolean overlappingEffect(Entity entity) {
-		// Check if the being passed is null or not. If null then it means its passing over a 'floor', 
+		// Check if the entity being passed is null or not. If null then it means its passing over a 'floor', 
 		// which is passable, so return true.
-		if (entity instanceof Enemy) {
-			this.deleteHealth();	
+		if (entity instanceof Enemy && this.containBuff(Buff.Invincibility)) {
+			((Character)entity).deleteHealth();
+		} else {
+			this.deleteHealth();
 		}
 		return true;
 	}

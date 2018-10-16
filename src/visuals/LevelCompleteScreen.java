@@ -17,6 +17,8 @@ import javafx.util.Duration;
  * @author court
  *
  */
+
+// Background image sourced from: https://steamcommunity.com/sharedfiles/filedetails/?id=844946240
 public class LevelCompleteScreen {
 	private Stage stage;
 	private FXMLLoader fxmlLoader;
