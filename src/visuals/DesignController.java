@@ -230,6 +230,13 @@ public class DesignController {
 				ClipboardContent content = new ClipboardContent();
 				int row = itemsGrid.getRowIndex(item);
 				int col = itemsGrid.getColumnIndex(item);
+				ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
+				Item it = this.findItemByImage(i);
+				if (it == null) {
+					System.out.println("item cannot be found");
+				} else {
+					System.out.println(it.getItemName());
+				}
 				content.putImage(((ImageView) itemsStackPane[col][row].getChildren().get(0)).getImage());
 				db.setContent(content);
 				event.consume();
@@ -239,17 +246,15 @@ public class DesignController {
 		
 		itemsGrid.getChildren().forEach((item) -> {
 			item.setOnDragDone((DragEvent event)->{
-				System.out.println("drag done...");
+				//System.out.println("drag done...");
 	            event.consume();
 			});
 		});
 		
 		
-		
-		
 	
 		grid.setOnDragOver((DragEvent event) -> {
-			System.out.println("drag over...");
+			//System.out.println("drag over...");
 			if (event.getDragboard().hasImage()) {
 				event.acceptTransferModes(TransferMode.ANY);
 			}
@@ -263,14 +268,11 @@ public class DesignController {
 			Dragboard db = event.getDragboard();
 			if (db.hasImage()) {
 				ImageView im = new ImageView(db.getImage());
+				
 				Item it = this.findItemByImage(im);
+				
 				this.board.placeEntity(it, 0, 0);
-				Entity en = board.getEntity(0, 0);
-				if (en != null) {
-					System.out.println(en.getEntityName());
-				}else {
-					System.out.println("fail to place entity");
-				}
+				
 			}
 			event.setDropCompleted(true);
 			event.consume();
@@ -279,14 +281,14 @@ public class DesignController {
 			
 		grid.setOnDragEntered((DragEvent event) -> {
 
-			System.out.println("Drag entered");
+			//System.out.println("Drag entered");
 
 			event.consume();
 		});
 		
 		
 		grid.setOnDragExited((DragEvent event) -> {
-			System.out.println("Drag exited");
+			//System.out.println("Drag exited");
 			event.consume();
 		});
 	
