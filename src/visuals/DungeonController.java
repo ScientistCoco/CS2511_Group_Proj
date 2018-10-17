@@ -22,7 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import levels.BoardLevel;
 import levels.LevelSaver;
@@ -53,6 +54,7 @@ public class DungeonController implements PlayerObserver{
 	private int rowSize = 10;
 	private int colSize = 10;
 	private Class<?> boardLevel;	// This holds the playing level instance so we can retrieve the board object
+	private MediaPlayer mediaPlayer;
 	
 	public DungeonController(Stage s) {
 		currStage = s;
@@ -102,6 +104,16 @@ public class DungeonController implements PlayerObserver{
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
+		
+		// Add background music
+		Media bgMusic = new Media(ClassLoader.getSystemResource("media/Caves of sorrow.mp3").toExternalForm());
+		this.mediaPlayer = new MediaPlayer(bgMusic);
+		this.mediaPlayer.setOnEndOfMedia(new Runnable() {
+			public void run() {
+				mediaPlayer.seek(Duration.ZERO);
+			}
+		});
+		mediaPlayer.play();
 		
 		// Add the controller for the in game menu to its respective anchor pane
 		inGameMenu = new InGameMenuController(currStage, levelSaver.getCurrentLevel());
@@ -168,11 +180,13 @@ public class DungeonController implements PlayerObserver{
 			// would like to continue playing
 			if (this.checkIfLevelExists()) {
 				LevelCompleteScreen sc = new LevelCompleteScreen(currStage);
+				mediaPlayer.stop();
 				sc.start();
 			}
 			// If not then we congratulate the player for finishing the game
 			else {
 				GameCompleteScreen screen = new GameCompleteScreen(currStage);
+				mediaPlayer.stop();
 				screen.start();
 			}
 			
@@ -216,6 +230,7 @@ public class DungeonController implements PlayerObserver{
 	public void update(PlayerObservable po) {
 		if (!po.checkIfAlive()) {
 			LevelFailScreen sc = new LevelFailScreen(currStage);
+			mediaPlayer.stop();
 			sc.start();
 			return;
 		}
