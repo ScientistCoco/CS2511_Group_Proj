@@ -53,7 +53,6 @@ public class DesignController {
 	private int colSize = 10;
 	private Board board;
 	@FXML private GridPane grid;
-	@FXML private AnchorPane itemsPane;
 	@FXML private GridPane itemsGrid;
 	@FXML private GridPane characterGrid;
 	@FXML private GridPane EntityGrid;
@@ -237,25 +236,40 @@ public class DesignController {
 		grid.setOnDragDropped((DragEvent event) -> {
 			//System.out.println("drag drop ...");
 			Dragboard db = event.getDragboard();
-			Node node = (Node) event.getGestureTarget();
-			System.out.println(node.getClass());
-			System.out.println(node.getLayoutBounds());
+			
+			
+			//get drop location
+			double currX = event.getX();
+			double currY =  event.getY();
 
-			if (node == null) {
-				System.out.println("node is null");
-			} else {
-				System.out.println(node.getLayoutX());
-				System.out.println(node.getLayoutY());
-			}
+			
+			//get witdth of each grid
+			@SuppressWarnings("deprecation")
+			int totalCellsGrid = grid.impl_getRowCount();
+			double lenGrid = grid.getWidth();
+			int cellWidth = (int) (lenGrid/totalCellsGrid);
+			
+			//get height of each grid
+			double heightGrid = grid.getHeight();
+			int cellHeight = (int) (heightGrid/totalCellsGrid);
+			
+			
+			System.out.println(cellWidth);
+			
+			// get x,y of grid
+			int x = (int) (currX/cellWidth);
+			int y = (int) (currY/cellHeight);
+			
+			
+			
+			
+			System.out.println("currx " + currX);
+			System.out.println("curry " + currY);
+			
 			boolean success = false;
 			if ( db.hasImage()) {
 				success = true;
-				Integer cIndex = grid.getColumnSpan(node);
-		        Integer rIndex = grid.getRowIndex(node);
-		        int x = cIndex == null ? 0 : cIndex;
-		        int y = rIndex == null ? 0 : rIndex;
-				System.out.println(x);
-				System.out.println(y);
+				
 				
 				ImageView im = new ImageView(db.getImage());
 				
