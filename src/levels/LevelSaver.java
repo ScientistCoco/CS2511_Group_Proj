@@ -38,6 +38,17 @@ public class LevelSaver {
 		return level;
 	}
 	
+	public String getCurrentLevel() {
+		int level = 1;
+		try {
+			level = Integer.parseInt(Files.readAllLines(path).get(0));			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		
+		return Integer.toString(level);
+	}
+	
 	/**
 	 * This method updates the players progress
 	 */

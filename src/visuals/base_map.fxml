@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.Glow?>
@@ -31,7 +32,7 @@
 
 <AnchorPane fx:id="base" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="1230.0" layoutY="5.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #333; -fx-border-color: #707070; -fx-border-width: 2;">
+      <Pane fx:id="gameMenuBtn" layoutX="1230.0" layoutY="5.0" onMouseClicked="#gameMenuBtnClicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #333; -fx-border-color: #707070; -fx-border-width: 2;">
          <children>
             <ImageView layoutX="11.0" layoutY="8.0">
                <image>
@@ -39,6 +40,9 @@
                </image>
             </ImageView>
          </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Pane>
       <AnchorPane layoutX="63.0" layoutY="3.0" style="-fx-rotate: 0;">
          <children>
@@ -176,5 +180,6 @@
          </rotationAxis>
       </TextArea>
       <HBox fx:id="buffBar" layoutX="78.0" layoutY="30.0" prefHeight="42.0" prefWidth="185.0" />
+      <AnchorPane fx:id="gameMenuPane" layoutX="500.0" layoutY="200.0" />
    </children>
 </AnchorPane>

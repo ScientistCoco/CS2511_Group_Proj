@@ -44,6 +44,8 @@ public class DungeonController implements PlayerObserver{
 	private ArrayList<Buff> buffs;
 	private InventoryController inv;
 	@FXML private AnchorPane inventoryPane;
+	@FXML private AnchorPane gameMenuPane;
+	private InGameMenuController inGameMenu;
 	private ObservableList<Node> objectives; 
 	private Stage currStage;
 	private Board board;
@@ -83,7 +85,7 @@ public class DungeonController implements PlayerObserver{
 	private boolean checkIfLevelExists() {
 		levelSaver = new LevelSaver();
 		try {
-			this.boardLevel = Class.forName("levels.level"+levelSaver.getNextLevel());
+			this.boardLevel = Class.forName("levels.level"+ levelSaver.getNextLevel());
 			return true;
 		} catch (ClassNotFoundException e) {
 			return false;
@@ -100,6 +102,10 @@ public class DungeonController implements PlayerObserver{
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
 		}
+		
+		// Add the controller for the in game menu to its respective anchor pane
+		inGameMenu = new InGameMenuController(currStage, levelSaver.getCurrentLevel());
+		gameMenuPane.getChildren().add(inGameMenu);
 		
 		// We add this controller to the players list of observers so that when the player dies
 		// it can notify the controller about this
@@ -222,4 +228,11 @@ public class DungeonController implements PlayerObserver{
 		updateBuffs();
 	}
 	
+	/**
+	 * This handles the click on the 'information' icon
+	 */
+	@FXML 
+	public void gameMenuBtnClicked() {
+		inGameMenu.onActionMenu();
+	}
 }

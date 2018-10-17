@@ -16,3 +16,18 @@
 	-fx-text-fill: #fff;
 	-fx-background-color: transparent;
 }
+
+.ingame-menu-btn {
+	-fx-background-color: #c1330f;
+	-fx-border-color: #f25730 #893e29 #893e29 #f25730;
+	-fx-border-width: 1px 1px 1px 1px;
+ 	-fx-background-insets: 0;
+	-fx-border-radius: 2px;
+}
+
+.ingame-menu-level-title {
+	-fx-background-color: #3a3a3a;
+	-fx-border-color: #a0a0a0 #4c4c4c #4c4c4c #a0a0a0;
+	-fx-border-width: 1px 1px 1px 1px;
+ 	-fx-background-insets: 0;
+}
