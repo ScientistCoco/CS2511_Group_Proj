@@ -12,6 +12,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.control.Button;
 
 public class GameCompleteController {
@@ -22,6 +24,7 @@ public class GameCompleteController {
 	@FXML private Button mainMenuBtn;
 	@FXML private Button exitGameBtn;
 	@FXML private Button resetBtn;
+	private MediaPlayer mediaPlayer;
 	
 	public GameCompleteController(Stage s) {
 		this.stage = s;
@@ -31,6 +34,11 @@ public class GameCompleteController {
 	public void initialize() {
 		charJumpAnimation(char1);
 		charJumpAnimation(char3);
+		
+		Media bgMusic = new Media(ClassLoader.getSystemResource("media/Lively Meadow (Victory Fanfare and Song).mp3").toExternalForm());
+		this.mediaPlayer = new MediaPlayer(bgMusic);
+		this.mediaPlayer.setVolume(0.6);
+		mediaPlayer.play();
 	}
 	
 	/**
@@ -55,6 +63,7 @@ public class GameCompleteController {
 	 */
 	@FXML
 	public void mainMenuBtnClicked() {
+		mediaPlayer.stop();
 		MenuScreen menuScreen = new MenuScreen(this.stage);
 		menuScreen.start();
 	}
@@ -64,6 +73,7 @@ public class GameCompleteController {
 	 */
 	@FXML
 	public void exitGameBtnClicked() {
+		mediaPlayer.stop();
 		this.stage.close();
 	}
 	
@@ -72,6 +82,7 @@ public class GameCompleteController {
 	 */
 	@FXML
 	public void resetBtnClicked() {
+		mediaPlayer.stop();
 		LevelSaver levelSaver = new LevelSaver();
 		levelSaver.clearSaveData();
 		MenuScreen menuScreen = new MenuScreen(this.stage);

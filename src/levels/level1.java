@@ -1,5 +1,7 @@
 package levels;
 
+import enemies.Coward;
+import items.Sword;
 import other.Board;
 import other.Exit;
 import other.Player;
@@ -42,6 +44,8 @@ public class level1 implements BoardLevel {
 			board.placeEntity(new Wall(board), 7, i);
 		}
 		board.placeEntity(new Exit(board), 8, 8);
+		board.placeEntity(new Coward(board), 6, 6);
+		board.placeEntity(new Sword(board), 3, 3);
 	}
 	
 	@Override

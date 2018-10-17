@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import levels.BoardLevel;
 import levels.LevelSaver;
 import levels.level1;
@@ -108,6 +109,7 @@ public class DungeonController implements PlayerObserver{
 		// Add background music
 		Media bgMusic = new Media(ClassLoader.getSystemResource("media/Caves of sorrow.mp3").toExternalForm());
 		this.mediaPlayer = new MediaPlayer(bgMusic);
+		this.mediaPlayer.setVolume(1.0);
 		this.mediaPlayer.setOnEndOfMedia(new Runnable() {
 			public void run() {
 				mediaPlayer.seek(Duration.ZERO);
