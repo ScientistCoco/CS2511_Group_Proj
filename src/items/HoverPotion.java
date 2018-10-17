@@ -10,7 +10,7 @@ public class HoverPotion extends Item {
 
 	public HoverPotion(Board board) {
 		super(board);
-		this.name = "hover potion";
+		this.name = "Hover Potion";
 		this.entityIcon = new ImageView(new Image("icons/hover_potion.png"));
 		this.description = "A potion that makes your player hover with no time limit";
 	}

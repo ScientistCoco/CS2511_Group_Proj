@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import other.Board;
+import other.Boulder;
 import other.Door;
 import other.Entity;
 import other.Exit;
@@ -32,6 +33,7 @@ import other.Wall;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import design.EntityTypes;
 import enemies.Coward;
 import enemies.Enemy;
 import enemies.Hound;
@@ -234,37 +236,15 @@ public class DesignController {
 		});
 		
 		grid.setOnDragDropped((DragEvent event) -> {
-			//System.out.println("drag drop ...");
 			Dragboard db = event.getDragboard();
-			
-			
-			//get drop location
+
+			// get x,y of grid
 			double currX = event.getX();
 			double currY =  event.getY();
-
-			
-			//get witdth of each grid
-			@SuppressWarnings("deprecation")
-			int totalCellsGrid = grid.impl_getRowCount();
-			double lenGrid = grid.getWidth();
-			int cellWidth = (int) (lenGrid/totalCellsGrid);
-			
-			//get height of each grid
-			double heightGrid = grid.getHeight();
-			int cellHeight = (int) (heightGrid/totalCellsGrid);
-			
-			
-			System.out.println(cellWidth);
-			
-			// get x,y of grid
+			int cellWidth = this.calcellWidth();		
+			int cellHeight = this.calcellHeight();	
 			int x = (int) (currX/cellWidth);
 			int y = (int) (currY/cellHeight);
-			
-			
-			
-			
-			System.out.println("currx " + currX);
-			System.out.println("curry " + currY);
 			
 			boolean success = false;
 			if ( db.hasImage()) {
@@ -274,6 +254,10 @@ public class DesignController {
 				ImageView im = new ImageView(db.getImage());
 				
 				Entity en = this.findByImage(im);
+				
+				Entity toClone = cloneEntity(en.getEntityName());
+				System.out.print(toClone.getEntityName());
+				
 				/*
 				try {
 					en = (Entity) this.findByImage(im).clone();
@@ -285,7 +269,7 @@ public class DesignController {
 					System.out.println("cannot find entity by this image");
 				}
 				
-				this.board.placeEntity(en, x, y);
+				this.board.placeEntity(toClone, x, y);
 				//this.initPlayerGrid();
 				
 			}
@@ -308,6 +292,68 @@ public class DesignController {
 			grid.setOpacity(1);
 			event.consume();
 		});
+	}
+	
+	private Entity cloneEntity(String entityName) {
+		switch (entityName) {
+			case "Exit" :
+				return new Exit(board);
+			case "Hunter" :
+				return new Hunter(board);
+			case "Boulder" :
+				return new Boulder(board);
+			case "Switch" :
+				return new Switch(board);
+			/*
+			case Door :
+				System.out.println("What number will this door have?");
+				return new Door(board, askForInteger());
+			
+			case Key :
+				System.out.println("What number will this Key have?");
+				return new Key(board, askForInteger());
+			*/
+			case "Pit" :
+				return new Pit(board);
+			case "Wall" :
+				return new Wall(board);
+			case "Arrow" :
+				return new Arrow(board);
+			case "Bomb" :
+				return new Bomb(board);
+			case "Sword" :
+				return new Sword(board);
+			case "Treasure" :
+				return new Treasure(board);
+			case "Hover Potion" :
+				return new HoverPotion(board);
+			case "Invincibility Potion":
+				return new InvincibilityPotion(board);
+			case "Coward":
+				return new Coward(board);
+			/*
+			case "Hound":
+				return new Hound(board);
+			*/
+			case "Strategist":
+				return new Strategist(board);
+		}	
+		return null;
+	}
+
+	private int calcellWidth() {
+		@SuppressWarnings("deprecation")
+		int rowSize = grid.impl_getRowCount();
+		double lenGrid = grid.getWidth();
+		int cellWidth = (int) (lenGrid/rowSize);
+		return cellWidth;
+	}
+	
+	private int calcellHeight() {
+		int colSize = grid.impl_getColumnCount();
+		double heightGrid = grid.getHeight();
+		int cellHeight = (int) (heightGrid/rowSize);
+		return cellHeight;
 	}
 	
 	

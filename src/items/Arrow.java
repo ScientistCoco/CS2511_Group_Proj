@@ -10,7 +10,7 @@ public class Arrow extends Item{
 
 	public Arrow(Board board) {
 		super(board);
-		this.name = "arrow";
+		this.name = "Arrow";
 		this.icon = " ↖ ";
 		this.entityIcon = new ImageView(new Image("icons/arrow.png"));
 		this.description = "An arrow that can be used to kill enemies";

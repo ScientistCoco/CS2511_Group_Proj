@@ -10,7 +10,6 @@ import other.Player;
 
 public abstract class Item extends Entity{
 
-	protected String name;
 	protected ItemStatus status;
 	protected Inventory items;
 	protected String description;	// A description of the item

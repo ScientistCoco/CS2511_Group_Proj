@@ -20,7 +20,7 @@ public class InvincibilityPotion extends Item{
 	}
 	public InvincibilityPotion(Board board) {
 		super(board);
-		this.name = "invincibility potion";
+		this.name = "Invincibility Potion";
 		this.icon = " ♟ ";
 		this.description = "A potion that grants you invincibility for a limited time";
 		this.entityIcon = new ImageView(new Image("icons/invincibility_potion.png"));

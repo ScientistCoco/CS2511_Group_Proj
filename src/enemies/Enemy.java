@@ -12,7 +12,6 @@ import points.PointType;
 import points.Points1;
 
 public class Enemy extends Character implements PlayerObserver {
-	protected String name;
 	
 	public Enemy(Board board) {
 		super(board);

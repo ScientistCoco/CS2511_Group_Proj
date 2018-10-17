@@ -14,7 +14,7 @@ public class Sword extends Item {
 	
 	public Sword(Board board) {
 		super(board);
-		this.name = "sword";
+		this.name = "Sword";
 		durability = 5;
 		status = ItemStatus.Exist;
 		this.icon = " 🗡 ";
