@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import other.Board;
@@ -70,6 +72,9 @@ public class DesignController {
 	@FXML AnchorPane itemDescriptionPane;
 	@FXML Text itemDescription;
 	
+	@FXML Label askForNumber;
+	@FXML TextField inputText;
+	
 	
 	final GridPane target = grid;
 	
@@ -91,7 +96,7 @@ public class DesignController {
 		allitems.add(new Bomb(board));
 		allitems.add(new HoverPotion(board));
 		allitems.add(new InvincibilityPotion(board));
-		//allitems.addAll(new Key(board));
+		allitems.add(new Key(board,0));
 		allitems.add(new Sword(board));
 		allitems.add(new Treasure(board));
 	}
@@ -106,7 +111,7 @@ public class DesignController {
 	
 	private void initAllentities() {
 		allentities = new ArrayList<Entity>();
-		//allentities.add(new Door(board, 0));
+		allentities.add(new Door(board, 0));
 		allentities.add(new Exit(board));
 		allentities.add(new Pit(board));
 		allentities.add(new Switch(board));
@@ -236,6 +241,12 @@ public class DesignController {
 		});
 		
 		grid.setOnDragDropped((DragEvent event) -> {
+			if (!checkValidInput(inputText.getText())) {
+				askForNumber.setText("Please input a valid number");
+				askForNumber.setTextFill(Color.web("#0076a3"));
+				return;
+			}
+			
 			Dragboard db = event.getDragboard();
 
 			// get x,y of grid
@@ -258,16 +269,6 @@ public class DesignController {
 				Entity toClone = cloneEntity(en.getEntityName());
 				System.out.print(toClone.getEntityName());
 				
-				/*
-				try {
-					en = (Entity) this.findByImage(im).clone();
-				} catch (CloneNotSupportedException e) {
-					e.printStackTrace();
-					
-				}*/
-				if (en == null) {
-					System.out.println("cannot find entity by this image");
-				}
 				
 				this.board.placeEntity(toClone, x, y);
 				//this.initPlayerGrid();
@@ -294,6 +295,16 @@ public class DesignController {
 		});
 	}
 	
+	private boolean checkValidInput(String text) {
+		if (!text.matches("^[0-9]*$")) {
+			return false;
+		} else if (text.isEmpty()) {
+			return false;
+		}
+		
+		return false;
+	}
+
 	private Entity cloneEntity(String entityName) {
 		switch (entityName) {
 			case "Exit" :
@@ -308,11 +319,11 @@ public class DesignController {
 			case Door :
 				System.out.println("What number will this door have?");
 				return new Door(board, askForInteger());
-			
-			case Key :
-				System.out.println("What number will this Key have?");
-				return new Key(board, askForInteger());
 			*/
+			case "Key" :
+				int keyNum = Integer.parseInt(inputText.getText());
+				System.out.println(keyNum);
+				return new Key(board, keyNum);
 			case "Pit" :
 				return new Pit(board);
 			case "Wall" :
@@ -398,10 +409,20 @@ public class DesignController {
 				ClipboardContent content = new ClipboardContent();
 				int row = itemsGrid.getRowIndex(item);
 				int col = itemsGrid.getColumnIndex(item);
-				
-
-				
-				//ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
+				ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
+				Item it = this.findItemByImage(i);
+				/*
+				if (it.getEntityName().equals("Key")) {
+					askForNumber.setText("Input key number: ");
+				}
+				inputText.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+					if (!newValue) {
+						if (inputText.getText().matches("^[0-9]*$")) {
+							inputText.setText("");
+						}
+					}
+				});
+				*/
 				content.putImage(((ImageView) itemsStackPane[col][row].getChildren().get(0)).getImage());
 				db.setContent(content);
 				event.consume();
@@ -414,7 +435,26 @@ public class DesignController {
 				//System.out.println("drag done...");
 	            event.consume();
 			});
-		});		
+		});
+		
+		itemsGrid.getChildren().forEach((item) -> {
+			item.setOnMousePressed((MouseEvent event)-> {
+				int row = itemsGrid.getRowIndex(item);
+				int col = itemsGrid.getColumnIndex(item);
+				ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
+				Item it = this.findItemByImage(i);
+				if (it.getEntityName().equals("Key")) {
+					askForNumber.setText("Input key number: ");
+				}
+				inputText.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+					if (!newValue) {
+						if (inputText.getText().matches("^[0-9]*$")) {
+							inputText.setText("");
+						}
+					}
+				});
+			});
+		});
 
 	}
 	
