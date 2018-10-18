@@ -241,12 +241,6 @@ public class DesignController {
 		});
 		
 		grid.setOnDragDropped((DragEvent event) -> {
-			if (!checkValidInput(inputText.getText())) {
-				askForNumber.setText("Please input a valid number");
-				askForNumber.setTextFill(Color.web("#0076a3"));
-				return;
-			}
-			
 			Dragboard db = event.getDragboard();
 
 			// get x,y of grid
@@ -265,6 +259,21 @@ public class DesignController {
 				ImageView im = new ImageView(db.getImage());
 				
 				Entity en = this.findByImage(im);
+				// need to input key number before drop key into board
+				if (en.getEntityName().equals("Key")) {
+					if (!checkValidInput(inputText.getText())) {
+						askForNumber.setText("Please input a valid number");
+						askForNumber.setTextFill(Color.web("#0076a3"));
+						return;
+					}
+				}
+				if (en.getEntityName().equals("Door")) {
+					if (!checkValidInput(inputText.getText())) {
+						askForNumber.setText("Please input a valid number");
+						askForNumber.setTextFill(Color.web("#0076a3"));
+						return;
+					}
+				}
 				
 				Entity toClone = cloneEntity(en.getEntityName());
 				System.out.print(toClone.getEntityName());
@@ -297,12 +306,14 @@ public class DesignController {
 	
 	private boolean checkValidInput(String text) {
 		if (!text.matches("^[0-9]*$")) {
+			System.out.println("input valid number");
 			return false;
 		} else if (text.isEmpty()) {
+			System.out.println("text is empty");
 			return false;
 		}
 		
-		return false;
+		return true;
 	}
 
 	private Entity cloneEntity(String entityName) {
@@ -315,11 +326,11 @@ public class DesignController {
 				return new Boulder(board);
 			case "Switch" :
 				return new Switch(board);
-			/*
-			case Door :
-				System.out.println("What number will this door have?");
-				return new Door(board, askForInteger());
-			*/
+			
+			case  "Door" :
+				int doorNum = Integer.parseInt(inputText.getText());
+				return new Door(board, doorNum);
+		
 			case "Key" :
 				int keyNum = Integer.parseInt(inputText.getText());
 				System.out.println(keyNum);
@@ -559,6 +570,25 @@ public class DesignController {
 		EntityGrid.getChildren().forEach((item) -> {
 			item.setOnDragDone((DragEvent event)->{
 				event.consume();
+			});
+		});
+		
+		EntityGrid.getChildren().forEach((item) -> {
+			item.setOnMousePressed((MouseEvent event)-> {
+				int row = EntityGrid.getRowIndex(item);
+				int col = EntityGrid.getColumnIndex(item);
+				ImageView i = (ImageView)entityStackPane[col][row].getChildren().get(0);
+				Entity it = this.findEntityByImage(i);
+				if (it.getEntityName().equals("Door")) {
+					askForNumber.setText("Input door number: ");
+				}
+				inputText.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+					if (!newValue) {
+						if (inputText.getText().matches("^[0-9]*$")) {
+							inputText.setText("");
+						}
+					}
+				});
 			});
 		});
 	}

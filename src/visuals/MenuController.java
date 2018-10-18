@@ -46,7 +46,6 @@ public class MenuController {
 		ftChar2.setCycleCount(Transition.INDEFINITE);
 		ftChar2.setAutoReverse(true);
 		ftChar2.play();
-		
 		// Also set a background music track to play	
 		Media bgMusic = new Media(ClassLoader.getSystemResource("media/" + musicFile).toExternalForm());
 		mediaPlayer = new MediaPlayer(bgMusic);
