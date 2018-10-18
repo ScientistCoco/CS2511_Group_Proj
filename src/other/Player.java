@@ -20,6 +20,7 @@ public class Player extends Character implements PlayerObservable {
 		this.potionBuff = new ArrayList<Buff>();
 		inventory = new Inventory();
 		pastMoves = new ArrayList<Direction>();
+		this.name = "Player";
 		this.icon = "P";
 		this.zOrder = 1;
 		this.entityIcon = new ImageView(new Image("icons/player_front.png"));

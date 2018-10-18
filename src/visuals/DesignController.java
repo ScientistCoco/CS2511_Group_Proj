@@ -3,6 +3,7 @@ package visuals;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -68,15 +69,14 @@ public class DesignController {
 	private ArrayList<Item> allitems;
 	private ArrayList<Enemy> allcharacters;
 	private ArrayList<Entity> allentities;
-	@FXML Label itemName;
-	@FXML AnchorPane itemDescriptionPane;
-	@FXML Text itemDescription;
+	@FXML private Label itemName;
+	@FXML private AnchorPane itemDescriptionPane;
+	@FXML private Text itemDescription;
 	
-	@FXML Label askForNumber;
-	@FXML TextField inputText;
+	@FXML private Label askForNumber;
+	@FXML private TextField inputText;
 	
-	
-	final GridPane target = grid;
+	@FXML private Button startGameButton;
 	
 	
 	public DesignController(Stage s) {
@@ -120,6 +120,9 @@ public class DesignController {
 
 	@FXML
 	public void initialize() {
+		askForNumber.setVisible(false);
+		inputText.setVisible(false);
+		
 		this.initPlayerGrid();
 		
 		// init items grid
@@ -250,6 +253,13 @@ public class DesignController {
 			int cellHeight = this.calcellHeight();	
 			int x = (int) (currX/cellWidth);
 			int y = (int) (currY/cellHeight);
+			if (x==0 && y==0) {
+				askForNumber.setText("Please choose another position...");
+				askForNumber.setTextFill(Color.web("ee0101"));
+				askForNumber.setVisible(true);
+				return;
+			}
+			
 			
 			boolean success = false;
 			if ( db.hasImage()) {
@@ -259,25 +269,33 @@ public class DesignController {
 				ImageView im = new ImageView(db.getImage());
 				
 				Entity en = this.findByImage(im);
-				// need to input key number before drop key into board
+				// need to input key number before drop key into board or input door number before drop
 				if (en.getEntityName().equals("Key")) {
 					if (!checkValidInput(inputText.getText())) {
 						askForNumber.setText("Please input a valid number");
-						askForNumber.setTextFill(Color.web("#0076a3"));
+						askForNumber.setTextFill(Color.web("#ee0101"));
+						askForNumber.setVisible(true);
 						return;
 					}
 				}
 				if (en.getEntityName().equals("Door")) {
 					if (!checkValidInput(inputText.getText())) {
 						askForNumber.setText("Please input a valid number");
-						askForNumber.setTextFill(Color.web("#0076a3"));
+						askForNumber.setTextFill(Color.web("#ee0101"));
+						askForNumber.setVisible(true);
+						return;
+					}
+				}
+				if (en.getEntityName().equals("Hound")) {
+					if (findHunter() == null) {
+						askForNumber.setText("Hunter not found...");
+						askForNumber.setTextFill(Color.web("#ee0101"));
+						askForNumber.setVisible(true);
 						return;
 					}
 				}
 				
 				Entity toClone = cloneEntity(en.getEntityName());
-				System.out.print(toClone.getEntityName());
-				
 				
 				this.board.placeEntity(toClone, x, y);
 				//this.initPlayerGrid();
@@ -304,6 +322,19 @@ public class DesignController {
 		});
 	}
 	
+	private Entity findHunter() {
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (board.getEntity(i, j) != null) {
+					if (board.getEntity(i, j).getEntityName().equals("Hunter")) {
+						return board.getEntity(i, j);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	private boolean checkValidInput(String text) {
 		if (!text.matches("^[0-9]*$")) {
 			System.out.println("input valid number");
@@ -329,11 +360,12 @@ public class DesignController {
 			
 			case  "Door" :
 				int doorNum = Integer.parseInt(inputText.getText());
+				System.out.println("Door number is " + doorNum);
 				return new Door(board, doorNum);
 		
 			case "Key" :
 				int keyNum = Integer.parseInt(inputText.getText());
-				System.out.println(keyNum);
+				System.out.println("Key number is " + keyNum);
 				return new Key(board, keyNum);
 			case "Pit" :
 				return new Pit(board);
@@ -353,10 +385,8 @@ public class DesignController {
 				return new InvincibilityPotion(board);
 			case "Coward":
 				return new Coward(board);
-			/*
 			case "Hound":
-				return new Hound(board);
-			*/
+				return new Hound(board, (Hunter)this.findHunter());
 			case "Strategist":
 				return new Strategist(board);
 		}	
@@ -416,24 +446,19 @@ public class DesignController {
 		// user can drag each item
 		itemsGrid.getChildren().forEach((item) -> {
 			item.setOnDragDetected((MouseEvent event)->{
+				askForNumber.setVisible(false);
+				inputText.setVisible(false);
 				Dragboard db = item.startDragAndDrop(TransferMode.MOVE);
 				ClipboardContent content = new ClipboardContent();
 				int row = itemsGrid.getRowIndex(item);
 				int col = itemsGrid.getColumnIndex(item);
 				ImageView i = (ImageView)itemsStackPane[col][row].getChildren().get(0);
 				Item it = this.findItemByImage(i);
-				/*
 				if (it.getEntityName().equals("Key")) {
-					askForNumber.setText("Input key number: ");
+					askForNumber.setTextFill(Color.web("#87c8e7"));
+					askForNumber.setVisible(true);
+					inputText.setVisible(true);
 				}
-				inputText.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-					if (!newValue) {
-						if (inputText.getText().matches("^[0-9]*$")) {
-							inputText.setText("");
-						}
-					}
-				});
-				*/
 				content.putImage(((ImageView) itemsStackPane[col][row].getChildren().get(0)).getImage());
 				db.setContent(content);
 				event.consume();
@@ -505,6 +530,8 @@ public class DesignController {
 		// user can drag each item
 		characterGrid.getChildren().forEach((en) -> {
 			en.setOnDragDetected((MouseEvent event)->{
+				askForNumber.setVisible(false);
+				inputText.setVisible(false);
 				Dragboard db = en.startDragAndDrop(TransferMode.MOVE);
 				ClipboardContent content = new ClipboardContent();
 				int row = characterGrid.getRowIndex(en);
@@ -557,10 +584,19 @@ public class DesignController {
 		// user can drag each item
 		EntityGrid.getChildren().forEach((item) -> {
 			item.setOnDragDetected((MouseEvent event)->{
+				askForNumber.setVisible(false);
+				inputText.setVisible(false);
 				Dragboard db = item.startDragAndDrop(TransferMode.MOVE);
 				ClipboardContent content = new ClipboardContent();
 				int row = EntityGrid.getRowIndex(item);
 				int col = EntityGrid.getColumnIndex(item);
+				ImageView i = (ImageView)entityStackPane[col][row].getChildren().get(0);
+				Entity it = this.findEntityByImage(i);
+				if (it.getEntityName().equals("Door")) {
+					askForNumber.setTextFill(Color.web("#87c8e7"));
+					askForNumber.setVisible(true);
+					inputText.setVisible(true);
+				}
 				content.putImage(((ImageView) entityStackPane[col][row].getChildren().get(0)).getImage());
 				db.setContent(content);
 				event.consume();
@@ -593,5 +629,9 @@ public class DesignController {
 		});
 	}
 	
-
+	@FXML
+	public void handleStartGame() {
+		// TODO
+	}
+	
 }
