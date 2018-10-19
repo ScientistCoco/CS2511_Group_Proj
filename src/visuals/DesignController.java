@@ -631,7 +631,8 @@ public class DesignController {
 	
 	@FXML
 	public void handleStartGame() {
-		// TODO
+		PlayInDesignScreen sc = new PlayInDesignScreen(this.currStage, board);
+		sc.start();
 	}
 	
 }

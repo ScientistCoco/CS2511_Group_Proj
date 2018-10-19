@@ -37,7 +37,7 @@ import other.Player;
 import other.PlayerObservable;
 import other.PlayerObserver;
 
-public class DungeonController implements PlayerObserver{
+public class PlayInDesignController implements PlayerObserver{
 	@FXML private AnchorPane base;
 	@FXML private GridPane baseMap;
 	@FXML private VBox objectivesList;
@@ -54,51 +54,15 @@ public class DungeonController implements PlayerObserver{
 	private LevelSaver levelSaver;
 	private int rowSize = 10;
 	private int colSize = 10;
-	private Class<?> boardLevel;	// This holds the playing level instance so we can retrieve the board object
+	//private Class<?> boardLevel;	// This holds the playing level instance so we can retrieve the board object
 	private MediaPlayer mediaPlayer;
 	
-	public DungeonController(Stage s) {
-		currStage = s;
-		
-		// When dungeonController gets instantiated we also
-		// need to instantiate the level that the dungeonController
-		// will show to the View.
-		if (checkIfLevelExists()) {
-			try {
-				this.board = ((BoardLevel)boardLevel.newInstance()).getBoard();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		} else {
-			// If level doesn't exist then that means player has completed all the levels
-			// We are making the assumption here that there are no levels missing and that
-			// the levels are always incrementing
-			GameCompleteScreen screen = new GameCompleteScreen(currStage);
-			screen.start();
-		}
-	}
 	
-	public DungeonController(Stage s, Board board) {
+	public PlayInDesignController(Stage s, Board board) {
 		currStage = s;
 		this.board = board;
 	}
 	
-	/**
-	 * This method checks the players current progress and determines whether the 
-	 * player has anymore levels that they can play.
-	 * @return true/false
-	 */
-	private boolean checkIfLevelExists() {
-		levelSaver = new LevelSaver();
-		try {
-			this.boardLevel = Class.forName("levels.level"+ levelSaver.getNextLevel());
-			return true;
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
-	}
 	
 	@FXML
 	public void initialize() {
@@ -124,7 +88,7 @@ public class DungeonController implements PlayerObserver{
 		mediaPlayer.play();
 		*/
 		// Add the controller for the in game menu to its respective anchor pane
-		inGameMenu = new InGameMenuController(currStage, levelSaver.getCurrentLevel());
+		inGameMenu = new InGameMenuController(currStage, "Design Level");
 		gameMenuPane.getChildren().add(inGameMenu);
 		
 		// We add this controller to the players list of observers so that when the player dies
@@ -183,20 +147,9 @@ public class DungeonController implements PlayerObserver{
 	public void checkIfObjectivesClear() {
 		if (board.getObjectivesOnThisBoard().checkProgress()) {			
 			levelSaver.levelComplete();
-			// We determine which screen to show next. If there are more levels that the
-			// player can player then we prompt them with a screen asking if they
-			// would like to continue playing
-			if (this.checkIfLevelExists()) {
-				LevelCompleteScreen sc = new LevelCompleteScreen(currStage);
-				//mediaPlayer.stop();
-				sc.start();
-			}
-			// If not then we congratulate the player for finishing the game
-			else {
-				GameCompleteScreen screen = new GameCompleteScreen(currStage);
-				//mediaPlayer.stop();
-				screen.start();
-			}
+			GameCompleteScreen screen = new GameCompleteScreen(currStage);
+			//mediaPlayer.stop();
+			screen.start();
 			
 		}
 	}
