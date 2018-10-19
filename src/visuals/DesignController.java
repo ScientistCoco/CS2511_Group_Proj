@@ -77,10 +77,24 @@ public class DesignController {
 	@FXML private TextField inputText;
 	
 	@FXML private Button startGameButton;
+	@FXML private Button returnMenuButton;
 	
 	
 	public DesignController(Stage s) {
 		this.board = new Board();
+		Player player = new Player(board);
+		board.placeEntity(player, 0, 0);
+		this.currStage = s;
+		itemsStackPane = new StackPane[3][3];
+		characterStackPane = new StackPane[3][3];
+		entityStackPane = new StackPane[3][3];
+		initAllitems();
+		initAllcharacters();
+		initAllentities();
+	}
+	
+	public DesignController(Stage s, Board b) {
+		this.board = b;
 		this.currStage = s;
 		itemsStackPane = new StackPane[3][3];
 		characterStackPane = new StackPane[3][3];
@@ -223,8 +237,7 @@ public class DesignController {
 	
 	
 	private void initPlayerGrid() {
-		Player player = new Player(board);
-		board.placeEntity(player, 0, 0);
+
 		// init player grid
 		for (int i = 0; i < colSize; i ++) {
 			for (int j = 0; j < rowSize; j ++ ) {
@@ -633,6 +646,12 @@ public class DesignController {
 	public void handleStartGame() {
 		PlayInDesignScreen sc = new PlayInDesignScreen(this.currStage, board);
 		sc.start();
+	}
+	
+	@FXML
+	public void handleReturnMenu() {
+		MenuScreen ms = new MenuScreen(this.currStage);
+		ms.start();
 	}
 	
 }

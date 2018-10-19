@@ -88,7 +88,7 @@ public class PlayInDesignController implements PlayerObserver{
 		mediaPlayer.play();
 		*/
 		// Add the controller for the in game menu to its respective anchor pane
-		inGameMenu = new InGameMenuController(currStage, "Design Level");
+		inGameMenu = new InGameMenuController(currStage, "Design Level", board);
 		gameMenuPane.getChildren().add(inGameMenu);
 		
 		// We add this controller to the players list of observers so that when the player dies
@@ -146,7 +146,6 @@ public class PlayInDesignController implements PlayerObserver{
 	 */
 	public void checkIfObjectivesClear() {
 		if (board.getObjectivesOnThisBoard().checkProgress()) {			
-			levelSaver.levelComplete();
 			GameCompleteScreen screen = new GameCompleteScreen(currStage);
 			//mediaPlayer.stop();
 			screen.start();

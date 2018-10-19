@@ -104,9 +104,14 @@
             <Font name="DejaVu Sans Condensed Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="481.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleStartGame" text="Start Game" textFill="#403535">
+      <Button fx:id="startGameButton" layoutX="481.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleStartGame" text="Start Game" textFill="#403535">
          <font>
             <Font name="DejaVu Sans Condensed Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="returnMenuButton" layoutX="478.0" layoutY="57.0" mnemonicParsing="false" onAction="#handleReturnMenu" prefHeight="29.0" prefWidth="118.0" text="Return Menu">
+         <font>
+            <Font name="DejaVu Sans Condensed Bold" size="14.0" />
          </font>
       </Button>
    </children>

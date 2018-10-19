@@ -34,12 +34,12 @@ public class GameCompleteController {
 	public void initialize() {
 		charJumpAnimation(char1);
 		charJumpAnimation(char3);
-		/*
+		
 		Media bgMusic = new Media(ClassLoader.getSystemResource("media/Lively Meadow (Victory Fanfare and Song).mp3").toExternalForm());
 		this.mediaPlayer = new MediaPlayer(bgMusic);
 		this.mediaPlayer.setVolume(0.6);
 		mediaPlayer.play();
-		*/
+		
 	}
 	
 	/**
@@ -64,9 +64,9 @@ public class GameCompleteController {
 	 */
 	@FXML
 	public void mainMenuBtnClicked() {
-		//mediaPlayer.stop();
+		mediaPlayer.stop();
 		MenuScreen menuScreen = new MenuScreen(this.stage);
-		//menuScreen.start();
+		menuScreen.start();
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class GameCompleteController {
 	 */
 	@FXML
 	public void exitGameBtnClicked() {
-		//mediaPlayer.stop();
+		mediaPlayer.stop();
 		this.stage.close();
 	}
 	
@@ -83,7 +83,7 @@ public class GameCompleteController {
 	 */
 	@FXML
 	public void resetBtnClicked() {
-		//mediaPlayer.stop();
+		mediaPlayer.stop();
 		LevelSaver levelSaver = new LevelSaver();
 		levelSaver.clearSaveData();
 		MenuScreen menuScreen = new MenuScreen(this.stage);

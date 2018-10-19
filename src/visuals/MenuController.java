@@ -47,7 +47,7 @@ public class MenuController {
 		ftChar2.setAutoReverse(true);
 		ftChar2.play();
 		// Also set a background music track to play	
-		/*
+		
 		Media bgMusic = new Media(ClassLoader.getSystemResource("media/" + musicFile).toExternalForm());
 		mediaPlayer = new MediaPlayer(bgMusic);
 		// Loop the track
@@ -57,21 +57,21 @@ public class MenuController {
 			}
 		});
 		mediaPlayer.play();
-		*/
+		
 		
 	}
 	
 	@FXML
 	public void handlePlayMode() {
 		DungeonScreen dungeonScreen = new DungeonScreen(currStage);
-		//mediaPlayer.stop();
+		mediaPlayer.stop();
 		dungeonScreen.start();
 	}
 	
 	@FXML
 	public void handleDesignMode() {
 		DesignScreen designScreen = new DesignScreen(this.currStage);
-		//mediaPlayer.stop();
+		mediaPlayer.stop();
 		designScreen.start();
 		
 	}

@@ -113,7 +113,7 @@ public class DungeonController implements PlayerObserver{
 		
 		// Add background music
 		Media bgMusic = new Media(ClassLoader.getSystemResource("media/Caves of sorrow.mp3").toExternalForm());
-		/*
+		
 		this.mediaPlayer = new MediaPlayer(bgMusic);
 		this.mediaPlayer.setVolume(1.0);
 		this.mediaPlayer.setOnEndOfMedia(new Runnable() {
@@ -122,7 +122,7 @@ public class DungeonController implements PlayerObserver{
 			}
 		});
 		mediaPlayer.play();
-		*/
+		
 		// Add the controller for the in game menu to its respective anchor pane
 		inGameMenu = new InGameMenuController(currStage, levelSaver.getCurrentLevel());
 		gameMenuPane.getChildren().add(inGameMenu);
@@ -188,13 +188,13 @@ public class DungeonController implements PlayerObserver{
 			// would like to continue playing
 			if (this.checkIfLevelExists()) {
 				LevelCompleteScreen sc = new LevelCompleteScreen(currStage);
-				//mediaPlayer.stop();
+				mediaPlayer.stop();
 				sc.start();
 			}
 			// If not then we congratulate the player for finishing the game
 			else {
 				GameCompleteScreen screen = new GameCompleteScreen(currStage);
-				//mediaPlayer.stop();
+				mediaPlayer.stop();
 				screen.start();
 			}
 			
@@ -238,7 +238,7 @@ public class DungeonController implements PlayerObserver{
 	public void update(PlayerObservable po) {
 		if (!po.checkIfAlive()) {
 			LevelFailScreen sc = new LevelFailScreen(currStage);
-			//mediaPlayer.stop();
+			mediaPlayer.stop();
 			sc.start();
 			return;
 		}
