@@ -1,13 +1,9 @@
 package levels;
 
-import enemies.Coward;
 import enemies.Hound;
 import enemies.Hunter;
-import enemies.Strategist;
 import items.Arrow;
 import items.Bomb;
-import items.HoverPotion;
-import items.InvincibilityPotion;
 import items.Key;
 import items.Sword;
 import other.Board;
@@ -36,22 +32,23 @@ public class level2 implements BoardLevel {
 	public void buildMap() {
 		this.board.placeEntity(player, 0, 0);
 		for (int i = 0; i < 10; i++) {
-			this.board.placeEntity(new Wall(board), 4, i);
+			this.board.placeEntity(new Wall(board), 5, i);
 		}
-		this.board.removeEntity(this.board.getEntity(4, 4));
-		this.board.placeEntity(new Door(board, 0), 4, 4);
+		this.board.removeEntity(this.board.getEntity(5, 4));
+		this.board.placeEntity(new Door(board, 0), 5, 4);
 		this.board.placeEntity(new Key(board, 0), 0, 8);
 		this.board.placeEntity(new Exit(board), 8, 8);
 		this.board.placeEntity(new Boulder(board), 7, 1);
 		this.board.placeEntity(new Switch(board), 7, 2);
-		this.board.placeEntity(new Arrow(board), 3, 2);
+		this.board.placeEntity(new Arrow(board), 3, 3);
 		this.board.placeEntity(new Sword(board), 2, 5);
-		this.board.placeEntity(new Hunter(board), 3, 8);
+		
+		Hunter hunter = new Hunter(board);
+		this.board.placeEntity(hunter, 3, 8);
+		this.board.placeEntity(new Hound(board, hunter), 3, 1);
 		this.board.placeEntity(new Pit(board), 3, 9);
 
-		//this.board.placeEntity(new InvincibilityPotion(board), 6, 3);
-		//this.board.placeEntity(new HoverPotion(board), 6, 4);
-		this.board.placeEntity(new Bomb(board), 6, 2);
+		this.board.placeEntity(new Bomb(board), 2, 2);
 	}
 	
 	@Override

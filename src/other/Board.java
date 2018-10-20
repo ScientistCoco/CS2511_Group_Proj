@@ -20,7 +20,7 @@ public class Board {
 	// If width and height are specified
 	public Board(int width, int height) {
 		this();
-		map = new Floor[width][height];
+		map = new Floor[height][width];
 		initFloor(width, height);
 	}
 	
@@ -37,6 +37,13 @@ public class Board {
  		return map[x][y];
  	}
  	
+ 	public int getWidth() {
+ 		return map[0].length;
+ 	}
+ 	
+ 	public int getHeight() {
+ 		return map.length;
+ 	}
  	/**
  	 * If an entity is added to the board that has an objective associated with it, then
  	 * we need to update the ObjectiveComponent on the board so it stores this.

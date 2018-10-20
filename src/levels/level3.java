@@ -1,6 +1,6 @@
 package levels;
 
-import enemies.Hunter;
+import enemies.Strategist;
 import items.HoverPotion;
 import items.InvincibilityPotion;
 import items.Treasure;
@@ -40,7 +40,7 @@ public class level3 implements BoardLevel {
 		
 		this.board.placeEntity(new Treasure(board), 9, 0);
 		this.board.placeEntity(new InvincibilityPotion(board), 4, 4);
-		this.board.placeEntity(new Hunter(board), 9, 2);
+		this.board.placeEntity(new Strategist(board), 9, 2);
 		this.board.placeEntity(new HoverPotion(board), 2, 4);
 		this.board.placeEntity(new Pit(board), 2, 6);
 	}

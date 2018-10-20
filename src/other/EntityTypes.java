@@ -1,4 +1,4 @@
-package design;
+package other;
 
 public enum EntityTypes {
 	Player("Player"),

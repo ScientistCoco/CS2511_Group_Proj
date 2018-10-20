@@ -13,16 +13,21 @@ public class DungeonScreen {
 	private Stage s;
 	private String title;
 	private FXMLLoader fxmlLoader;
+	private DungeonController dungeonController;
 	
 	public DungeonScreen(Stage s) {
 		this.s = s;
 		this.title = "Dungeon Screen";
 		this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("visuals/base_map.fxml"));
+		this.dungeonController = new DungeonController(s);
+	}
+	
+	public void setController(DungeonController dc) {
+		this.dungeonController = dc;
 	}
 	
 	public void start() {
 		s.setTitle(title);
-		DungeonController dungeonController = new DungeonController(s);
 		fxmlLoader.setController(dungeonController);
 		try {
 			Parent root = fxmlLoader.load();

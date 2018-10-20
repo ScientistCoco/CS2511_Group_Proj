@@ -1,16 +1,9 @@
 package visuals;
 
 import java.util.ArrayList;
-
-import enemies.Enemy;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-/**
- * Notes: The Game will be 1280 x 800 in dimensions. In that case we should make the maximum size for the map to be 704 x 704.
- * That means a 22 x 22 matrix is the biggest we can make
- */
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -19,23 +12,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import levels.BoardLevel;
 import levels.LevelSaver;
-import levels.level1;
-import levels.level2;
+import media.MusicPlayer;
 import other.Board;
 import other.Buff;
-import other.ObjectiveComponent;
-import other.Player;
 import other.PlayerObservable;
 import other.PlayerObserver;
+
+/**
+ * Notes: The Game will be 1280 x 800 in dimensions. In that case we should make the maximum size for the map to be 704 x 704.
+ * That means a 22 x 22 matrix is the biggest we can make
+ */
 
 public class DungeonController implements PlayerObserver{
 	@FXML private AnchorPane base;
@@ -52,10 +43,11 @@ public class DungeonController implements PlayerObserver{
 	private Stage currStage;
 	private Board board;
 	private LevelSaver levelSaver;
-	private int rowSize = 10;
-	private int colSize = 10;
+	private int rowSize;
+	private int colSize;
 	private Class<?> boardLevel;	// This holds the playing level instance so we can retrieve the board object
-	private MediaPlayer mediaPlayer;
+	private MusicPlayer musicPlayer;
+	private String musicFile = "Caves of sorrow.mp3";
 	
 	public DungeonController(Stage s) {
 		currStage = s;
@@ -66,6 +58,8 @@ public class DungeonController implements PlayerObserver{
 		if (checkIfLevelExists()) {
 			try {
 				this.board = ((BoardLevel)boardLevel.newInstance()).getBoard();
+				this.rowSize = this.board.getHeight();
+				this.colSize = this.board.getWidth();
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -83,6 +77,8 @@ public class DungeonController implements PlayerObserver{
 	public DungeonController(Stage s, Board board) {
 		currStage = s;
 		this.board = board;
+		this.rowSize = this.board.getHeight();
+		this.colSize = this.board.getWidth();
 	}
 	
 	/**
@@ -109,28 +105,53 @@ public class DungeonController implements PlayerObserver{
 			for (int j = 0; j < rowSize; j ++ ) {
 				baseMap.add(board.getFloor(i, j), i, j);		
 			}
-		}
+		}	
+		initializeInGameMenu();
 		
 		// Add background music
-		Media bgMusic = new Media(ClassLoader.getSystemResource("media/Caves of sorrow.mp3").toExternalForm());
-		
-		this.mediaPlayer = new MediaPlayer(bgMusic);
-		this.mediaPlayer.setVolume(1.0);
-		this.mediaPlayer.setOnEndOfMedia(new Runnable() {
-			public void run() {
-				mediaPlayer.seek(Duration.ZERO);
-			}
-		});
-		mediaPlayer.play();
-		
-		// Add the controller for the in game menu to its respective anchor pane
-		inGameMenu = new InGameMenuController(currStage, levelSaver.getCurrentLevel());
-		gameMenuPane.getChildren().add(inGameMenu);
-		
+		this.musicPlayer = new MusicPlayer(musicFile, true);
+		this.musicPlayer.setVolume(1.0);
+		this.musicPlayer.play();
+
 		// We add this controller to the players list of observers so that when the player dies
 		// it can notify the controller about this
 		board.getPlayerObject().addObserver(this);
+		populateObjectivesList();
+		initializeInventoryPane();
+		systemTextUpdates.setEditable(false);
+		addArrowKeyListener();
+	}
+	
+	/**
+	 * This method initializes the in game menu - dependent on whether the player
+	 * entered the game through the design mode/play mode
+	 */
+	private void initializeInGameMenu() {
+		// Add the controller for the in game menu to its respective anchor pane
+		if (levelSaver == null) {
+			inGameMenu = new InGameMenuController(currStage, null);
+			inGameMenu.setButtonToReturnToDesign(board);
+		} else {
+			inGameMenu = new InGameMenuController(currStage, levelSaver.getCurrentLevel());
+		}
+		gameMenuPane.getChildren().add(inGameMenu);
 		
+	}
+	/**
+	 * This method initializes the inventory pane.
+	 */
+	private void initializeInventoryPane() {
+		inv = new InventoryController(currStage, board);
+		inv.setPlayer(board.getPlayerObject());
+		inv.setSystemTextUpdates(systemTextUpdates);
+		inventoryPane.getChildren().add(inv);
+	}
+	
+	/**
+	 * This method fills in the objectives pane on the board, and adds listeners
+	 * that will update the text if a player completes an objective.
+	 */
+	private void populateObjectivesList() {
 		// We get the objectives to 'observe' the objectiveComponent for any changes
 		// if there are any changes it will update the visual component to reflect this.
 		this.objectives = this.board.getObjectivesOnThisBoard().getObservableObjectives();
@@ -140,20 +161,18 @@ public class DungeonController implements PlayerObserver{
 			// We can also check if all the objectives have been cleared as well
 			checkIfObjectivesClear();
 		});
-		
 		objectivesList.getChildren().clear();
 		objectivesList.getChildren().addAll(this.objectives);	
-		inv = new InventoryController(currStage, board);
-		inv.setPlayer(board.getPlayerObject());
-		inv.setSystemTextUpdates(systemTextUpdates);
-		inventoryPane.getChildren().add(inv);
-		systemTextUpdates.setEditable(false);
-		
+	}
+	/**
+	 * This method adds an event listener for the arrow keys - triggers movement of player char.
+	 */
+	private void addArrowKeyListener() {
 		// We add a key listener to the base map so we can determine whether the player wants to move or just
 		// change directions. We do this by measuring how long the key was pressed down for.
 		// If it was pressed for < 100 ms then we assume the player just wants to change direction.
 		// If it was pressed for > 100 ms then we assume the player wants to move.
-		base.addEventFilter(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+		this.base.addEventFilter(KeyEvent.ANY, new EventHandler<KeyEvent>() {
 			long startTime;
 			@Override
 			public void handle(KeyEvent event) {
@@ -173,7 +192,6 @@ public class DungeonController implements PlayerObserver{
 				}
 			}
 		});
-		
 	}
 	
 	/**
@@ -188,13 +206,13 @@ public class DungeonController implements PlayerObserver{
 			// would like to continue playing
 			if (this.checkIfLevelExists()) {
 				LevelCompleteScreen sc = new LevelCompleteScreen(currStage);
-				mediaPlayer.stop();
+				musicPlayer.stop();
 				sc.start();
 			}
 			// If not then we congratulate the player for finishing the game
 			else {
 				GameCompleteScreen screen = new GameCompleteScreen(currStage);
-				mediaPlayer.stop();
+				musicPlayer.stop();
 				screen.start();
 			}
 			
@@ -238,7 +256,7 @@ public class DungeonController implements PlayerObserver{
 	public void update(PlayerObservable po) {
 		if (!po.checkIfAlive()) {
 			LevelFailScreen sc = new LevelFailScreen(currStage);
-			mediaPlayer.stop();
+			musicPlayer.stop();
 			sc.start();
 			return;
 		}

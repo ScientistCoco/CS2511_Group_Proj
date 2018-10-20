@@ -7,6 +7,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import media.MusicPlayer;
 
 public class LevelFailController{
 	
@@ -14,29 +15,29 @@ public class LevelFailController{
 	@FXML AnchorPane levelAnchorPane;
 	@FXML Button yesBtn;
 	@FXML Button noBtn;
-	private MediaPlayer mediaPlayer;
+	private MusicPlayer musicPlayer;
+	private String mediaFile = "Super Mario Death.mp3";
 	
 	public LevelFailController(Stage s) {
 		this.stage = s;
 	}
 	
 	@FXML public void initialize() {
-		Media bgMusic = new Media(ClassLoader.getSystemResource("media/Super Mario Death.mp3").toExternalForm());
-		this.mediaPlayer = new MediaPlayer(bgMusic);
-		this.mediaPlayer.setVolume(0.2);
-		mediaPlayer.play();
+		this.musicPlayer = new MusicPlayer(mediaFile, false);
+		this.musicPlayer.setVolume(0.2);
+		this.musicPlayer.play();
 	}
 	
 	@FXML
 	public void clickYes() {
-		mediaPlayer.stop();
+		this.musicPlayer.stop();
 		DungeonScreen ds = new DungeonScreen(stage);
 		ds.start();
 	}
 	
 	@FXML
 	public void clickNo() {
-		mediaPlayer.stop();
+		this.musicPlayer.stop();
 		MenuScreen ms = new MenuScreen(stage);
 		ms.start();
 	}

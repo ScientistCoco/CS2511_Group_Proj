@@ -1,17 +1,13 @@
 package visuals;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +15,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,7 +31,6 @@ import other.Wall;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import design.EntityTypes;
 import enemies.Coward;
 import enemies.Enemy;
 import enemies.Hound;
@@ -644,7 +638,8 @@ public class DesignController {
 	
 	@FXML
 	public void handleStartGame() {
-		PlayInDesignScreen sc = new PlayInDesignScreen(this.currStage, board);
+		DungeonScreen sc = new DungeonScreen(this.currStage);
+		sc.setController(new DungeonController(this.currStage, board));
 		sc.start();
 	}
 	

@@ -23,30 +23,6 @@ public class InGameMenuController extends Pane {
 	private Board board;
 	
 	public InGameMenuController(Stage s, String level) {
-		if (this.returnDesignButton == null) {
-			this.returnDesignButton = new Button();
-		}
-		this.stage = s;
-		this.setVisible(false);
-		this.menuOpened = false;
-		this.level = level;
-		try {
-			FXMLLoader l = new FXMLLoader(getClass().getResource("/visuals/ingame_menu.fxml"));
-			l.setRoot(this);
-			l.setController(this);
-			l.load();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public InGameMenuController(Stage s, String level, Board board) {
-		this.board = board;
-		if (this.returnDesignButton == null) {
-			this.returnDesignButton = new Button();
-		}
-		this.returnDesignButton.setVisible(true);
 		this.stage = s;
 		this.setVisible(false);
 		this.menuOpened = false;
@@ -86,19 +62,34 @@ public class InGameMenuController extends Pane {
 		ms.start();
 	}
 	
+	/**
+	 * Restarts the level. Checks if the player is playing in 
+	 * design mode or in playing mode to determine which board
+	 * to switch back to.
+	 */
 	@FXML
 	public void restartBtnClicked() {
 		DungeonScreen ds = new DungeonScreen(stage);
+		if (returnDesignButton.isVisible()) {
+			ds.setController(new DungeonController(stage, this.board));
+		}
 		ds.start();
+	}
+	
+	/**
+	 * Design button is hidden by default, it will be shown when the 
+	 * design controller calls this menu controller to show it. 
+	 * It then requires the board that it needs to show when the button is clicked
+	 */
+	public void setButtonToReturnToDesign(Board board) {
+		this.board = board;
+		levelText.setText("Design Menu");
+		returnDesignButton.setVisible(true);
 	}
 	
 	@FXML
 	public void handleReturnDesign() {
-		if (board == null) {
-			warningText.setText("Cannot design current board!");
-			return;
-		}
-		DesignScreen de = new DesignScreen(stage, board);
+		DesignScreen de = new DesignScreen(stage, this.board);
 		de.continueDesign();
 	}
 	
