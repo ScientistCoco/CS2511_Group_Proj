@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
 import other.Buff;
-import other.Player;
+import player.Player;
 
 public class InvincibilityPotion extends Item{
 

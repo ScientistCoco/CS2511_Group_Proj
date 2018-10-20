@@ -1,4 +1,4 @@
-package other;
+package player;
 
 /**
  * Interface for the class that wants to observe a player object

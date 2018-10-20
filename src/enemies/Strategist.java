@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
-import other.Player;
+import player.Player;
 
 public class Strategist extends Enemy{
 

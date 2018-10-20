@@ -5,9 +5,9 @@ import other.Board;
 import other.Buff;
 import other.Character;
 import other.Entity;
-import other.Player;
-import other.PlayerObservable;
-import other.PlayerObserver;
+import player.Player;
+import player.PlayerObservable;
+import player.PlayerObserver;
 import points.PointType;
 import points.Points1;
 

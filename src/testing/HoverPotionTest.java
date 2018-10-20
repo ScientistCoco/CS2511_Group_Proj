@@ -10,7 +10,7 @@ import items.HoverPotion;
 import other.Board;
 import other.Buff;
 import other.Pit;
-import other.Player;
+import player.Player;
 
 public class HoverPotionTest {
 	Board b1;

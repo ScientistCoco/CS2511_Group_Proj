@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
 import other.Entity;
-import other.Player;
+import player.Player;
 
 public class Sword extends Item {
 

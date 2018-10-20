@@ -1,10 +1,10 @@
-package other;
+package switchObj;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import other.switchState.SwitchOffState;
-import other.switchState.SwitchOnState;
-import other.switchState.SwitchState;
+import other.Board;
+import other.Boulder;
+import other.Entity;
 import points.PointType;
 import points.Points1;
 

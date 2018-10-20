@@ -6,7 +6,7 @@ import org.junit.Test;
 import items.Bomb;
 import other.Board;
 import other.Boulder;
-import other.Player;
+import player.Player;
 
 public class BombTest {
 	

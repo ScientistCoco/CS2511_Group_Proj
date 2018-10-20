@@ -9,7 +9,7 @@ import enemies.Coward;
 import enemies.Hound;
 import enemies.Hunter;
 import other.Board;
-import other.Player;
+import player.Player;
 
 public class HoundTest {
 	Board b1;

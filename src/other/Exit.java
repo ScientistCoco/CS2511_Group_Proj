@@ -2,6 +2,7 @@ package other;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import player.Player;
 import points.PointType;
 import points.Points1;
 

@@ -11,7 +11,7 @@ import items.Bomb;
 import other.Board;
 import other.Direction;
 import other.Pit;
-import other.Player;
+import player.Player;
 
 public class StrategistTest {
 	

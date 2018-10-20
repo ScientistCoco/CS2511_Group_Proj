@@ -24,9 +24,9 @@ import other.Door;
 import other.Entity;
 import other.Exit;
 import other.Pit;
-import other.Player;
-import other.Switch;
 import other.Wall;
+import player.Player;
+import switchObj.Switch;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;

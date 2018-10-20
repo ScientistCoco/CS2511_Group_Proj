@@ -7,7 +7,7 @@ import other.Direction;
 import other.Door;
 import other.DoorStatus;
 import other.Entity;
-import other.Player;
+import player.Player;
 
 public class Key extends Item{
 

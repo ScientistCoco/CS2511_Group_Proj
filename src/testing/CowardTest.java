@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import enemies.Coward;
 import other.Board;
-import other.Player;
+import player.Player;
 
 public class CowardTest {
 	Board b1;

@@ -13,7 +13,7 @@ import other.Board;
 import other.Buff;
 import other.Inventory;
 import other.Pit;
-import other.Player;
+import player.Player;
 
 public class InvincibilityPotionTest {
 	Board b1;

@@ -1,6 +1,7 @@
 package other;
 
 import javafx.scene.image.ImageView;
+import player.Player;
 import points.PointSubject;
 import points.Points1;
 

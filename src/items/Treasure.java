@@ -3,7 +3,7 @@ package items;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
-import other.Player;
+import player.Player;
 import points.PointType;
 import points.Points1;
 

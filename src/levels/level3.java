@@ -6,8 +6,8 @@ import items.InvincibilityPotion;
 import items.Treasure;
 import other.Board;
 import other.Pit;
-import other.Player;
 import other.Wall;
+import player.Player;
 
 /**
  * This board level has a invincibility buff potion

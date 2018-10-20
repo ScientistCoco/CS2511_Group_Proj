@@ -9,8 +9,8 @@ import other.Board;
 import other.Boulder;
 import other.Door;
 import other.Pit;
-import other.Player;
 import other.Wall;
+import player.Player;
 
 public class BoulderTest {
 	Board b1;

@@ -4,8 +4,8 @@ import enemies.Coward;
 import items.Sword;
 import other.Board;
 import other.Exit;
-import other.Player;
 import other.Wall;
+import player.Player;
 
 public class level1 implements BoardLevel {
 	

@@ -8,6 +8,7 @@ import items.Item;
 import items.Key;
 import items.Sword;
 import javafx.scene.image.ImageView;
+import player.Player;
 
 public class Inventory {
 	private ArrayList<Item> items;

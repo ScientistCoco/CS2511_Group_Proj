@@ -3,7 +3,7 @@ package enemies;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
-import other.Player;
+import player.Player;
 
 public class Hunter extends Enemy {
 

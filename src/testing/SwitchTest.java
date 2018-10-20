@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import other.Board;
 import other.Boulder;
-import other.Player;
-import other.Switch;
+import player.Player;
+import switchObj.Switch;
 
 public class SwitchTest {
 	Board b1 = new Board();

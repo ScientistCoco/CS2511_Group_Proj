@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import other.Board;
 import other.Entity;
-import other.Player;
 import other.Wall;
+import player.Player;
 
 public class BoardTest {
 	Board board = new Board();

@@ -1,4 +1,4 @@
-package other.switchState;
+package switchObj;
 
 import points.Points1;
 

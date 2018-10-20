@@ -3,6 +3,8 @@ package other;
 import java.util.ArrayList;
 
 import enemies.Enemy;
+import player.Player;
+import player.PlayerObserver;
 
 public class Board {
 	private Floor[][] map;
@@ -189,19 +191,5 @@ public class Board {
 			System.out.print("\n");
 		}
 		
-	}
-	
-	/**
-	 * Method that check whether the coordinate is out of the board
-	 * @post true/false
-	 * @param x
-	 * @param y
-	 */
-	
-	public boolean outOfBoard(int x, int y) {
-		if(x > map.length || y > map.length || x < 0 || y < 0) {
-			return true;
-		}
-		return false;
 	}
 }

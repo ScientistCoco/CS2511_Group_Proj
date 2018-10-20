@@ -1,10 +1,17 @@
-package other;
+package player;
 
 import java.util.ArrayList;
 
 import enemies.Enemy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import other.Board;
+import other.Buff;
+import other.Character;
+import other.Direction;
+import other.Entity;
+import other.Inventory;
+import other.ObjectiveComponent;
 
 public class Player extends Character implements PlayerObservable {
 	
@@ -14,7 +21,7 @@ public class Player extends Character implements PlayerObservable {
 	private ArrayList<Direction> pastMoves;
 	private Direction cardinalDirection;	// This is the direction in which the player is facing. Default is down (south)
 	private ArrayList<PlayerObserver> observers;	// These are the observers that the player will notify when the player has had a change.
-
+	
 	public Player(Board board) {
 		super(board);
 		this.potionBuff = new ArrayList<Buff>();

@@ -7,7 +7,7 @@ import items.Key;
 import other.Board;
 import other.Door;
 import other.Inventory;
-import other.Player;
+import player.Player;
 
 public class KeyTest {
 	Board b1 = new Board();

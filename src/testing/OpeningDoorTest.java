@@ -11,7 +11,7 @@ import items.Key;
 import other.Board;
 import other.Door;
 import other.DoorStatus;
-import other.Player;
+import player.Player;
 
 
 public class OpeningDoorTest {

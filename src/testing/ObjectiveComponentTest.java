@@ -15,8 +15,8 @@ import other.Boulder;
 import other.Direction;
 import other.Inventory;
 import other.Pit;
-import other.Player;
-import other.Switch;
+import player.Player;
+import switchObj.Switch;
 
 public class ObjectiveComponentTest {
 	Board b1;

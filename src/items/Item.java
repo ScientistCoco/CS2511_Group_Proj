@@ -6,7 +6,7 @@ import other.Board;
 import other.Direction;
 import other.Entity;
 import other.Inventory;
-import other.Player;
+import player.Player;
 
 public abstract class Item extends Entity{
 

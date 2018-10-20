@@ -11,9 +11,9 @@ import other.Boulder;
 import other.Door;
 import other.Exit;
 import other.Pit;
-import other.Player;
-import other.Switch;
 import other.Wall;
+import player.Player;
+import switchObj.Switch;
 
 public class level2 implements BoardLevel {
 

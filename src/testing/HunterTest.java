@@ -9,8 +9,8 @@ import enemies.Hunter;
 import items.HoverPotion;
 import other.Board;
 import other.Pit;
-import other.Player;
 import other.Wall;
+import player.Player;
 
 public class HunterTest {
 	Board b1;

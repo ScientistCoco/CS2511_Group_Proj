@@ -12,8 +12,8 @@ import items.Sword;
 import other.Board;
 import other.Inventory;
 import other.Pit;
-import other.Player;
 import other.Wall;
+import player.Player;
 
 public class InventoryTest {
 	Board b1;

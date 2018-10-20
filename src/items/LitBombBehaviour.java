@@ -13,7 +13,7 @@ import other.Boulder;
 import other.Buff;
 import other.Character;
 import other.Entity;
-import other.Player;
+import player.Player;
 
 public class LitBombBehaviour implements BombBehaviour{
 	private Timer timer = new Timer();

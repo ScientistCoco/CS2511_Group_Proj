@@ -1,4 +1,4 @@
-package other;
+package player;
 
 // This is a list of the commands the player can execute
 public enum PlayerCmds {

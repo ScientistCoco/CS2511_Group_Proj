@@ -20,8 +20,8 @@ import levels.LevelSaver;
 import media.MusicPlayer;
 import other.Board;
 import other.Buff;
-import other.PlayerObservable;
-import other.PlayerObserver;
+import player.PlayerObservable;
+import player.PlayerObserver;
 
 /**
  * Notes: The Game will be 1280 x 800 in dimensions. In that case we should make the maximum size for the map to be 704 x 704.
@@ -263,7 +263,7 @@ public class DungeonController implements PlayerObserver{
 		
 		// Check if an invincibility buff has been removed
 		if (this.buffs.contains(Buff.Invincibility) && !board.getPlayerObject().containBuff(Buff.Invincibility)) {
-			systemTextUpdates.appendText("Invinciblity Buff has expired");
+			systemTextUpdates.appendText("Invinciblity Buff has expired\n");
 		}
 
 		updateBuffs();

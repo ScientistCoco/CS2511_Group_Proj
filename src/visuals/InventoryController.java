@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import other.Board;
 import other.Inventory;
-import other.Player;
+import player.Player;
 
 public class InventoryController extends Pane {
 		@FXML private GridPane inventoryGrid;

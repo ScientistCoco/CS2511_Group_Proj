@@ -1,4 +1,4 @@
-package other;
+package player;
 
 /**
  * Interface for the player object to be observable by observers. 
