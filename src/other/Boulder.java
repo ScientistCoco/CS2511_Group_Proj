@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import player.Player;
 
-public class Boulder extends Entity{
+public class Boulder extends MoveableEntity{
 	
 	private boolean state; // This state indicates whether the boulder is on the board or not
 	

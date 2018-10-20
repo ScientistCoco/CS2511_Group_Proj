@@ -4,16 +4,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
 import other.Direction;
+import other.MovementBehaviour;
 import player.Player;
 
 public class Arrow extends Item{
-
+	
+	public MovementBehaviour move;
+	
 	public Arrow(Board board) {
 		super(board);
 		this.name = "Arrow";
 		this.icon = " ↖ ";
 		this.entityIcon = new ImageView(new Image("icons/arrow.png"));
 		this.description = "An arrow that can be used to kill enemies";
+		this.move = new MovementBehaviour();
 	}
 	
 	

@@ -9,7 +9,6 @@ public class Entity {
 	protected Integer xCoordinate;	// Use Integer so that null values can be used. This will tell us whether or not the entity has been placed on the boar
 	protected Integer yCoordinate;
 	protected Board board;
-	protected MovementBehaviour move;
 	protected String icon;	// This is the icon that gets displayed on the board
 	protected String name;
 	protected Integer zOrder;	// Z-order is an ordering of overlapping 2d objects. 
@@ -29,7 +28,6 @@ public class Entity {
 	 */
 	public Entity (Board board) {
 		this.board = board;
-		this.move = new MovementBehaviour();
 		this.zOrder = 3;
 		//this.board.addEntity(this);
 	}
