@@ -13,7 +13,7 @@ import player.Player;
 public class InvincibilityPotion extends Item{
 
 	private Timer timer = new Timer();
-	private Integer limitedTime = 5000;	// 2 minutes in milliseconds = 120000
+	private Integer limitedTime = 120000;	// 2 minutes in milliseconds = 120000
 	
 	public Integer getLimitedTime() {
 		return limitedTime;
@@ -22,7 +22,7 @@ public class InvincibilityPotion extends Item{
 		super(board);
 		this.name = "Invincibility Potion";
 		this.icon = " ♟ ";
-		this.description = "A potion that grants you invincibility for a limited time";
+		this.description = "A potion that grants you invincibility for " + Integer.toString(limitedTime/1000/60) + " minutes";
 		this.entityIcon = new ImageView(new Image("icons/invincibility_potion.png"));
 	}
 

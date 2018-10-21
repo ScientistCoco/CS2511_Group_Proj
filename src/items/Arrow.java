@@ -61,10 +61,6 @@ public class Arrow extends Item{
 		board.addEntity(this);	// Add the arrow to the board again because it will appear on the map
 		this.setCoordinates(player.getXCoordinate(), player.getYCoordinate());	// Update the coordinates so the arrow knows where it will 'fly'
 		
-		// Now we ask the player which direction they would like to shoot the arrow in to determine the direction	
-		//System.out.println("Which direction would you like to launch the arrow?");
-		//this.Fly(getPlayerInputForDirection());	
-		
 		this.Fly(player.getCardinalDirection());
 		if (enemies != board.getEnemyObjects().size()) {
 			return "Arrow hit an enemy";

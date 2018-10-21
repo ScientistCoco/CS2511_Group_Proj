@@ -3,6 +3,7 @@ package enemies;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
+import other.Buff;
 import player.Player;
 
 public class Coward extends Enemy {
@@ -14,24 +15,28 @@ public class Coward extends Enemy {
 	
 	@Override
 	public void updateMove(Player player) {
-			int x = player.getXCoordinate();
-			int y = player.getYCoordinate();
-			double offsetX = x - this.getXCoordinate();
-			double offsetY = y - this.getYCoordinate();
-			// the safeDistance can be modified by user
-			// when distance between player and coward <= safeDistance, coward runaway.
-			double safeDistance = Math.sqrt(2);
-			int runDistance = 3;
-			//
-			double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
-		
-			if(distance <= safeDistance) {
-				for(int i = 0; i< runDistance; i++) {
-					this.runAway(x, y);
-				}
-			} else {
-				this.trackPlayer(x, y);
+		if(player.containBuff(Buff.Invincibility)) {
+			this.runAway(player.getXCoordinate(), player.getYCoordinate());
+			return;
+		}
+		int x = player.getXCoordinate();
+		int y = player.getYCoordinate();
+		double offsetX = x - this.getXCoordinate();
+		double offsetY = y - this.getYCoordinate();
+		// the safeDistance can be modified by user
+		// when distance between player and coward <= safeDistance, coward runaway.
+		double safeDistance = Math.sqrt(2);
+		int runDistance = 3;
+		//
+		double distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
+	
+		if(distance <= safeDistance) {
+			for(int i = 0; i< runDistance; i++) {
+				this.runAway(x, y);
 			}
+		} else {
+			this.trackPlayer(x, y);
+		}
 	}
 	
 	

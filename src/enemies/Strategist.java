@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import other.Board;
+import other.Buff;
 import other.Direction;
 import player.Player;
 
@@ -19,6 +20,10 @@ public class Strategist extends Enemy{
 
 	@Override
 	public void updateMove(Player player) {
+		if(player.containBuff(Buff.Invincibility)) {
+			this.runAway(player.getXCoordinate(), player.getYCoordinate());
+			return;
+		}
 		ArrayList<Direction> directions = player.getPastMoves();
 		int x = player.getXCoordinate();
 		int y = player.getYCoordinate();
